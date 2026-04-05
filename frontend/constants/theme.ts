@@ -1,0 +1,17 @@
+export const colors = {
+  maroon: '#500000',
+  maroonLight: '#6D2A2A',
+  maroonFaint: '#F5EDED',
+  white: '#FFFFFF',
+  offWhite: '#FAFAFA',
+  cardBg: '#F5F5F5',
+  border: '#E0E0E0',
+  textPrimary: '#1A1A1A',
+  textSecondary: '#555555',
+  textMuted: '#888888',
+  success: '#2D8A4E',
+  successBg: '#EDFAF1',
+  error: '#C53030',
+  errorBg: '#FFF0F0',
+  accent: '#500000',
+};

@@ -1,0 +1,145 @@
+[
+  {
+    "id": "section_asthma_narrative_overview",
+    "caseId": "asthma_case_1",
+    "type": "narrative",
+    "title": "Asthma overview",
+    "content": "Asthma is a chronic inflammatory airway disorder with variable, usually reversible airflow obstruction. Core features include bronchoconstriction, mucus hypersecretion, mucosal edema, airway hyperresponsiveness, and over time airway remodeling with smooth muscle hypertrophy, fibrosis, and basement-membrane thickening.",
+    "order": 1,
+    "tags": [
+      "overview",
+      "reversible-obstruction",
+      "airway-remodeling"
+    ]
+  },
+  {
+    "id": "section_asthma_pathology_early_late",
+    "caseId": "asthma_case_1",
+    "type": "pathology",
+    "title": "Early- and late-phase inflammatory response",
+    "content": "Early-phase asthma begins when allergen-specific IgE on mast cells and basophils is cross-linked after trigger exposure, causing release of histamine, prostaglandins, and leukotrienes that rapidly tighten airway smooth muscle. Hours later, the late phase recruits eosinophils, basophils, neutrophils, and T cells, sustaining inflammation, bronchoconstriction, mucus production, and tissue injury.",
+    "order": 2,
+    "tags": [
+      "IgE",
+      "mast-cells",
+      "eosinophils",
+      "early-phase",
+      "late-phase"
+    ]
+  },
+  {
+    "id": "section_asthma_physiology_obstruction",
+    "caseId": "asthma_case_1",
+    "type": "physiology",
+    "title": "Physiology of airflow limitation",
+    "content": "Asthma is an obstructive lung disease. Airway narrowing raises resistance sharply because resistance varies inversely with airway radius to the fourth power. Typical pulmonary function findings include reduced FEV1 and reduced FEV1/FVC, with reversibility after bronchodilator administration. Air trapping increases work of breathing and can raise functional residual capacity during exacerbation.",
+    "order": 3,
+    "tags": [
+      "FEV1",
+      "FEV1/FVC",
+      "airway-resistance",
+      "air-trapping"
+    ]
+  },
+  {
+    "id": "section_asthma_histology_normal_vs_asthmatic",
+    "caseId": "asthma_case_1",
+    "type": "histology",
+    "title": "Normal airway versus asthmatic airway histology",
+    "content": "Normal respiratory epithelium is predominantly ciliated pseudostratified columnar epithelium with goblet cells, basal cells, brush cells, and neuroendocrine cells in larger conducting airways. In asthma, relevant tissue-level changes include mucus excess, epithelial injury, inflammatory infiltrates rich in eosinophils, increased smooth muscle mass, and thickening of the basement membrane/lamina reticularis. Normal alveoli are lined mainly by type I pneumocytes for gas exchange and type II pneumocytes for surfactant production.",
+    "order": 4,
+    "tags": [
+      "normal-vs-abnormal",
+      "epithelium",
+      "goblet-cells",
+      "type-I-pneumocyte",
+      "type-II-pneumocyte"
+    ]
+  },
+  {
+    "id": "section_asthma_pharmacology_saba_laba",
+    "caseId": "asthma_case_1",
+    "type": "pharmacology",
+    "title": "Beta2-agonists: rescue versus maintenance",
+    "content": "Short-acting beta2 agonists such as albuterol provide rapid relief of acute bronchospasm. Long-acting beta2 agonists such as salmeterol and formoterol have longer duration and are used for maintenance, but LABA monotherapy in asthma is unsafe; long-acting agents should be paired with inhaled corticosteroids for asthma control.",
+    "order": 5,
+    "tags": [
+      "SABA",
+      "LABA",
+      "albuterol",
+      "salmeterol",
+      "formoterol"
+    ]
+  },
+  {
+    "id": "section_asthma_pharmacology_ics_muscarinic",
+    "caseId": "asthma_case_1",
+    "type": "pharmacology",
+    "title": "Controller therapy and add-on bronchodilation",
+    "content": "Inhaled corticosteroids suppress airway inflammation by altering gene transcription and increasing anti-inflammatory mediators such as IL-10 and annexin-1, while reducing survival and recruitment of eosinophils, mast cells, dendritic cells, and T lymphocytes. Muscarinic antagonists such as ipratropium or tiotropium decrease cholinergic bronchoconstriction and mucus secretion, and combined anticholinergic plus beta2-agonist therapy can produce greater bronchodilation than either alone.",
+    "order": 6,
+    "tags": [
+      "ICS",
+      "muscarinic-antagonist",
+      "ipratropium",
+      "tiotropium",
+      "IL-10"
+    ]
+  },
+  {
+    "id": "section_asthma_treatment_logic_stepup",
+    "caseId": "asthma_case_1",
+    "type": "treatment",
+    "title": "Stepwise treatment logic",
+    "content": "Asthma treatment is stepped according to symptom burden and physiologic impairment. All diagnosed patients should have access to a rescue inhaler. Long-term control emphasizes trigger reduction plus anti-inflammatory therapy, especially inhaled corticosteroids. Before stepping up maintenance therapy, clinicians should verify adherence and inhaler technique, because poor control may reflect use error rather than inadequate drug intensity.",
+    "order": 7,
+    "tags": [
+      "stepwise-therapy",
+      "adherence",
+      "inhaler-technique",
+      "controller-vs-reliever"
+    ]
+  },
+  {
+    "id": "section_asthma_clinical_pearl_monitoring",
+    "caseId": "asthma_case_1",
+    "type": "clinicalPearl",
+    "title": "Clinical pearls for monitoring and safety",
+    "content": "A rapid increase in rescue bronchodilator use can signal loss of control or impending severe exacerbation. Repeated high-dose beta2-agonist therapy can cause tremor, tachycardia, hypokalemia, hyperglycemia, and rarely paradoxical bronchoconstriction. Nonselective beta-blockers can worsen bronchospasm and are generally avoided in reactive airway disease.",
+    "order": 8,
+    "tags": [
+      "safety",
+      "monitoring",
+      "hypokalemia",
+      "beta-blockers"
+    ]
+  },
+  {
+    "id": "section_case2_mechanism_hypokalemia",
+    "caseId": "asthma_case_2",
+    "type": "mechanism",
+    "title": "Why albuterol can cause hypokalemia",
+    "content": "Beta2 receptor stimulation increases cAMP and activates downstream pathways that promote intracellular potassium shift, which can lower serum potassium during repeated or high-dose therapy. This can produce weakness, nausea, ECG changes, and arrhythmia risk even while the drug is improving bronchospasm.",
+    "order": 1,
+    "tags": [
+      "albuterol",
+      "hypokalemia",
+      "cAMP",
+      "acute-care"
+    ]
+  },
+  {
+    "id": "section_case3_theophylline_toxicity",
+    "caseId": "asthma_case_3",
+    "type": "pharmacology",
+    "title": "Theophylline pharmacology and toxicity",
+    "content": "Theophylline is a methylxanthine with bronchodilator and anti-inflammatory effects. Its predominant bronchodilator mechanism is phosphodiesterase inhibition, which increases cyclic nucleotide signaling; it also has adenosine antagonism. Because it has a narrow therapeutic index, toxicity can produce CNS excitation, seizures, tachyarrhythmias, and severe systemic instability.",
+    "order": 1,
+    "tags": [
+      "theophylline",
+      "methylxanthine",
+      "phosphodiesterase",
+      "narrow-therapeutic-index"
+    ]
+  }
+]

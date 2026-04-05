@@ -1,0 +1,158 @@
+[
+  {
+    "caseId": "asthma_case_1",
+    "clinicalNarrative": {
+      "presentation": "A 34-year-old man with chronic asthma comes to GP practice with worsening wheeze and shortness of breath.",
+      "history": "He has been using salbutamol and low-dose budesonide for the last few months. Symptoms have recently worsened.",
+      "vitals": {
+        "peakExpiratoryFlowPercentBest": 80
+      },
+      "exam": "No detailed examination findings provided beyond increased wheeze and dyspnea.",
+      "discussionPrompts": [
+        "What should be checked before escalating chronic asthma therapy?",
+        "Is this patient failing therapy, or could poor adherence or inhaler technique explain symptoms?",
+        "What is the next pharmacologic step if adherence and technique are confirmed adequate?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Suboptimally controlled chronic asthma",
+      "keyFindings": [
+        "Worsening wheeze",
+        "Increasing shortness of breath",
+        "PEFR 80% of best",
+        "Already on SABA plus low-dose inhaled corticosteroid"
+      ],
+      "tests": [
+        {
+          "name": "Peak expiratory flow rate",
+          "result": "80% of personal best",
+          "interpretation": "suggests worse control but does not by itself define the reason for poor control"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "First assess adherence and inhaler technique before stepping up treatment. If both are adequate, increase inhaled corticosteroid dose before adding further agents.",
+      "medications": [
+        {
+          "name": "Salbutamol",
+          "class": "short-acting beta2 agonist",
+          "role": "rescue"
+        },
+        {
+          "name": "Budesonide",
+          "class": "inhaled corticosteroid",
+          "role": "controller"
+        }
+      ],
+      "followUp": "Reassess symptom frequency, night waking, rescue inhaler use, and PEFR after correcting technique and/or adjusting controller therapy.",
+      "outcome": "Source indicates the correct immediate management step is checking adherence and inhaler technique."
+    }
+  },
+  {
+    "caseId": "asthma_case_2",
+    "clinicalNarrative": {
+      "presentation": "A 15-year-old boy with severe asthma presents in obvious respiratory distress.",
+      "history": "He receives multiple nebulizer treatments and intravenous corticosteroids during the exacerbation, then develops nausea, vomiting, and weakness.",
+      "vitals": {
+        "potassium_mEq_L": 2.6
+      },
+      "exam": "ECG demonstrates U waves after treatment; acute respiratory distress is present on arrival.",
+      "discussionPrompts": [
+        "Which asthma medication can acutely shift potassium intracellularly?",
+        "How do bronchodilator benefits relate to the electrolyte risk seen here?",
+        "What monitoring is important when repeated high-dose beta2 agonists are used?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Acute severe asthma exacerbation complicated by beta2-agonist induced hypokalemia",
+      "keyFindings": [
+        "Severe asthma attack",
+        "Repeated nebulizer therapy",
+        "Potassium 2.6 mEq/L",
+        "U waves on ECG",
+        "Nausea, vomiting, weakness"
+      ],
+      "tests": [
+        {
+          "name": "Serum potassium",
+          "result": "2.6 mEq/L",
+          "interpretation": "significant hypokalemia"
+        },
+        {
+          "name": "Electrocardiogram",
+          "result": "U waves",
+          "interpretation": "membrane instability consistent with hypokalemia"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "Recognize albuterol as the likely contributor to intracellular potassium shift; continue acute asthma care while correcting and monitoring hypokalemia and cardiac status.",
+      "medications": [
+        {
+          "name": "Albuterol",
+          "class": "short-acting beta2 agonist",
+          "role": "acute bronchodilator"
+        },
+        {
+          "name": "Intravenous corticosteroids",
+          "class": "systemic glucocorticoid",
+          "role": "anti-inflammatory therapy in exacerbation"
+        }
+      ],
+      "followUp": "Monitor ECG, serum potassium, glucose, and clinical response when repeated high-dose beta2-agonist therapy is required.",
+      "outcome": "Question source identifies albuterol as the cause of treatment-related hypokalemia."
+    }
+  },
+  {
+    "caseId": "asthma_case_3",
+    "clinicalNarrative": {
+      "presentation": "A 25-year-old woman with asthma is brought to the emergency department after ingesting a full bottle of theophylline in a suicide attempt.",
+      "history": "At presentation she is having a tonic-clonic seizure and has reportedly been seizing for at least 15 minutes.",
+      "vitals": {
+        "bloodPressure": "80/40 mmHg",
+        "respiratoryRate_bpm": 30,
+        "heartRate_bpm": 160
+      },
+      "exam": "Seizure, hypotension, tachycardia, and tachypnea are present on arrival.",
+      "discussionPrompts": [
+        "How does theophylline toxicity alter intracellular signaling?",
+        "Why must asthma history influence antidotal beta-blocker selection?",
+        "What does this case teach about phosphodiesterase inhibition and cAMP?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Theophylline toxicity in a patient with asthma",
+      "keyFindings": [
+        "Intentional theophylline overdose",
+        "Tonic-clonic seizure",
+        "Hypotension",
+        "Tachycardia",
+        "Respiratory distress"
+      ],
+      "tests": [
+        {
+          "name": "Clinical toxicology assessment",
+          "result": "Findings consistent with theophylline overdose",
+          "interpretation": "severe toxicity with neurologic and cardiovascular instability"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "Counter excess cAMP signaling with a cardioselective beta-blocker such as metoprolol to reduce adenylate cyclase activity while minimizing bronchial hyperreactivity risk.",
+      "medications": [
+        {
+          "name": "Theophylline",
+          "class": "methylxanthine / phosphodiesterase inhibitor",
+          "role": "overdose agent"
+        },
+        {
+          "name": "Cardioselective beta-blocker (e.g., metoprolol)",
+          "class": "beta1-selective antagonist",
+          "role": "counteracts cAMP-mediated toxicity while reducing asthma risk compared with nonselective blockade"
+        }
+      ],
+      "followUp": "Requires critical care management with seizure control and hemodynamic monitoring.",
+      "outcome": "Question source states the appropriate counteracting mechanism is decreasing intracellular cAMP."
+    }
+  }
+]

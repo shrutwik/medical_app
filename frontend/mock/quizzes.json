@@ -1,0 +1,230 @@
+[
+  {
+    "id": "quiz_case1_check_adherence",
+    "caseId": "asthma_case_1",
+    "sectionType": "treatment",
+    "question": "A 34-year-old man with chronic asthma is taking salbutamol and low-dose budesonide but is becoming wheezier and more short of breath. His PEFR is 80% of his personal best. What is the first management step?",
+    "options": [
+      "Add montelukast",
+      "Increase the dose of budesonide",
+      "Check adherence and inhaler technique",
+      "Add terbutaline sulfate",
+      "Add formoterol fumarate"
+    ],
+    "answerIndex": 2,
+    "explanation": "Before increasing the dose or adding a new drug, asthma management should first confirm adherence and correct inhaler technique. If both are adequate, then stepping up controller therapy such as increasing inhaled corticosteroid dose becomes reasonable.",
+    "tags": [
+      "outpatient",
+      "step-up-therapy",
+      "adherence",
+      "inhaler-technique"
+    ]
+  },
+  {
+    "id": "quiz_case2_albuterol_hypokalemia",
+    "caseId": "asthma_case_2",
+    "sectionType": "pharmacology",
+    "question": "A 15-year-old boy with severe asthma develops nausea, vomiting, weakness, potassium 2.6 mEq/L, and U waves after multiple nebulizer treatments. Which medication most likely caused this complication?",
+    "options": [
+      "Albuterol",
+      "Cromolyn",
+      "Ipratropium",
+      "Theophylline",
+      "Zileuton"
+    ],
+    "answerIndex": 0,
+    "explanation": "Short-acting beta2 agonists such as albuterol can shift potassium into cells, producing hypokalemia and ECG changes including U waves, especially when used repeatedly in acute exacerbations.",
+    "tags": [
+      "beta2-agonist",
+      "hypokalemia",
+      "ECG",
+      "acute-asthma"
+    ]
+  },
+  {
+    "id": "quiz_case3_theophylline_overdose",
+    "caseId": "asthma_case_3",
+    "sectionType": "mechanism",
+    "question": "A patient with asthma overdoses on theophylline and develops prolonged seizure activity, hypotension, and tachycardia. What mechanism best counters this intoxication?",
+    "options": [
+      "Decreasing intracellular cAMP",
+      "Increasing intracellular cAMP through beta2 receptors",
+      "Increasing intracellular cAMP through nonselective adrenergic receptors",
+      "Inhibiting the Na+-K+-2Cl- cotransporter",
+      "Inhibiting the Na+-K+-ATPase pump"
+    ],
+    "answerIndex": 0,
+    "explanation": "Theophylline inhibits phosphodiesterase, increasing intracellular cAMP. Counteracting toxicity therefore involves reducing cAMP signaling; a cardioselective beta-blocker can do this by decreasing adenylate cyclase activity while reducing bronchospasm risk in asthma.",
+    "tags": [
+      "theophylline",
+      "toxicity",
+      "cAMP",
+      "phosphodiesterase"
+    ]
+  },
+  {
+    "id": "quiz_airway_obstruction_factors",
+    "caseId": "asthma_case_1",
+    "sectionType": "pathology",
+    "question": "Which combination best explains airway obstruction in asthma?",
+    "options": [
+      "Loss of alveoli, fibrosis of lung parenchyma, and pleural effusion",
+      "Smooth muscle contraction, mucus hypersecretion, and mucosal edema",
+      "Only excessive mucus secretion",
+      "Only airway smooth muscle contraction",
+      "Only eosinophil infiltration without structural narrowing"
+    ],
+    "answerIndex": 1,
+    "explanation": "The sources repeatedly describe three major contributors to asthma obstruction: bronchial smooth muscle contraction, excessive mucus secretion, and edema/inflammation of the respiratory mucosa.",
+    "tags": [
+      "airway-obstruction",
+      "mucus",
+      "edema",
+      "smooth-muscle"
+    ]
+  },
+  {
+    "id": "quiz_beta2_second_messenger",
+    "caseId": "asthma_case_1",
+    "sectionType": "mechanism",
+    "question": "What second messenger directly increases after beta2-agonist stimulation of airway smooth muscle?",
+    "options": [
+      "cGMP",
+      "cAMP",
+      "IP3",
+      "DAG",
+      "Calmodulin"
+    ],
+    "answerIndex": 1,
+    "explanation": "Beta2 receptors couple to Gs proteins, activate adenylate cyclase, and increase intracellular cAMP, which promotes smooth muscle relaxation.",
+    "tags": [
+      "beta2-agonist",
+      "Gs",
+      "adenylate-cyclase",
+      "cAMP"
+    ]
+  },
+  {
+    "id": "quiz_laba_acute_use",
+    "caseId": "asthma_case_1",
+    "sectionType": "pharmacology",
+    "question": "Which beta-agonist has such a slow onset that it is not appropriate for immediate relief of acute asthma symptoms?",
+    "options": [
+      "Salmeterol",
+      "Albuterol",
+      "Epinephrine",
+      "Terbutaline",
+      "Isoproterenol"
+    ],
+    "answerIndex": 0,
+    "explanation": "Salmeterol is a long-acting beta2 agonist with a relatively slow onset, so it is used for prophylactic maintenance rather than acute symptom reversal.",
+    "tags": [
+      "LABA",
+      "acute-vs-maintenance",
+      "salmeterol"
+    ]
+  },
+  {
+    "id": "quiz_status_asthmaticus_definition",
+    "caseId": "asthma_case_2",
+    "sectionType": "clinicalPearl",
+    "question": "Which statement best describes status asthmaticus?",
+    "options": [
+      "Well-controlled asthma",
+      "Life-threatening exacerbation unresponsive to standard therapy",
+      "A condition best treated only with cromolyn or leukotriene modulators",
+      "An event that always resolves without treatment",
+      "An attack that occurs only without warning in previously stable patients"
+    ],
+    "answerIndex": 1,
+    "explanation": "Status asthmaticus is a life-threatening asthma exacerbation that does not respond adequately to standard therapy and requires aggressive treatment.",
+    "tags": [
+      "status-asthmaticus",
+      "emergency",
+      "definition"
+    ]
+  },
+  {
+    "id": "quiz_ics_preferred_controller",
+    "caseId": "asthma_case_1",
+    "sectionType": "pharmacology",
+    "question": "Why is inhaled corticosteroid monotherapy preferred over beta-agonist monotherapy for long-term asthma control when possible?",
+    "options": [
+      "It acts faster than albuterol",
+      "It controls the underlying inflammatory pathology and reduces recurrence of exacerbations",
+      "It eliminates all medication side effects",
+      "It should be used only in acute status asthmaticus",
+      "It increases IgE production to desensitize mast cells"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled corticosteroids target the underlying inflammatory disease process, improving long-term outcomes and reducing exacerbations, whereas beta-agonists primarily provide symptom relief.",
+    "tags": [
+      "ICS",
+      "controller",
+      "inflammation",
+      "long-term-control"
+    ]
+  },
+  {
+    "id": "quiz_obstructive_pft_pattern",
+    "caseId": "asthma_case_1",
+    "sectionType": "physiology",
+    "question": "Which pulmonary function test pattern is most consistent with asthma?",
+    "options": [
+      "Decreased FEV1, decreased FVC, decreased FEV1/FVC",
+      "Decreased FEV1, normal FVC, increased FEV1/FVC",
+      "Normal FEV1, increased FVC, increased FEV1/FVC",
+      "Increased FEV1 and decreased FRC",
+      "Increased FEV1/FVC with markedly decreased TLC as defining pattern"
+    ],
+    "answerIndex": 0,
+    "explanation": "Asthma is an obstructive disease with reduced FEV1 and reduced FEV1/FVC; FVC may also fall. Reversibility after bronchodilator supports the diagnosis.",
+    "tags": [
+      "PFT",
+      "obstructive",
+      "FEV1",
+      "FEV1/FVC"
+    ]
+  },
+  {
+    "id": "quiz_muscarinic_blockade_effect",
+    "caseId": "asthma_case_1",
+    "sectionType": "mechanism",
+    "question": "What is the main therapeutic airway effect of muscarinic antagonists such as ipratropium in asthma?",
+    "options": [
+      "Increase acetylcholine release",
+      "Increase leukotriene synthesis",
+      "Block cholinergic bronchoconstriction and reduce mucus secretion",
+      "Directly activate glucocorticoid receptors",
+      "Stimulate beta1 receptors in the heart"
+    ],
+    "answerIndex": 2,
+    "explanation": "Muscarinic antagonists block parasympathetic muscarinic signaling, reducing bronchoconstriction and glandular mucus secretion; their most clinically relevant asthma effect is associated with M3 blockade.",
+    "tags": [
+      "ipratropium",
+      "muscarinic-antagonist",
+      "bronchodilation",
+      "mucus"
+    ]
+  },
+  {
+    "id": "quiz_ch39_pathophys",
+    "caseId": "asthma_case_1",
+    "sectionType": "pathology",
+    "question": "The underlying pathophysiology of asthma is best described by which statement?",
+    "options": [
+      "Asthma is a psychosomatic disorder",
+      "Asthma is caused by an aberrant response to vaccinations",
+      "Asthma is a disease of airway inflammation",
+      "Asthma is a disorder of the lung parenchyma",
+      "Asthma is an infectious disease"
+    ],
+    "answerIndex": 2,
+    "explanation": "The referenced pharmacology chapter explicitly frames asthma as a disease of airway inflammation, a concept that changed treatment strategy toward controller anti-inflammatory therapy.",
+    "tags": [
+      "core-concept",
+      "airway-inflammation",
+      "pathophysiology"
+    ]
+  }
+]

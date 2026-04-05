@@ -1,0 +1,44 @@
+[
+  {
+    "id": "asthma_case_1",
+    "conditionId": "asthma",
+    "title": "Worsening chronic asthma in primary care",
+    "shortDescription": "Adult with chronic asthma becomes wheezier and more short of breath despite salbutamol and low-dose budesonide; PEFR is 80% of personal best.",
+    "difficulty": "easy",
+    "tags": [
+      "outpatient",
+      "step-up-therapy",
+      "adherence",
+      "inhaler-technique",
+      "PEFR"
+    ]
+  },
+  {
+    "id": "asthma_case_2",
+    "conditionId": "asthma",
+    "title": "Severe asthma exacerbation after repeated bronchodilator therapy",
+    "shortDescription": "Adolescent with severe asthma develops hypokalemia and U waves after multiple nebulizer treatments during an acute exacerbation.",
+    "difficulty": "medium",
+    "tags": [
+      "acute-exacerbation",
+      "beta2-agonist",
+      "hypokalemia",
+      "ECG",
+      "emergency"
+    ]
+  },
+  {
+    "id": "asthma_case_3",
+    "conditionId": "asthma",
+    "title": "Theophylline overdose in a patient with asthma",
+    "shortDescription": "Young adult with asthma presents after intentional theophylline overdose with seizures, hypotension, tachycardia, and respiratory distress.",
+    "difficulty": "hard",
+    "tags": [
+      "theophylline",
+      "toxicity",
+      "phosphodiesterase-inhibitor",
+      "critical-care",
+      "seizure"
+    ]
+  }
+]

@@ -1,0 +1,130 @@
+[
+  {
+    "id": "resource_patho_fig_airway_cross_section",
+    "caseId": "asthma_case_1",
+    "sectionType": "pathology",
+    "type": "diagram",
+    "title": "Pathophysiology of Asthma",
+    "description": "Composite figure showing lung and airway location plus normal airway cross-section versus narrowed asthmatic airway with mucus, inflammation, and smooth muscle tightening.",
+    "caption": "Figure A displays the location of the lungs and airways in the body. Figure B shows a cross section of a normal airway. Figure C illustrates a cross section of an airway during asthma symptoms.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
+      "pageNumber": 3
+    },
+    "assetKey": "pathophysiology_of_asthma_figure_abc",
+    "tags": [
+      "pathophysiology",
+      "normal-vs-asthmatic",
+      "diagram",
+      "airway-cross-section"
+    ]
+  },
+  {
+    "id": "resource_patho_chest_radiograph",
+    "caseId": "asthma_case_1",
+    "sectionType": "narrative",
+    "type": "image",
+    "title": "Chest radiograph depicting asthma",
+    "description": "Anterior and lateral chest radiographs of a patient with asthma highlighting pneumomediastinum and increased bronchovascular markings.",
+    "caption": "A Chest Radiograph Depicting Asthma. The image depicts both anterior and lateral radiographs of a patient with asthma. The image highlights the presence of pneumomediastinum and increased bronchovascular markings.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
+      "pageNumber": 3
+    },
+    "assetKey": "asthma_chest_radiograph",
+    "tags": [
+      "radiograph",
+      "imaging",
+      "pneumomediastinum",
+      "bronchovascular-markings"
+    ]
+  },
+  {
+    "id": "resource_patho_abpa_ct",
+    "caseId": "asthma_case_1",
+    "sectionType": "pathology",
+    "type": "pathologyFigure",
+    "title": "Allergic bronchopulmonary aspergillosis on CT",
+    "description": "Computed tomography image showing bronchiectasis in both upper lobes of a patient with bronchial asthma, useful as a complication/association resource.",
+    "caption": "Allergic Bronchopulmonary Aspergillosis on Computed Tomography. Images reveal bronchiectasis in both upper lobes of a patient with bronchial asthma, indicative of allergic bronchopulmonary aspergillosis.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
+      "pageNumber": 3
+    },
+    "assetKey": "abpa_ct_in_asthma",
+    "tags": [
+      "ABPA",
+      "CT",
+      "bronchiectasis",
+      "complication"
+    ]
+  },
+  {
+    "id": "resource_patho_severity_table",
+    "caseId": "asthma_case_1",
+    "sectionType": "treatment",
+    "type": "image",
+    "title": "Asthma severity classification by National Asthma Education and Prevention Program",
+    "description": "Severity classification table summarizing intermittent, mild, moderate, and severe asthma across symptom burden, night waking, activity limitation, and lung function.",
+    "caption": "Asthma Severity Classification by The National Asthma Education and Prevention Program.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
+      "pageNumber": 4
+    },
+    "assetKey": "asthma_severity_classification_table",
+    "tags": [
+      "severity",
+      "classification",
+      "NAEPP",
+      "table"
+    ]
+  },
+  {
+    "id": "resource_ch39_fig391",
+    "caseId": "asthma_case_1",
+    "sectionType": "pathology",
+    "type": "literatureFigure",
+    "title": "Cellular pathophysiology of asthma",
+    "description": "Figure contrasting normal and asthmatic airway and mapping mediator sources to bronchoconstriction, mucus secretion, inflammatory cell infiltration, and epithelial damage.",
+    "caption": "Cellular pathophysiology of asthma. Top, cross-section of the normal airway and the asthmatic airway. Bottom, the inflammatory cells and neurotransmitters implicated in asthma pathophysiology.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Chapter 39 Drugs against Asthma.pdf",
+      "pageNumber": 2
+    },
+    "assetKey": "chapter39_figure39_1",
+    "tags": [
+      "literature-figure",
+      "mediators",
+      "eosinophils",
+      "mast-cells",
+      "mucus",
+      "bronchoconstriction"
+    ]
+  },
+  {
+    "id": "resource_histology_gas_exchange",
+    "caseId": "asthma_case_1",
+    "sectionType": "histology",
+    "type": "histology",
+    "title": "Gaseous exchange in the lung",
+    "description": "Normal respiratory reference diagram showing oxygen movement into blood and carbon dioxide removal across the alveolar-capillary bed; useful as baseline comparison for asthma physiology modules.",
+    "caption": "Gaseous Exchange in the Lung. The image illustrates gas exchange in the lungs, showing the movement of oxygen into the bloodstream and carbon dioxide expelled through the alveolar-capillary bed.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Histology, Lung - StatPearls - NCBI Bookshelf.pdf",
+      "pageNumber": 13
+    },
+    "assetKey": "normal_lung_gas_exchange_diagram",
+    "tags": [
+      "normal-reference",
+      "alveoli",
+      "gas-exchange",
+      "histology"
+    ]
+  }
+]

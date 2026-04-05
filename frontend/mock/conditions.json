@@ -1,0 +1,18 @@
+[
+  {
+    "id": "asthma",
+    "systemId": "respiratory",
+    "name": "Asthma",
+    "summary": "Chronic inflammatory airway disease characterized by variable, usually reversible airflow obstruction, airway hyperresponsiveness, mucus hypersecretion, and progressive airway remodeling driven largely by Th2/IgE/eosinophilic pathways.",
+    "learningGoals": [
+      "Recognize the clinical features and trigger pattern of asthma.",
+      "Relate asthma symptoms to airflow obstruction, airway hyperresponsiveness, and inflammation.",
+      "Explain early-phase and late-phase asthma pathophysiology.",
+      "Interpret obstructive pulmonary function findings and bronchodilator reversibility.",
+      "Compare rescue bronchodilators, controller therapy, and add-on therapies.",
+      "Connect receptor-level pharmacology to bronchodilation and anti-inflammatory control.",
+      "Identify important adverse effects and contraindications of common asthma medications.",
+      "Distinguish acute exacerbation management from chronic maintenance treatment."
+    ]
+  }
+]

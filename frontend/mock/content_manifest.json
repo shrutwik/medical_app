@@ -1,0 +1,10 @@
+{
+  "systemsFile": "systems.json",
+  "conditionsFile": "conditions.json",
+  "casesFile": "cases.json",
+  "caseDetailsFile": "case_details.json",
+  "sectionsFile": "sections.json",
+  "mechanismsFile": "mechanisms.json",
+  "resourcesFile": "resources.json",
+  "quizzesFile": "quizzes.json"
+}

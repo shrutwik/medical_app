@@ -1,0 +1,200 @@
+[
+  {
+    "id": "mechanism_asthma_early_phase",
+    "caseId": "asthma_case_1",
+    "title": "Early-phase allergic asthma cascade",
+    "relatedDrug": "",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Trigger exposure",
+        "description": "Environmental trigger or allergen enters the airway."
+      },
+      {
+        "stepNumber": 2,
+        "label": "IgE recognition",
+        "description": "Allergen interacts with allergen-specific IgE already bound to mast cells and basophils."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Cross-linking and degranulation",
+        "description": "Receptor-bound IgE cross-links, causing immediate release of histamine and other preformed mediators."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Lipid mediator synthesis",
+        "description": "Leukotrienes and prostaglandins are synthesized and released."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Functional effect",
+        "description": "Smooth muscle contracts, mucus secretion increases, vascular leakage occurs, and acute airflow limitation develops."
+      }
+    ]
+  },
+  {
+    "id": "mechanism_asthma_late_phase",
+    "caseId": "asthma_case_1",
+    "title": "Late-phase inflammatory amplification",
+    "relatedDrug": "",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Th2 cytokine signaling",
+        "description": "Th2 cells generate IL-4, IL-5, IL-13 and related cytokines after allergic activation."
+      },
+      {
+        "stepNumber": 2,
+        "label": "Cell recruitment",
+        "description": "Eosinophils, basophils, neutrophils, and T cells localize to the airway over the next several hours."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Mediator release",
+        "description": "Inflammatory cells release cytokines, leukotrienes, cationic proteins, and growth factors."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Persistent inflammation",
+        "description": "Bronchoconstriction, mucus production, epithelial injury, and edema continue beyond the immediate attack."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Remodeling risk",
+        "description": "Repeated inflammation promotes basement membrane thickening, fibrosis, hyperplasia, and more fixed obstruction over time."
+      }
+    ]
+  },
+  {
+    "id": "mechanism_beta2_agonist_bronchodilation",
+    "caseId": "asthma_case_1",
+    "title": "Beta2-agonist bronchodilation",
+    "relatedDrug": "albuterol",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Receptor binding",
+        "description": "Beta2 agonist binds beta2 adrenergic receptor on airway smooth muscle."
+      },
+      {
+        "stepNumber": 2,
+        "label": "Gs activation",
+        "description": "Receptor activation couples to Gs protein and stimulates adenylate cyclase."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Second messenger increase",
+        "description": "ATP is converted to cAMP, increasing intracellular cAMP concentration."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Protein kinase activation",
+        "description": "cAMP activates protein kinase A and reduces intracellular calcium availability."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Smooth muscle relaxation",
+        "description": "Myosin light-chain kinase activity falls, myosin light-chain phosphatase activity rises, and bronchodilation occurs."
+      }
+    ]
+  },
+  {
+    "id": "mechanism_muscarinic_antagonist_bronchodilation",
+    "caseId": "asthma_case_1",
+    "title": "Muscarinic antagonist bronchodilation",
+    "relatedDrug": "ipratropium",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Receptor blockade",
+        "description": "Drug blocks parasympathetic muscarinic receptors in the airway, especially the M3 effect relevant to asthma."
+      },
+      {
+        "stepNumber": 2,
+        "label": "Cholinergic signal reduction",
+        "description": "Bronchoconstrictor acetylcholine signaling is diminished."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Calcium signaling decreases",
+        "description": "Intracellular signaling leads to reduced calcium-related contraction pathways."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Secretory effect",
+        "description": "Mucus secretion and mucosal edema fall along with cholinergic tone."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Net effect",
+        "description": "Airway smooth muscle relaxes and bronchodilation improves, especially when combined with a beta2 agonist."
+      }
+    ]
+  },
+  {
+    "id": "mechanism_inhaled_corticosteroid_control",
+    "caseId": "asthma_case_1",
+    "title": "Inhaled corticosteroid anti-inflammatory control",
+    "relatedDrug": "budesonide",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Cell entry",
+        "description": "Inhaled corticosteroid enters airway inflammatory and structural cells."
+      },
+      {
+        "stepNumber": 2,
+        "label": "Glucocorticoid receptor activation",
+        "description": "Drug binds glucocorticoid receptor and influences nuclear gene transcription."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Anti-inflammatory gene expression",
+        "description": "Annexin-1, secretory leukoprotease inhibitor, and IL-10 expression increase."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Inflammatory cell suppression",
+        "description": "Recruitment, adhesion, survival, and mediator release of eosinophils, mast cells, dendritic cells, and T lymphocytes decrease."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Clinical effect",
+        "description": "Airway hyperresponsiveness and exacerbation frequency decrease, improving long-term control."
+      }
+    ]
+  },
+  {
+    "id": "mechanism_theophylline_toxicity",
+    "caseId": "asthma_case_3",
+    "title": "Theophylline toxicity signaling",
+    "relatedDrug": "theophylline",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Phosphodiesterase inhibition",
+        "description": "Theophylline decreases degradation of cyclic nucleotides."
+      },
+      {
+        "stepNumber": 2,
+        "label": "cAMP accumulation",
+        "description": "Intracellular cAMP rises abnormally in overdose."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Systemic overstimulation",
+        "description": "CNS excitation and cardiovascular stimulation increase."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Clinical toxicity",
+        "description": "Seizures, tachycardia, and hemodynamic instability develop."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Countermeasure",
+        "description": "A cardioselective beta-blocker can reduce cAMP formation via adenylate cyclase suppression while limiting asthma risk compared with nonselective blockade."
+      }
+    ]
+  }
+]
