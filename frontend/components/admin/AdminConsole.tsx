@@ -1,9 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useRouter } from 'expo-router';
+import ImportBatchBrowser from './ImportBatchBrowser';
 import ImportManager from './ImportManager';
 import { colors } from '../../constants/theme';
-import { getAdminSession, hasFirebaseConfig, signInAdmin, signOutAdmin, type AdminSession } from '../../services/auth/firebase';
+import {
+  getAdminSession,
+  hasFirebaseConfig,
+  isAdminDemoEnabled,
+  signInAdmin,
+  signOutAdmin,
+  type AdminSession,
+} from '../../services/auth/firebase';
 import { getAdminContentRepository, type AdminCase, type ContentDataset } from '../../services/content/repository';
 import type { CaseDetail } from '../../types/case';
 import type { StudyCheckpoint } from '../../types/checkpoint';
@@ -230,6 +238,9 @@ export default function AdminConsole() {
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<string>();
   const [loading, setLoading] = useState(true);
+  const firebaseEnabled = hasFirebaseConfig();
+  const demoEnabled = isAdminDemoEnabled();
+  const adminSignInEnabled = firebaseEnabled || demoEnabled;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -330,10 +341,12 @@ export default function AdminConsole() {
         <View>
           <Text style={styles.eyebrow}>Internal Content Workspace</Text>
           <Text style={styles.title}>Admin Console</Text>
-          <Text style={styles.subtitle}>
-            {hasFirebaseConfig()
+            <Text style={styles.subtitle}>
+            {firebaseEnabled
               ? 'Firebase-backed admin mode is configured.'
-              : 'Firebase config is missing, so this workspace uses local persisted content for development.'}
+              : demoEnabled
+                ? 'Local demo mode is enabled for this workspace.'
+                : 'Admin sign-in is disabled until Firebase credentials or explicit demo mode env vars are configured.'}
           </Text>
         </View>
         {session ? (
@@ -352,21 +365,35 @@ export default function AdminConsole() {
             onChangeText={setEmail}
             autoCapitalize="none"
             style={styles.input}
+            editable={adminSignInEnabled}
           />
           <TextInput
-            placeholder={hasFirebaseConfig() ? 'Password' : 'Demo password'}
+            placeholder={firebaseEnabled ? 'Password' : 'Demo password'}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
             style={styles.input}
+            editable={adminSignInEnabled}
           />
-          <Pressable style={styles.primaryButton} onPress={handleLogin}>
+          <Pressable
+            style={[styles.primaryButton, !adminSignInEnabled && styles.primaryButtonDisabled]}
+            onPress={handleLogin}
+            disabled={!adminSignInEnabled}
+          >
             <Text style={styles.primaryButtonText}>Sign In</Text>
           </Pressable>
+          {!adminSignInEnabled ? (
+            <Text style={styles.statusText}>
+              Set Firebase env vars, or enable demo mode with
+              {' '}`EXPO_PUBLIC_ENABLE_ADMIN_DEMO=true` and
+              {' '}`EXPO_PUBLIC_ADMIN_DEMO_PASSWORD`.
+            </Text>
+          ) : null}
           {status ? <Text style={styles.statusText}>{status}</Text> : null}
         </View>
       ) : (
         <View style={styles.adminBody}>
+          <ImportBatchBrowser repo={repo} onImported={refreshDataset} />
           <ImportManager repo={repo} onImported={refreshDataset} />
 
           <View style={styles.workspace}>
@@ -639,6 +666,9 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     paddingHorizontal: 16,
     paddingVertical: 12,
+  },
+  primaryButtonDisabled: {
+    opacity: 0.45,
   },
   primaryButtonText: {
     color: colors.white,

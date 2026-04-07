@@ -13,6 +13,10 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
+const adminDemoPassword = process.env.EXPO_PUBLIC_ADMIN_DEMO_PASSWORD?.trim();
+const adminDemoEnabled =
+  process.env.EXPO_PUBLIC_ENABLE_ADMIN_DEMO === 'true' && Boolean(adminDemoPassword);
+
 export interface AdminSession {
   mode: 'firebase' | 'local';
   email: string;
@@ -28,6 +32,10 @@ export function hasFirebaseConfig() {
       firebaseConfig.messagingSenderId &&
       firebaseConfig.appId,
   );
+}
+
+export function isAdminDemoEnabled() {
+  return adminDemoEnabled;
 }
 
 export function getFirebaseApp() {
@@ -58,8 +66,13 @@ export async function signInAdmin(email: string, password: string): Promise<Admi
     return session;
   }
 
-  const localPassword = process.env.EXPO_PUBLIC_ADMIN_DEMO_PASSWORD ?? 'medstudy-admin';
-  if (password !== localPassword) {
+  if (!adminDemoEnabled || !adminDemoPassword) {
+    throw new Error(
+      'Admin sign-in requires Firebase credentials or explicit demo mode env vars.',
+    );
+  }
+
+  if (password !== adminDemoPassword) {
     throw new Error('Admin credentials were rejected.');
   }
 

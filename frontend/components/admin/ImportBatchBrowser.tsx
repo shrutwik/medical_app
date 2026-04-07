@@ -2,14 +2,20 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../constants/theme';
 import type { AdminContentRepository } from '../../services/content/repository';
-import type { ImportBatchState, ImportBatchSummary } from '../../types/import';
+import type {
+  ImportBatchOutputCounts,
+  ImportBatchState,
+  ImportBatchSummary,
+  ImportIssue,
+  MappedSourceItem,
+} from '../../types/import';
 
 interface ImportBatchBrowserProps {
   repo: AdminContentRepository;
   onImported: () => Promise<void>;
 }
 
-const COUNT_LABELS: Array<{ key: keyof ImportBatchSummary['outputCounts']; label: string }> = [
+const COUNT_LABELS: Array<{ key: keyof ImportBatchOutputCounts; label: string }> = [
   { key: 'sourceFiles', label: 'Source Files' },
   { key: 'systems', label: 'Systems' },
   { key: 'conditions', label: 'Conditions' },
@@ -167,8 +173,8 @@ export default function ImportBatchBrowser({ repo, onImported }: ImportBatchBrow
   const groupedIssues = useMemo(() => {
     const issues = selectedBatch?.report?.issues ?? [];
     return {
-      errors: issues.filter((item) => item.level === 'error'),
-      warnings: issues.filter((item) => item.level === 'warning'),
+      errors: issues.filter((item: ImportIssue) => item.level === 'error'),
+      warnings: issues.filter((item: ImportIssue) => item.level === 'warning'),
     };
   }, [selectedBatch]);
 
@@ -348,7 +354,7 @@ export default function ImportBatchBrowser({ repo, onImported }: ImportBatchBrow
                 {groupedIssues.errors.length === 0 ? null : (
                   <View style={styles.issueGroup}>
                     <Text style={styles.issueGroupTitle}>Errors</Text>
-                    {groupedIssues.errors.map((issue, index) => (
+                    {groupedIssues.errors.map((issue: ImportIssue, index: number) => (
                       <View key={`${issue.code}-${index}`} style={styles.issueRowError}>
                         <Text style={styles.issueText}>
                           {issue.code}: {issue.message}
@@ -360,7 +366,7 @@ export default function ImportBatchBrowser({ repo, onImported }: ImportBatchBrow
                 {groupedIssues.warnings.length === 0 ? null : (
                   <View style={styles.issueGroup}>
                     <Text style={styles.issueGroupTitle}>Warnings</Text>
-                    {groupedIssues.warnings.map((issue, index) => (
+                    {groupedIssues.warnings.map((issue: ImportIssue, index: number) => (
                       <View key={`${issue.code}-${index}`} style={styles.issueRowWarning}>
                         <Text style={styles.issueText}>
                           {issue.code}: {issue.message}
@@ -381,7 +387,7 @@ export default function ImportBatchBrowser({ repo, onImported }: ImportBatchBrow
                     No unresolved items remain for this batch.
                   </Text>
                 ) : (
-                  selectedBatch.report?.unresolvedItems?.map((item) => (
+                  selectedBatch.report?.unresolvedItems?.map((item: MappedSourceItem) => (
                     <View key={item.id} style={styles.unresolvedRow}>
                       <Text style={styles.unresolvedTitle}>
                         {item.title ?? item.prompt ?? item.sourceId ?? item.id}

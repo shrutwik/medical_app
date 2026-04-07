@@ -16,9 +16,20 @@ import mechanismsJson from '../../mock/mechanisms.json';
 import resourcesJson from '../../mock/resources.json';
 import quizzesJson from '../../mock/quizzes.json';
 import checkpointsJson from '../../mock/checkpoints.json';
+import respiratoryBatchDatasetJson from '../../imports/respiratory-resource-batch/output/content-dataset.json';
+import respiratoryBatchReportJson from '../../imports/respiratory-resource-batch/report/import-report.json';
+import templateBatchDatasetJson from '../../imports/template-batch/output/content-dataset.json';
+import templateBatchReportJson from '../../imports/template-batch/report/import-report.json';
 import type { Case, CaseDetail } from '../../types/case';
 import type { StudyCheckpoint } from '../../types/checkpoint';
 import type { Condition } from '../../types/condition';
+import type {
+  ImportBatchActionResult,
+  ImportBatchOutputCounts,
+  ImportBatchState,
+  ImportBatchSummary,
+  ImportReport,
+} from '../../types/import';
 import type { Mechanism } from '../../types/mechanism';
 import type { QuizQuestion } from '../../types/quiz';
 import type { Resource } from '../../types/resource';
@@ -69,6 +80,10 @@ export interface AdminContentRepository extends ContentRepository {
   getDataset(): Promise<ContentDataset>;
   replaceDataset(dataset: ContentDataset): Promise<void>;
   resetDataset(): Promise<void>;
+  listImportBatches(): Promise<ImportBatchSummary[]>;
+  getImportBatchState(batchId: string): Promise<ImportBatchState | undefined>;
+  runImportBatch(batchId: string): Promise<ImportBatchActionResult>;
+  loadImportBatch(batchId: string): Promise<ImportBatchActionResult>;
   saveSystem(item: System): Promise<void>;
   saveCondition(item: Condition): Promise<void>;
   saveCase(item: AdminCase): Promise<void>;
@@ -97,6 +112,36 @@ const seedDatasetTemplate: ContentDataset = {
   checkpoints: checkpointsJson as StudyCheckpoint[],
 };
 
+interface ImportBatchRecord {
+  batchId: string;
+  title: string;
+  folderName: string;
+  notesPath?: string;
+  sourceFileCount: number;
+  dataset?: ContentDataset;
+  report?: ImportReport;
+}
+
+const staticImportBatches: ImportBatchRecord[] = [
+  {
+    batchId: 'respiratory_resource_batch',
+    title: 'Respiratory Resource Batch',
+    folderName: 'respiratory-resource-batch',
+    notesPath: 'frontend/imports/respiratory-resource-batch/working/BATCH_NOTES.md',
+    sourceFileCount: 11,
+    dataset: respiratoryBatchDatasetJson as ContentDataset,
+    report: respiratoryBatchReportJson as ImportReport,
+  },
+  {
+    batchId: 'template_batch',
+    title: 'Template Import Batch',
+    folderName: 'template-batch',
+    sourceFileCount: 1,
+    dataset: templateBatchDatasetJson as ContentDataset,
+    report: templateBatchReportJson as ImportReport,
+  },
+];
+
 function cloneDataset<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
@@ -118,6 +163,80 @@ function coerceDataset(payload: ContentDataset): ContentDataset {
     quizzes: Array.isArray(payload?.quizzes) ? payload.quizzes : fallback.quizzes,
     checkpoints: Array.isArray(payload?.checkpoints) ? payload.checkpoints : fallback.checkpoints,
   };
+}
+
+function buildImportOutputCounts(
+  dataset: ContentDataset | undefined,
+  sourceFileCount: number,
+): ImportBatchOutputCounts {
+  return {
+    sourceFiles: sourceFileCount,
+    systems: dataset?.systems.length ?? 0,
+    conditions: dataset?.conditions.length ?? 0,
+    cases: dataset?.cases.length ?? 0,
+    caseDetails: dataset?.caseDetails.length ?? 0,
+    sections: dataset?.sections.length ?? 0,
+    mechanisms: dataset?.mechanisms.length ?? 0,
+    resources: dataset?.resources.length ?? 0,
+    quizzes: dataset?.quizzes.length ?? 0,
+    checkpoints: dataset?.checkpoints.length ?? 0,
+  };
+}
+
+function toImportBatchState(batch: ImportBatchRecord): ImportBatchState {
+  const errorCount = batch.report?.issues.filter((item) => item.level === 'error').length ?? 0;
+  const warningCount = batch.report?.issues.filter((item) => item.level === 'warning').length ?? 0;
+  const unresolvedItemCount = batch.report?.unresolvedItems.length ?? 0;
+  const hasOutput = Boolean(batch.dataset);
+  const hasReport = Boolean(batch.report);
+
+  let status: ImportBatchSummary['status'] = 'incomplete';
+  if (!hasOutput || !hasReport) {
+    status = 'not_generated';
+  } else if (errorCount > 0 || unresolvedItemCount > 0) {
+    status = 'blocked';
+  } else if (warningCount > 0) {
+    status = 'warning';
+  } else {
+    status = 'ready';
+  }
+
+  return {
+    batchId: batch.batchId,
+    title: batch.title,
+    folderName: batch.folderName,
+    generatedAt: batch.report?.generatedAt,
+    sourceFileCount: batch.sourceFileCount,
+    errorCount,
+    warningCount,
+    unresolvedItemCount,
+    outputCounts: buildImportOutputCounts(batch.dataset, batch.sourceFileCount),
+    status,
+    hasOutput,
+    hasReport,
+    loadable: hasOutput && hasReport && errorCount === 0 && unresolvedItemCount === 0,
+    notesPath: batch.notesPath,
+    report: batch.report,
+  };
+}
+
+function listStaticImportBatches(): ImportBatchSummary[] {
+  return staticImportBatches
+    .map((batch) => toImportBatchState(batch))
+    .sort((a, b) => a.title.localeCompare(b.title));
+}
+
+function getStaticImportBatchState(batchId: string): ImportBatchState | undefined {
+  const batch = staticImportBatches.find((item) => item.batchId === batchId);
+  return batch ? toImportBatchState(batch) : undefined;
+}
+
+function getStaticImportBatchRecord(batchId: string): ImportBatchRecord {
+  const batch = staticImportBatches.find((item) => item.batchId === batchId);
+  if (!batch) {
+    throw new Error(`Import batch "${batchId}" was not found.`);
+  }
+  return batch;
 }
 
 function sortByName<T extends { name?: string; title?: string }>(items: T[]) {
@@ -179,6 +298,40 @@ class LocalContentRepository implements AdminContentRepository {
 
   async resetDataset(): Promise<void> {
     await this.writeDataset(createSeedDataset());
+  }
+
+  async listImportBatches(): Promise<ImportBatchSummary[]> {
+    return listStaticImportBatches();
+  }
+
+  async getImportBatchState(batchId: string): Promise<ImportBatchState | undefined> {
+    return getStaticImportBatchState(batchId);
+  }
+
+  async runImportBatch(batchId: string): Promise<ImportBatchActionResult> {
+    const batch = getStaticImportBatchState(batchId);
+    if (!batch) {
+      throw new Error(`Import batch "${batchId}" was not found.`);
+    }
+
+    return {
+      batch,
+      message:
+        'This web workspace reviews import output already committed in the repo. Regenerate with `npm run import:content -- imports/<batch-name>` when source mappings change.',
+    };
+  }
+
+  async loadImportBatch(batchId: string): Promise<ImportBatchActionResult> {
+    const batchRecord = getStaticImportBatchRecord(batchId);
+    if (!batchRecord.dataset) {
+      throw new Error(`Import batch "${batchId}" has no generated dataset to load.`);
+    }
+
+    await this.writeDataset(coerceDataset(batchRecord.dataset));
+    return {
+      batch: toImportBatchState(batchRecord),
+      message: `Loaded "${batchRecord.title}" into the active repository dataset.`,
+    };
   }
 
   async getSystems(): Promise<System[]> {
@@ -403,6 +556,40 @@ class FirebaseContentRepository implements AdminContentRepository {
 
   async resetDataset(): Promise<void> {
     await this.replaceDataset(createSeedDataset());
+  }
+
+  async listImportBatches(): Promise<ImportBatchSummary[]> {
+    return listStaticImportBatches();
+  }
+
+  async getImportBatchState(batchId: string): Promise<ImportBatchState | undefined> {
+    return getStaticImportBatchState(batchId);
+  }
+
+  async runImportBatch(batchId: string): Promise<ImportBatchActionResult> {
+    const batch = getStaticImportBatchState(batchId);
+    if (!batch) {
+      throw new Error(`Import batch "${batchId}" was not found.`);
+    }
+
+    return {
+      batch,
+      message:
+        'This web workspace reviews import output already committed in the repo. Regenerate with `npm run import:content -- imports/<batch-name>` when source mappings change.',
+    };
+  }
+
+  async loadImportBatch(batchId: string): Promise<ImportBatchActionResult> {
+    const batchRecord = getStaticImportBatchRecord(batchId);
+    if (!batchRecord.dataset) {
+      throw new Error(`Import batch "${batchId}" has no generated dataset to load.`);
+    }
+
+    await this.replaceDataset(batchRecord.dataset);
+    return {
+      batch: toImportBatchState(batchRecord),
+      message: `Loaded "${batchRecord.title}" into the active repository dataset.`,
+    };
   }
 
   async getSystems(): Promise<System[]> {

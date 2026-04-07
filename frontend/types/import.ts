@@ -130,3 +130,49 @@ export interface ImportReport {
   issues: ImportIssue[];
   unresolvedItems: MappedSourceItem[];
 }
+
+export interface ImportBatchOutputCounts {
+  sourceFiles: number;
+  systems: number;
+  conditions: number;
+  cases: number;
+  caseDetails: number;
+  sections: number;
+  mechanisms: number;
+  resources: number;
+  quizzes: number;
+  checkpoints: number;
+}
+
+export type ImportBatchStatus =
+  | 'incomplete'
+  | 'not_generated'
+  | 'blocked'
+  | 'warning'
+  | 'ready';
+
+export interface ImportBatchSummary {
+  batchId: string;
+  title: string;
+  folderName: string;
+  generatedAt?: string;
+  sourceFileCount: number;
+  errorCount: number;
+  warningCount: number;
+  unresolvedItemCount: number;
+  outputCounts: ImportBatchOutputCounts;
+  status: ImportBatchStatus;
+}
+
+export interface ImportBatchState extends ImportBatchSummary {
+  hasOutput: boolean;
+  hasReport: boolean;
+  loadable: boolean;
+  notesPath?: string;
+  report?: ImportReport;
+}
+
+export interface ImportBatchActionResult {
+  batch: ImportBatchState;
+  message: string;
+}
