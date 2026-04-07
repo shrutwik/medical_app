@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import CaseCard from '../../components/cards/CaseCard';
+import BackLink from '../../components/navigation/BackLink';
 import { colors } from '../../constants/theme';
-import { useResponsive } from '../../hooks/useResponsive';
 import { getContentRepository, type AdminCase, type CaseBundle } from '../../services/content/repository';
 import { calculateCompletion, getProgressRepository } from '../../services/progress/repository';
 import type { Condition } from '../../types/condition';
@@ -29,10 +29,17 @@ function getMilestoneKeys(bundle: CaseBundle) {
 export default function ConditionDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const { isDesktop } = useResponsive();
   const [condition, setCondition] = useState<Condition>();
   const [rows, setRows] = useState<CaseRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const nextCase = rows.find((row) => row.progress < 100) ?? rows[0];
+  const averageProgress = useMemo(
+    () =>
+      rows.length > 0
+        ? Math.round(rows.reduce((sum, row) => sum + row.progress, 0) / rows.length)
+        : 0,
+    [rows],
+  );
 
   const load = useCallback(async () => {
     if (!id) return;
@@ -64,24 +71,53 @@ export default function ConditionDetail() {
     <>
       <Stack.Screen options={{ title: condition?.name ?? 'Condition' }} />
       <ScrollView style={styles.page} contentContainerStyle={styles.content}>
-        <View style={[styles.hero, isDesktop && styles.heroDesktop]}>
-          <View style={[styles.heroCard, isDesktop && styles.heroMain]}>
-            <Text style={styles.eyebrow}>Condition Workspace</Text>
-            <Text style={styles.title}>{condition?.name ?? 'Loading...'}</Text>
-            <Text style={styles.description}>{condition?.summary}</Text>
+        <View style={styles.heroCard}>
+          <BackLink
+            label="Track"
+            onPress={() => router.push(condition ? `/system/${condition.systemId}` : '/')}
+          />
+          <Text style={styles.eyebrow}>Condition</Text>
+          <Text style={styles.title}>{condition?.name ?? 'Loading...'}</Text>
+          <Text style={styles.description} numberOfLines={3}>
+            {condition?.summary}
+          </Text>
+          {nextCase ? (
+            <Pressable
+              style={styles.primaryButton}
+              onPress={() => router.push(`/case/${nextCase.caseItem.id}`)}
+            >
+              <Text style={styles.primaryButtonText}>
+                {nextCase.progress > 0 ? 'Resume case' : 'Start case'}
+              </Text>
+            </Pressable>
+          ) : null}
+          <View style={styles.metaRow}>
+            <View style={styles.metaCard}>
+              <Text style={styles.metaLabel}>Cases</Text>
+              <Text style={styles.metaValue}>{rows.length}</Text>
+            </View>
+            <View style={styles.metaCard}>
+              <Text style={styles.metaLabel}>Progress</Text>
+              <Text style={styles.metaValue}>{averageProgress}%</Text>
+            </View>
+            <View style={styles.metaCard}>
+              <Text style={styles.metaLabel}>Goals</Text>
+              <Text style={styles.metaValue}>{condition?.learningGoals.length ?? 0}</Text>
+            </View>
           </View>
-          <View style={styles.learningCard}>
-            <Text style={styles.learningTitle}>Learning Goals</Text>
-            {condition?.learningGoals.map((goal) => (
-              <View key={goal} style={styles.goalRow}>
-                <Text style={styles.goalBullet}>•</Text>
-                <Text style={styles.goalText}>{goal}</Text>
-              </View>
-            ))}
-          </View>
+          {(condition?.learningGoals.length ?? 0) > 0 ? (
+            <View style={styles.focusBlock}>
+              <Text style={styles.focusTitle}>Focus</Text>
+              {condition?.learningGoals.slice(0, 3).map((goal) => (
+                <Text key={goal} style={styles.focusItem}>
+                  {`\u2022 ${goal}`}
+                </Text>
+              ))}
+            </View>
+          ) : null}
         </View>
 
-        <Text style={styles.sectionTitle}>Case Modules</Text>
+        <Text style={styles.sectionTitle}>Cases</Text>
         {loading ? <Text style={styles.statusText}>Loading cases...</Text> : null}
 
         <View style={styles.list}>
@@ -108,27 +144,17 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 40,
   },
-  hero: {
-    gap: 14,
-    marginBottom: 24,
-  },
-  heroDesktop: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-  },
   heroCard: {
     backgroundColor: colors.white,
     borderRadius: 24,
     padding: 24,
     borderWidth: 1,
     borderColor: colors.border,
-  },
-  heroMain: {
-    flex: 1,
+    marginBottom: 24,
   },
   eyebrow: {
-    color: colors.gold,
-    fontSize: 12,
+    color: colors.maroon,
+    fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.7,
@@ -144,34 +170,62 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     fontSize: 15,
     lineHeight: 24,
+    marginBottom: 18,
   },
-  learningCard: {
-    width: 320,
-    backgroundColor: colors.cloud,
-    borderRadius: 24,
-    padding: 22,
+  primaryButton: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.maroon,
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    marginBottom: 18,
   },
-  learningTitle: {
-    color: colors.maroonDeep,
-    fontSize: 18,
-    fontWeight: '800',
-    marginBottom: 12,
+  primaryButtonText: {
+    color: colors.white,
+    fontSize: 13,
+    fontWeight: '700',
   },
-  goalRow: {
+  metaRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    gap: 12,
+    marginBottom: 18,
+  },
+  metaCard: {
+    minWidth: 120,
+    backgroundColor: colors.cloud,
+    borderRadius: 18,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+  },
+  metaLabel: {
+    color: colors.textMuted,
+    fontSize: 11,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    marginBottom: 6,
+  },
+  metaValue: {
+    color: colors.maroonDeep,
+    fontSize: 22,
+    fontWeight: '800',
+  },
+  focusBlock: {
+    backgroundColor: colors.cloud,
+    borderRadius: 18,
+    padding: 16,
+  },
+  focusTitle: {
+    color: colors.maroonDeep,
+    fontSize: 15,
+    fontWeight: '700',
     marginBottom: 8,
   },
-  goalBullet: {
-    color: colors.maroon,
-    marginRight: 8,
-    marginTop: 1,
-  },
-  goalText: {
-    flex: 1,
+  focusItem: {
     color: colors.textSecondary,
     fontSize: 14,
-    lineHeight: 21,
+    lineHeight: 22,
+    marginBottom: 4,
   },
   sectionTitle: {
     color: colors.maroonDeep,

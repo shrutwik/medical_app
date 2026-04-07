@@ -41,8 +41,8 @@ export default function CaseCard({
           ) : null}
         </View>
       </View>
-      <View style={styles.chevron}>
-        <Text style={styles.chevronText}>Study</Text>
+      <View style={styles.sideMeta}>
+        <Text style={styles.sideMetaText}>Open</Text>
       </View>
     </Pressable>
   );
@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: 8,
   },
   title: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: colors.textPrimary,
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.maroonDeep,
     flex: 1,
   },
   badge: {
@@ -87,9 +87,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   description: {
-    fontSize: 13,
+    fontSize: 14,
     color: colors.textSecondary,
-    lineHeight: 20,
+    lineHeight: 22,
   },
   footer: {
     marginTop: 12,
@@ -129,13 +129,17 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'uppercase',
   },
-  chevron: {
-    marginLeft: 8,
+  sideMeta: {
+    marginLeft: 14,
+    alignSelf: 'flex-start',
+    backgroundColor: colors.cloud,
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  chevronText: {
+  sideMetaText: {
     fontSize: 12,
     color: colors.maroon,
     fontWeight: '700',
-    textTransform: 'uppercase',
   },
 });

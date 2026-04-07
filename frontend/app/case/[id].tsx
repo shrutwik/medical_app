@@ -1,17 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import InfoCard from '../../components/cards/InfoCard';
 import ResourcePanel from '../../components/study/ResourcePanel';
 import CaseHeader from '../../components/study/CaseHeader';
 import CheckpointCard from '../../components/study/CheckpointCard';
-import ProgressRail from '../../components/study/ProgressRail';
 import QuizPanel from '../../components/study/QuizPanel';
 import SectionBlock from '../../components/study/SectionBlock';
 import StudyNav, { type StudyNavItem } from '../../components/study/StudyNav';
 import MechanismRenderer from '../../components/sections/MechanismRenderer';
 import { colors } from '../../constants/theme';
-import { useResponsive } from '../../hooks/useResponsive';
 import { getContentRepository, type CaseBundle } from '../../services/content/repository';
 import { calculateCompletion, getProgressRepository } from '../../services/progress/repository';
 import type { QuizQuestion } from '../../types/quiz';
@@ -44,7 +42,7 @@ function getMilestoneKeys(bundle: CaseBundle) {
 
 export default function CaseDetailScreen() {
   const { id, preview } = useLocalSearchParams<{ id: string; preview?: string }>();
-  const { isDesktop } = useResponsive();
+  const router = useRouter();
   const includeDrafts = preview === '1';
   const [bundle, setBundle] = useState<CaseBundle>();
   const [snapshot, setSnapshot] = useState<ProgressSnapshot>();
@@ -153,6 +151,34 @@ export default function CaseDetailScreen() {
   }, [bundle?.details, bundle?.mechanisms.length, bundle?.resources.length, bundle?.quizzes.length, completedSet, sectionsByType]);
 
   const nextMilestone = navItems.find((item) => !completedSet.has(item.key))?.label;
+  const activeIndex = navItems.findIndex((item) => item.key === activeTab);
+  const previousItem = activeIndex > 0 ? navItems[activeIndex - 1] : undefined;
+  const nextItem = activeIndex >= 0 ? navItems[activeIndex + 1] : undefined;
+
+  useEffect(() => {
+    if (!id || !bundle?.caseItem) return;
+    if (activeTab === 'quiz') return;
+    if (completedSet.has(activeTab)) return;
+
+    let detail: string | undefined;
+    if (activeTab === 'overview') detail = 'Started the case overview';
+    if (activeTab === 'clinical') detail = 'Reviewed the clinical story';
+    if (activeTab === 'diagnosis') detail = 'Worked through diagnosis framing';
+    if (activeTab === 'treatment') detail = 'Reviewed the treatment plan';
+    if (activeTab === 'mechanisms') detail = 'Opened the mechanism walkthrough';
+    if (activeTab === 'resources') detail = 'Opened the study resources';
+    if (activeTab.startsWith('section_')) {
+      const label = SECTION_LABELS[activeTab.replace('section_', '')] ?? 'section';
+      detail = `Reviewed ${label.toLowerCase()} notes`;
+    }
+
+    if (!detail) return;
+
+    getProgressRepository()
+      .markSectionComplete(id, activeTab, bundle.caseItem.title, detail)
+      .then((nextSnapshot) => setSnapshot(nextSnapshot))
+      .catch(() => undefined);
+  }, [activeTab, bundle?.caseItem, completedSet, id]);
 
   const handleTabChange = async (key: string) => {
     if (!id) return;
@@ -223,12 +249,8 @@ export default function CaseDetailScreen() {
     );
   }
 
-  const outlineItems = navItems;
   const checkpoints = bundle.checkpoints.filter((item) => item.tabKey === activeTab);
   const markedQuestions = caseProgress?.markedQuestionIds ?? [];
-  const relevantRecentActivity =
-    snapshot?.recentActivity.filter((item) => item.caseId === bundle.caseItem?.id).slice(0, 4) ?? [];
-
   return (
     <>
       <Stack.Screen options={{ title: bundle.caseItem.title }} />
@@ -237,6 +259,9 @@ export default function CaseDetailScreen() {
           caseItem={bundle.caseItem}
           completion={completion}
           bookmarked={currentBookmarks.some((item) => item.entityType === 'case')}
+          nextLabel={nextMilestone}
+          backLabel="Condition"
+          onBack={() => router.push(`/condition/${bundle.caseItem!.conditionId}`)}
           onToggleBookmark={() =>
             toggleBookmark({
               caseId: bundle.caseItem!.id,
@@ -249,69 +274,39 @@ export default function CaseDetailScreen() {
 
         <StudyNav items={navItems} activeKey={activeTab} onSelect={handleTabChange} />
 
-        <View style={[styles.workspace, isDesktop && styles.workspaceDesktop]}>
-          {isDesktop ? (
-            <View style={styles.leftRail}>
-              <Text style={styles.railTitle}>Case Outline</Text>
-              {outlineItems.map((item) => (
-                <Pressable
-                  key={item.key}
-                  style={[styles.outlineItem, item.key === activeTab && styles.outlineItemActive]}
-                  onPress={() => handleTabChange(item.key)}
-                >
-                  <View style={styles.outlineIndicator}>
-                    <View
-                      style={[
-                        styles.outlineDot,
-                        completedSet.has(item.key) && styles.outlineDotComplete,
-                        item.key === activeTab && styles.outlineDotActive,
-                      ]}
-                    />
-                  </View>
-                  <Text
-                    style={[
-                      styles.outlineText,
-                      item.key === activeTab && styles.outlineTextActive,
-                    ]}
-                  >
-                    {item.label}
-                  </Text>
-                </Pressable>
-              ))}
+        <ScrollView style={styles.mainColumn} contentContainerStyle={styles.mainContent}>
+          <View style={styles.summaryRow}>
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryLabel}>Progress</Text>
+              <Text style={styles.summaryValue}>{completion}%</Text>
             </View>
-          ) : null}
-
-          <ScrollView style={styles.mainColumn} contentContainerStyle={styles.mainContent}>
+            <View style={[styles.summaryCard, styles.summaryCardWide]}>
+              <Text style={styles.summaryLabel}>Current section</Text>
+              <Text style={styles.summaryText}>
+                {navItems.find((item) => item.key === activeTab)?.label ?? 'Overview'}
+              </Text>
+            </View>
+            <View style={styles.summaryCard}>
+              <Text style={styles.summaryLabel}>Saved</Text>
+              <Text style={styles.summaryValue}>{currentBookmarks.length}</Text>
+            </View>
+          </View>
             {activeTab === 'overview' ? (
               <OverviewPanel
                 caseItem={bundle.caseItem}
-                onComplete={() => markComplete('overview', 'Completed the overview panel')}
-                completed={completedSet.has('overview')}
               />
             ) : null}
 
             {activeTab === 'clinical' && bundle.details ? (
-              <ClinicalPanel
-                details={bundle.details}
-                completed={completedSet.has('clinical')}
-                onComplete={() => markComplete('clinical', 'Reviewed the clinical narrative')}
-              />
+              <ClinicalPanel details={bundle.details} />
             ) : null}
 
             {activeTab === 'diagnosis' && bundle.details ? (
-              <DiagnosisPanel
-                details={bundle.details}
-                completed={completedSet.has('diagnosis')}
-                onComplete={() => markComplete('diagnosis', 'Worked through diagnosis notes')}
-              />
+              <DiagnosisPanel details={bundle.details} />
             ) : null}
 
             {activeTab === 'treatment' && bundle.details ? (
-              <TreatmentPanel
-                details={bundle.details}
-                completed={completedSet.has('treatment')}
-                onComplete={() => markComplete('treatment', 'Reviewed treatment planning')}
-              />
+              <TreatmentPanel details={bundle.details} />
             ) : null}
 
             {activeTab.startsWith('section_')
@@ -320,9 +315,6 @@ export default function CaseDetailScreen() {
                     key={section.id}
                     section={section}
                     completed={completedSet.has(`section_${section.type}`)}
-                    onComplete={() =>
-                      markComplete(`section_${section.type}`, `Completed ${SECTION_LABELS[section.type] ?? section.type}`)
-                    }
                   />
                 ))
               : null}
@@ -334,33 +326,10 @@ export default function CaseDetailScreen() {
                   </View>
                 ))
               : null}
-            {activeTab === 'mechanisms' ? (
-              <CompletionButton
-                completed={completedSet.has('mechanisms')}
-                onPress={() => markComplete('mechanisms', 'Completed the mechanism walkthroughs')}
-                label="Mark Mechanisms Done"
-              />
-            ) : null}
 
             {activeTab === 'resources' ? (
               <View>
-                <ResourcePanel
-                  resources={bundle.resources}
-                  bookmarks={currentBookmarks}
-                  onToggleBookmark={(resource) =>
-                    toggleBookmark({
-                      caseId: resource.caseId,
-                      entityId: resource.id,
-                      entityType: 'resource',
-                      label: resource.title,
-                    })
-                  }
-                />
-                <CompletionButton
-                  completed={completedSet.has('resources')}
-                  onPress={() => markComplete('resources', 'Finished the resource review')}
-                  label="Mark Resources Done"
-                />
+                <ResourcePanel resources={bundle.resources} bookmarks={currentBookmarks} />
               </View>
             ) : null}
 
@@ -383,73 +352,61 @@ export default function CaseDetailScreen() {
                 onComplete={() => markComplete(checkpoint.id, `Completed checkpoint: ${checkpoint.title}`)}
               />
             ))}
-          </ScrollView>
 
-          {isDesktop ? (
-            <View style={styles.rightRail}>
-              <ProgressRail
-                completion={completion}
-                completedCount={milestones.filter((item) => completedSet.has(item)).length}
-                totalCount={milestones.length}
-                bookmarkCount={currentBookmarks.length}
-                markedCount={markedQuestions.length}
-                streak={snapshot?.streak.current ?? 0}
-                nextLabel={nextMilestone}
-                recentActivity={relevantRecentActivity}
-              />
+            <View style={styles.flowCard}>
+              <View style={styles.flowCopy}>
+                <Text style={styles.flowTitle}>
+                  {nextItem ? `Next: ${nextItem.label}` : 'Case complete'}
+                </Text>
+                <Text style={styles.flowText}>
+                  {nextItem
+                    ? 'Move one step forward.'
+                    : 'Review saved items any time.'}
+                </Text>
+              </View>
+              <View style={styles.flowActions}>
+                {previousItem ? (
+                  <Pressable
+                    style={styles.flowSecondaryButton}
+                    onPress={() => handleTabChange(previousItem.key)}
+                  >
+                    <Text style={styles.flowSecondaryText}>Back</Text>
+                  </Pressable>
+                ) : null}
+                {nextItem ? (
+                  <Pressable
+                    style={styles.flowPrimaryButton}
+                    onPress={() => handleTabChange(nextItem.key)}
+                  >
+                    <Text style={styles.flowPrimaryText}>Continue</Text>
+                  </Pressable>
+                ) : null}
+              </View>
             </View>
-          ) : null}
-        </View>
+          </ScrollView>
       </View>
     </>
   );
 }
 
-function CompletionButton({
-  completed,
-  onPress,
-  label,
-}: {
-  completed: boolean;
-  onPress: () => void;
-  label: string;
-}) {
-  return (
-    <Pressable style={[styles.completionButton, completed && styles.completionButtonDone]} onPress={onPress}>
-      <Text style={[styles.completionButtonText, completed && styles.completionButtonTextDone]}>
-        {completed ? 'Saved as completed' : label}
-      </Text>
-    </Pressable>
-  );
-}
-
 function OverviewPanel({
   caseItem,
-  completed,
-  onComplete,
 }: {
   caseItem: NonNullable<CaseBundle['caseItem']>;
-  completed: boolean;
-  onComplete: () => void;
 }) {
   return (
     <View>
       <InfoCard label="Description" value={caseItem.shortDescription} />
       <InfoCard label="Difficulty" value={caseItem.difficulty} />
       <InfoCard label="Why this case matters" value="Use it to connect outpatient control, rescue therapy, adverse effects, and mechanism-level pharmacology." />
-      <CompletionButton completed={completed} onPress={onComplete} label="Mark Overview Done" />
     </View>
   );
 }
 
 function ClinicalPanel({
   details,
-  completed,
-  onComplete,
 }: {
   details: NonNullable<CaseBundle['details']>;
-  completed: boolean;
-  onComplete: () => void;
 }) {
   const vitalsEntries = Object.entries(details.clinicalNarrative.vitals).filter(
     ([, value]) => value !== undefined,
@@ -480,19 +437,14 @@ function ClinicalPanel({
           </View>
         ))}
       </View>
-      <CompletionButton completed={completed} onPress={onComplete} label="Mark Clinical Review Done" />
     </View>
   );
 }
 
 function DiagnosisPanel({
   details,
-  completed,
-  onComplete,
 }: {
   details: NonNullable<CaseBundle['details']>;
-  completed: boolean;
-  onComplete: () => void;
 }) {
   return (
     <View>
@@ -519,19 +471,14 @@ function DiagnosisPanel({
           </View>
         </View>
       ))}
-      <CompletionButton completed={completed} onPress={onComplete} label="Mark Diagnosis Done" />
     </View>
   );
 }
 
 function TreatmentPanel({
   details,
-  completed,
-  onComplete,
 }: {
   details: NonNullable<CaseBundle['details']>;
-  completed: boolean;
-  onComplete: () => void;
 }) {
   return (
     <View>
@@ -550,7 +497,6 @@ function TreatmentPanel({
       </View>
       <InfoCard label="Follow-Up" value={details.treatment.followUp} />
       <InfoCard label="Outcome" value={details.treatment.outcome} />
-      <CompletionButton completed={completed} onPress={onComplete} label="Mark Treatment Done" />
     </View>
   );
 }
@@ -559,25 +505,6 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: colors.offWhite,
-  },
-  workspace: {
-    flex: 1,
-  },
-  workspaceDesktop: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  leftRail: {
-    width: 220,
-    padding: 20,
-    borderRightWidth: StyleSheet.hairlineWidth,
-    borderRightColor: colors.border,
-  },
-  rightRail: {
-    width: 290,
-    padding: 20,
-    borderLeftWidth: StyleSheet.hairlineWidth,
-    borderLeftColor: colors.border,
   },
   mainColumn: {
     flex: 1,
@@ -596,47 +523,40 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     fontSize: 14,
   },
-  railTitle: {
+  summaryRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+    marginBottom: 16,
+  },
+  summaryCard: {
+    minWidth: 140,
+    backgroundColor: colors.white,
+    borderRadius: 18,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  summaryCardWide: {
+    flex: 1,
+  },
+  summaryLabel: {
     color: colors.textMuted,
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
-    marginBottom: 10,
+    marginBottom: 6,
   },
-  outlineItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 14,
-    marginBottom: 4,
-  },
-  outlineItemActive: {
-    backgroundColor: colors.white,
-  },
-  outlineIndicator: {
-    width: 20,
-    alignItems: 'center',
-  },
-  outlineDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: colors.cardBgStrong,
-  },
-  outlineDotComplete: {
-    backgroundColor: colors.success,
-  },
-  outlineDotActive: {
-    backgroundColor: colors.maroon,
-  },
-  outlineText: {
-    color: colors.textSecondary,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  outlineTextActive: {
+  summaryValue: {
     color: colors.maroonDeep,
+    fontSize: 24,
+    fontWeight: '800',
+  },
+  summaryText: {
+    color: colors.textPrimary,
+    fontSize: 15,
+    lineHeight: 22,
+    fontWeight: '600',
   },
   whitePanel: {
     backgroundColor: colors.white,
@@ -719,23 +639,51 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
   },
-  completionButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: colors.maroon,
+  flowCard: {
+    marginTop: 4,
+    backgroundColor: colors.maroonDeep,
+    borderRadius: 24,
+    padding: 22,
+  },
+  flowCopy: {
+    marginBottom: 16,
+  },
+  flowTitle: {
+    color: colors.white,
+    fontSize: 22,
+    fontWeight: '800',
+    marginBottom: 6,
+  },
+  flowText: {
+    color: '#ECDDD6',
+    fontSize: 14,
+    lineHeight: 22,
+  },
+  flowActions: {
+    flexDirection: 'row',
+    gap: 10,
+    flexWrap: 'wrap',
+  },
+  flowPrimaryButton: {
+    backgroundColor: colors.gold,
     borderRadius: 999,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    marginBottom: 14,
   },
-  completionButtonDone: {
-    backgroundColor: colors.successBg,
-  },
-  completionButtonText: {
+  flowPrimaryText: {
     color: colors.white,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '700',
   },
-  completionButtonTextDone: {
-    color: colors.success,
+  flowSecondaryButton: {
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  flowSecondaryText: {
+    color: colors.white,
+    fontSize: 13,
+    fontWeight: '700',
   },
 });

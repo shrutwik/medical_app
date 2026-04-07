@@ -31,8 +31,8 @@ export default function StudyNav({ items, activeKey, onSelect }: StudyNavProps) 
               onPress={() => onSelect(item.key)}
               style={[
                 styles.pill,
-                item.accent && !active && styles.pillAccent,
                 item.completed && !active && styles.pillComplete,
+                item.accent && !active && styles.pillAccent,
                 active && styles.pillActive,
               ]}
             >
@@ -40,8 +40,8 @@ export default function StudyNav({ items, activeKey, onSelect }: StudyNavProps) 
                 <Text
                   style={[
                     styles.label,
-                    item.accent && !active && styles.labelAccent,
                     item.completed && !active && styles.labelComplete,
+                    item.accent && !active && styles.labelAccent,
                     active && styles.labelActive,
                   ]}
                 >
@@ -70,19 +70,18 @@ const styles = StyleSheet.create({
   },
   pill: {
     borderRadius: 999,
-    backgroundColor: colors.cloud,
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: colors.cardBgStrong,
+    borderColor: colors.border,
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
   pillAccent: {
-    backgroundColor: colors.goldFaint,
-    borderColor: '#F2D0A5',
+    borderColor: colors.cardBgStrong,
   },
   pillComplete: {
-    backgroundColor: colors.successBg,
-    borderColor: '#B7E0C4',
+    backgroundColor: colors.cloud,
+    borderColor: colors.cardBgStrong,
   },
   pillActive: {
     backgroundColor: colors.maroon,
@@ -99,10 +98,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   labelAccent: {
-    color: colors.gold,
+    color: colors.textSecondary,
   },
   labelComplete: {
-    color: colors.success,
+    color: colors.maroon,
   },
   labelActive: {
     color: colors.white,

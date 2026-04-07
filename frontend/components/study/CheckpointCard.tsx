@@ -16,6 +16,14 @@ export default function CheckpointCard({
 }: CheckpointCardProps) {
   const [revealed, setRevealed] = useState(false);
 
+  const toggleReveal = () => {
+    const next = !revealed;
+    setRevealed(next);
+    if (next && !completed) {
+      onComplete();
+    }
+  };
+
   return (
     <View style={styles.card}>
       <Text style={styles.kicker}>Active Recall Checkpoint</Text>
@@ -35,15 +43,12 @@ export default function CheckpointCard({
       ) : null}
 
       <View style={styles.actions}>
-        <Pressable style={styles.secondaryButton} onPress={() => setRevealed((value) => !value)}>
-          <Text style={styles.secondaryText}>{revealed ? 'Hide Note' : 'Reveal Note'}</Text>
-        </Pressable>
         <Pressable
           style={[styles.primaryButton, completed && styles.primaryButtonDone]}
-          onPress={onComplete}
+          onPress={toggleReveal}
         >
           <Text style={[styles.primaryText, completed && styles.primaryTextDone]}>
-            {completed ? 'Checkpoint Saved' : 'Mark Checkpoint Done'}
+            {revealed ? 'Hide coaching note' : completed ? 'Saved note' : 'Reveal coaching note'}
           </Text>
         </Pressable>
       </View>
@@ -122,17 +127,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     flexWrap: 'wrap',
-  },
-  secondaryButton: {
-    backgroundColor: colors.white,
-    borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-  },
-  secondaryText: {
-    color: colors.textPrimary,
-    fontWeight: '700',
-    fontSize: 12,
   },
   primaryButton: {
     backgroundColor: colors.maroon,

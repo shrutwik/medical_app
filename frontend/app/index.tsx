@@ -101,69 +101,74 @@ export default function Index() {
       (item) => item.completedSections.length > 0 || item.quizAttempts.length > 0,
     ).length;
   }, [state]);
+  const featuredSystem = state?.systems[0];
+  const primaryCtaLabel = resumeActivity
+    ? 'Continue where you left off'
+    : featuredSystem
+      ? `Start ${featuredSystem.system.name}`
+      : 'Begin studying';
+  const primaryCtaAction = () => {
+    if (resumeActivity) {
+      router.push(`/case/${resumeActivity.caseId}`);
+      return;
+    }
+    if (featuredSystem) {
+      router.push(`/system/${featuredSystem.system.id}`);
+    }
+  };
 
   return (
     <>
       <Stack.Screen options={{ title: 'Medical Study Hub' }} />
       <ScrollView style={styles.page} contentContainerStyle={styles.pageContent}>
-        <View style={[styles.hero, isDesktop && styles.heroDesktop]}>
-          <View style={[styles.heroMain, isDesktop && styles.heroMainDesktop]}>
-            <Text style={styles.eyebrow}>Desktop-First Study Workspace</Text>
-            <Text style={styles.heroTitle}>Long-form case learning for medical students.</Text>
-            <Text style={styles.heroText}>
-              Study respiratory medicine through case-based reading, active recall checkpoints,
-              saved resources, and review-ready quizzes that make it easier to stay engaged longer.
-            </Text>
+        <View style={styles.heroCard}>
+          <Text style={styles.eyebrow}>Medical Study Hub</Text>
+          <Text style={styles.heroTitle}>Study with one clear next step.</Text>
+          <Text style={styles.heroText}>
+            Start with a track, move into a condition, then work through one case at a time.
+          </Text>
 
-            {resumeActivity ? (
-              <View style={styles.resumeCard}>
-                <Text style={styles.resumeLabel}>Resume where you left off</Text>
-                <Text style={styles.resumeTitle}>{resumeActivity.title}</Text>
-                <Text style={styles.resumeText}>{resumeActivity.detail}</Text>
-                <Pressable
-                  style={styles.primaryButton}
-                  onPress={() => router.push(`/case/${resumeActivity.caseId}`)}
-                >
-                  <Text style={styles.primaryButtonText}>Resume Case</Text>
-                </Pressable>
-              </View>
-            ) : (
-              <View style={styles.resumeCard}>
-                <Text style={styles.resumeLabel}>Start with the flagship module</Text>
-                <Text style={styles.resumeTitle}>Respiratory: Asthma</Text>
-                <Text style={styles.resumeText}>
-                  Work through pathophysiology, treatment logic, toxicology, and end-of-case questions.
-                </Text>
-              </View>
-            )}
-          </View>
-
-          <View style={[styles.heroRail, isDesktop && styles.heroRailDesktop]}>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Current Streak</Text>
-              <Text style={styles.statValue}>
-                {state?.snapshot.streak.current ?? 0} day{(state?.snapshot.streak.current ?? 0) === 1 ? '' : 's'}
+          {resumeActivity ? (
+            <View style={styles.resumeCard}>
+              <Text style={styles.resumeLabel}>Continue</Text>
+              <Text style={styles.resumeTitle}>{resumeActivity.title}</Text>
+              <Text style={styles.resumeText}>{resumeActivity.detail}</Text>
+            </View>
+          ) : (
+            <View style={styles.resumeCard}>
+              <Text style={styles.resumeLabel}>Recommended start</Text>
+              <Text style={styles.resumeTitle}>
+                {featuredSystem ? featuredSystem.system.name : 'Respiratory'}
               </Text>
+              <Text style={styles.resumeText}>Open the track and begin the first case flow.</Text>
             </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Saved Bookmarks</Text>
-              <Text style={styles.statValue}>{state?.snapshot.bookmarks.length ?? 0}</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Cases Started</Text>
-              <Text style={styles.statValue}>{completedCases}</Text>
-            </View>
-            <Pressable style={styles.secondaryButton} onPress={() => router.push('/admin')}>
-              <Text style={styles.secondaryButtonText}>Open Admin Workspace</Text>
-            </Pressable>
+          )}
+
+          <Pressable style={styles.primaryButton} onPress={primaryCtaAction}>
+            <Text style={styles.primaryButtonText}>{primaryCtaLabel}</Text>
+          </Pressable>
+        </View>
+
+        <View style={[styles.statsRow, isDesktop && styles.statsRowDesktop]}>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>Streak</Text>
+            <Text style={styles.statValue}>
+              {state?.snapshot.streak.current ?? 0} day{(state?.snapshot.streak.current ?? 0) === 1 ? '' : 's'}
+            </Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>Saved</Text>
+            <Text style={styles.statValue}>{state?.snapshot.bookmarks.length ?? 0}</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>Cases</Text>
+            <Text style={styles.statValue}>{completedCases}</Text>
           </View>
         </View>
 
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Study Tracks</Text>
-          <Text style={styles.sectionSubtitle}>
-            Public students only see published content. Admins can create drafts in the workspace.
-          </Text>
+          <Text style={styles.sectionSubtitle}>Choose a track to begin.</Text>
         </View>
 
         {loading ? <Text style={styles.statusText}>Loading study tracks...</Text> : null}
@@ -175,7 +180,7 @@ export default function Index() {
               key={item.system.id}
               system={item.system}
               progress={item.progress}
-              meta={`${item.conditions.length} condition${item.conditions.length === 1 ? '' : 's'} · ${item.casesCount} case${item.casesCount === 1 ? '' : 's'}`}
+              meta={`${item.conditions.length} condition${item.conditions.length === 1 ? '' : 's'} • ${item.casesCount} case${item.casesCount === 1 ? '' : 's'}`}
               onPress={() => router.push(`/system/${item.system.id}`)}
             />
           ))}
@@ -194,25 +199,16 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 48,
   },
-  hero: {
-    gap: 16,
-    marginBottom: 28,
-  },
-  heroDesktop: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-  },
-  heroMain: {
-    backgroundColor: colors.maroonDeep,
+  heroCard: {
+    backgroundColor: colors.white,
     borderRadius: 30,
     padding: 28,
-    flex: 1,
-  },
-  heroMainDesktop: {
-    minHeight: 340,
+    borderWidth: 1,
+    borderColor: colors.border,
+    marginBottom: 16,
   },
   eyebrow: {
-    color: '#F9D8B0',
+    color: colors.maroon,
     fontSize: 12,
     fontWeight: '700',
     textTransform: 'uppercase',
@@ -220,7 +216,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   heroTitle: {
-    color: colors.white,
+    color: colors.maroonDeep,
     fontSize: 34,
     fontWeight: '800',
     lineHeight: 40,
@@ -228,20 +224,21 @@ const styles = StyleSheet.create({
     maxWidth: 760,
   },
   heroText: {
-    color: '#ECDDD6',
+    color: colors.textSecondary,
     fontSize: 16,
-    lineHeight: 28,
-    maxWidth: 760,
-    marginBottom: 20,
+    lineHeight: 26,
+    maxWidth: 720,
+    marginBottom: 18,
   },
   resumeCard: {
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: colors.cloud,
     borderRadius: 22,
     padding: 20,
     maxWidth: 620,
+    marginBottom: 16,
   },
   resumeLabel: {
-    color: '#F9D8B0',
+    color: colors.textMuted,
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
@@ -249,20 +246,19 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   resumeTitle: {
-    color: colors.white,
+    color: colors.maroonDeep,
     fontSize: 22,
     fontWeight: '800',
     marginBottom: 6,
   },
   resumeText: {
-    color: '#ECDDD6',
+    color: colors.textSecondary,
     fontSize: 14,
     lineHeight: 22,
-    marginBottom: 14,
   },
   primaryButton: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.gold,
+    backgroundColor: colors.maroon,
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 999,
@@ -272,11 +268,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 13,
   },
-  heroRail: {
+  statsRow: {
     gap: 12,
+    marginBottom: 24,
   },
-  heroRailDesktop: {
-    width: 280,
+  statsRowDesktop: {
+    flexDirection: 'row',
   },
   statCard: {
     backgroundColor: colors.white,
@@ -284,6 +281,7 @@ const styles = StyleSheet.create({
     padding: 18,
     borderWidth: 1,
     borderColor: colors.border,
+    flex: 1,
   },
   statLabel: {
     color: colors.textMuted,
@@ -296,20 +294,6 @@ const styles = StyleSheet.create({
     color: colors.maroonDeep,
     fontSize: 28,
     fontWeight: '800',
-  },
-  secondaryButton: {
-    backgroundColor: colors.cloud,
-    borderRadius: 18,
-    paddingHorizontal: 18,
-    paddingVertical: 16,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.cardBgStrong,
-  },
-  secondaryButtonText: {
-    color: colors.textPrimary,
-    fontSize: 13,
-    fontWeight: '700',
   },
   sectionHeader: {
     marginBottom: 14,

@@ -24,8 +24,8 @@ export default function SystemCard({ system, onPress, meta, progress }: SystemCa
           </View>
         ) : null}
       </View>
-      <View style={styles.chevron}>
-        <Text style={styles.chevronText}>Explore</Text>
+      <View style={styles.sideMeta}>
+        <Text style={styles.sideMetaText}>Open</Text>
       </View>
     </Pressable>
   );
@@ -46,15 +46,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   name: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.textPrimary,
+    fontSize: 22,
+    fontWeight: '800',
+    color: colors.maroonDeep,
   },
   meta: {
     color: colors.textSecondary,
-    fontSize: 13,
-    marginTop: 4,
-    marginBottom: 10,
+    fontSize: 14,
+    lineHeight: 22,
+    marginTop: 6,
+    marginBottom: 14,
   },
   progressRow: {
     flexDirection: 'row',
@@ -77,13 +78,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
   },
-  chevron: {
-    marginLeft: 8,
+  sideMeta: {
+    marginLeft: 14,
+    alignSelf: 'flex-start',
+    backgroundColor: colors.cloud,
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  chevronText: {
+  sideMetaText: {
     fontSize: 12,
     color: colors.maroon,
     fontWeight: '700',
-    textTransform: 'uppercase',
   },
 });

@@ -15,7 +15,7 @@ export default function ConditionCard({ condition, onPress, progress, meta }: Co
       <View style={styles.content}>
         <Text style={styles.name}>{condition.name}</Text>
         {condition.summary ? (
-          <Text style={styles.summary} numberOfLines={2}>
+          <Text style={styles.summary} numberOfLines={3}>
             {condition.summary}
           </Text>
         ) : null}
@@ -29,8 +29,8 @@ export default function ConditionCard({ condition, onPress, progress, meta }: Co
           </View>
         ) : null}
       </View>
-      <View style={styles.chevron}>
-        <Text style={styles.chevronText}>Open</Text>
+      <View style={styles.sideMeta}>
+        <Text style={styles.sideMetaText}>Open</Text>
       </View>
     </Pressable>
   );
@@ -51,21 +51,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   name: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.textPrimary,
+    fontSize: 20,
+    fontWeight: '800',
+    color: colors.maroonDeep,
   },
   summary: {
-    fontSize: 13,
+    fontSize: 14,
     color: colors.textSecondary,
-    marginTop: 4,
-    lineHeight: 20,
-    marginBottom: 8,
+    marginTop: 6,
+    lineHeight: 22,
+    marginBottom: 10,
   },
   meta: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.textMuted,
-    marginBottom: 10,
+    marginBottom: 12,
   },
   progressRow: {
     flexDirection: 'row',
@@ -88,13 +88,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
   },
-  chevron: {
-    marginLeft: 8,
+  sideMeta: {
+    marginLeft: 14,
+    alignSelf: 'flex-start',
+    backgroundColor: colors.cloud,
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  chevronText: {
+  sideMetaText: {
     fontSize: 12,
     color: colors.maroon,
     fontWeight: '700',
-    textTransform: 'uppercase',
   },
 });

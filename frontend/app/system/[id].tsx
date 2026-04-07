@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import ConditionCard from '../../components/cards/ConditionCard';
+import BackLink from '../../components/navigation/BackLink';
 import { colors } from '../../constants/theme';
-import { useResponsive } from '../../hooks/useResponsive';
 import { getContentRepository, type CaseBundle } from '../../services/content/repository';
 import { calculateCompletion, getProgressRepository } from '../../services/progress/repository';
 import type { Condition } from '../../types/condition';
@@ -30,10 +30,21 @@ function getMilestoneKeys(bundle: CaseBundle) {
 export default function SystemDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const { isDesktop } = useResponsive();
   const [title, setTitle] = useState('Study Track');
   const [rows, setRows] = useState<ConditionRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const highlightedCondition = rows[0];
+  const totalCases = useMemo(
+    () => rows.reduce((sum, row) => sum + row.casesCount, 0),
+    [rows],
+  );
+  const averageProgress = useMemo(
+    () =>
+      rows.length > 0
+        ? Math.round(rows.reduce((sum, row) => sum + row.progress, 0) / rows.length)
+        : 0,
+    [rows],
+  );
 
   const load = useCallback(async () => {
     if (!id) return;
@@ -77,18 +88,34 @@ export default function SystemDetail() {
     <>
       <Stack.Screen options={{ title }} />
       <ScrollView style={styles.page} contentContainerStyle={styles.content}>
-        <View style={[styles.hero, isDesktop && styles.heroDesktop]}>
-          <View style={styles.heroCard}>
-            <Text style={styles.eyebrow}>System Overview</Text>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>
-              Choose a condition to move into guided case studies, structured resources, and quiz-based review.
-            </Text>
-          </View>
-          <View style={styles.summaryCard}>
-            <Text style={styles.summaryLabel}>Published Conditions</Text>
-            <Text style={styles.summaryValue}>{rows.length}</Text>
-            <Text style={styles.summaryText}>Each condition opens into a longer case-based learning path.</Text>
+        <View style={styles.heroCard}>
+          <BackLink label="Tracks" onPress={() => router.push('/')} />
+          <Text style={styles.eyebrow}>Track</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>Choose a condition, then move into the next case.</Text>
+          {highlightedCondition ? (
+            <Pressable
+              style={styles.primaryButton}
+              onPress={() => router.push(`/condition/${highlightedCondition.condition.id}`)}
+            >
+              <Text style={styles.primaryButtonText}>
+                Continue with {highlightedCondition.condition.name}
+              </Text>
+            </Pressable>
+          ) : null}
+          <View style={styles.metaRow}>
+            <View style={styles.metaCard}>
+              <Text style={styles.metaLabel}>Conditions</Text>
+              <Text style={styles.metaValue}>{rows.length}</Text>
+            </View>
+            <View style={styles.metaCard}>
+              <Text style={styles.metaLabel}>Cases</Text>
+              <Text style={styles.metaValue}>{totalCases}</Text>
+            </View>
+            <View style={styles.metaCard}>
+              <Text style={styles.metaLabel}>Progress</Text>
+              <Text style={styles.metaValue}>{averageProgress}%</Text>
+            </View>
           </View>
         </View>
 
@@ -119,24 +146,17 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 40,
   },
-  hero: {
-    gap: 14,
-    marginBottom: 24,
-  },
-  heroDesktop: {
-    flexDirection: 'row',
-  },
   heroCard: {
-    flex: 1,
     backgroundColor: colors.white,
     borderRadius: 24,
     padding: 24,
     borderWidth: 1,
     borderColor: colors.border,
+    marginBottom: 24,
   },
   eyebrow: {
-    color: colors.gold,
-    fontSize: 12,
+    color: colors.maroon,
+    fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.7,
@@ -152,30 +172,44 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     fontSize: 15,
     lineHeight: 24,
+    marginBottom: 18,
   },
-  summaryCard: {
-    width: 260,
+  primaryButton: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.maroon,
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    marginBottom: 18,
+  },
+  primaryButtonText: {
+    color: colors.white,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  metaRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  metaCard: {
+    minWidth: 120,
     backgroundColor: colors.cloud,
-    borderRadius: 24,
-    padding: 22,
+    borderRadius: 18,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
   },
-  summaryLabel: {
+  metaLabel: {
     color: colors.textMuted,
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
     marginBottom: 6,
   },
-  summaryValue: {
+  metaValue: {
     color: colors.maroonDeep,
-    fontSize: 30,
+    fontSize: 22,
     fontWeight: '800',
-    marginBottom: 6,
-  },
-  summaryText: {
-    color: colors.textSecondary,
-    fontSize: 14,
-    lineHeight: 22,
   },
   list: {
     marginTop: 4,

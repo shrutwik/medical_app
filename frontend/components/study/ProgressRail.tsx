@@ -30,44 +30,27 @@ export default function ProgressRail({
   markedCount,
   streak,
   nextLabel,
-  recentActivity,
+  recentActivity: _recentActivity,
 }: ProgressRailProps) {
   return (
     <View style={styles.rail}>
       <View style={styles.panel}>
-        <Text style={styles.panelTitle}>Study Progress</Text>
+        <Text style={styles.panelTitle}>Progress</Text>
         <Text style={styles.heroValue}>{completion}% complete</Text>
         <View style={styles.progressTrack}>
           <View style={[styles.progressFill, { width: `${completion}%` }]} />
         </View>
-        <Text style={styles.helper}>
-          {completedCount} of {totalCount} study milestones completed
-        </Text>
-      </View>
-
-      <View style={styles.statGrid}>
-        <StatCard label="Streak" value={`${streak} day${streak === 1 ? '' : 's'}`} />
-        <StatCard label="Bookmarks" value={bookmarkCount} />
-        <StatCard label="Review Queue" value={markedCount} />
+        <Text style={styles.helper}>{completedCount} of {totalCount} sections done</Text>
+        <View style={styles.statGrid}>
+          <StatCard label="Streak" value={`${streak} day${streak === 1 ? '' : 's'}`} />
+          <StatCard label="Saved" value={bookmarkCount} />
+          <StatCard label="Review" value={markedCount} />
+        </View>
       </View>
 
       <View style={styles.panel}>
         <Text style={styles.panelTitle}>Up Next</Text>
         <Text style={styles.nextLabel}>{nextLabel ?? 'You are caught up on this case.'}</Text>
-      </View>
-
-      <View style={styles.panel}>
-        <Text style={styles.panelTitle}>Recent Case Activity</Text>
-        {recentActivity.length === 0 ? (
-          <Text style={styles.helper}>Activity appears here once the student starts working.</Text>
-        ) : (
-          recentActivity.map((item) => (
-            <View key={item.id} style={styles.activityRow}>
-              <Text style={styles.activityKind}>{item.kind}</Text>
-              <Text style={styles.activityDetail}>{item.detail}</Text>
-            </View>
-          ))
-        )}
       </View>
     </View>
   );
@@ -116,12 +99,15 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   statGrid: {
-    gap: 12,
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 14,
   },
   statCard: {
     backgroundColor: colors.cloud,
     borderRadius: 18,
     padding: 16,
+    flex: 1,
   },
   statLabel: {
     color: colors.textMuted,
@@ -140,22 +126,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 24,
     fontWeight: '600',
-  },
-  activityRow: {
-    paddingVertical: 8,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
-  },
-  activityKind: {
-    color: colors.gold,
-    fontSize: 11,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    marginBottom: 4,
-  },
-  activityDetail: {
-    color: colors.textSecondary,
-    fontSize: 13,
-    lineHeight: 20,
   },
 });

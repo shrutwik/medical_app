@@ -6,13 +6,11 @@ import ResourceCard from '../cards/ResourceCard';
 interface ResourcePanelProps {
   resources: Resource[];
   bookmarks: Bookmark[];
-  onToggleBookmark: (resource: Resource) => void;
 }
 
 export default function ResourcePanel({
   resources,
   bookmarks,
-  onToggleBookmark,
 }: ResourcePanelProps) {
   return (
     <View style={styles.container}>
@@ -21,7 +19,6 @@ export default function ResourcePanel({
           key={resource.id}
           resource={resource}
           bookmarked={bookmarks.some((item) => item.entityId === resource.id)}
-          onToggleBookmark={() => onToggleBookmark(resource)}
         />
       ))}
     </View>

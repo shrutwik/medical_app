@@ -1,28 +1,33 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { AdminCase } from '../../services/content/repository';
 import { colors } from '../../constants/theme';
+import BackLink from '../navigation/BackLink';
 
 interface CaseHeaderProps {
   caseItem: AdminCase;
   completion: number;
   bookmarked: boolean;
+  nextLabel?: string;
   onToggleBookmark: () => void;
+  onBack?: () => void;
+  backLabel?: string;
 }
 
 export default function CaseHeader({
   caseItem,
   completion,
   bookmarked,
+  nextLabel,
   onToggleBookmark,
+  onBack,
+  backLabel = 'Cases',
 }: CaseHeaderProps) {
   return (
     <View style={styles.shell}>
       <View style={styles.topRow}>
-        <View style={styles.kicker}>
-          <Text style={styles.kickerText}>Interactive Case Study</Text>
-        </View>
+        {onBack ? <BackLink label={backLabel} onPress={onBack} /> : <View />}
         <Pressable style={styles.bookmarkButton} onPress={onToggleBookmark}>
-          <Text style={styles.bookmarkText}>{bookmarked ? 'Bookmarked' : 'Bookmark Case'}</Text>
+          <Text style={styles.bookmarkText}>{bookmarked ? 'Saved' : 'Save'}</Text>
         </Pressable>
       </View>
 
@@ -35,20 +40,15 @@ export default function CaseHeader({
           <Text style={styles.metaValue}>{caseItem.difficulty}</Text>
         </View>
         <View style={styles.metaCard}>
-          <Text style={styles.metaLabel}>Completion</Text>
+          <Text style={styles.metaLabel}>Progress</Text>
           <Text style={styles.metaValue}>{completion}%</Text>
         </View>
         <View style={styles.metaCardWide}>
-          <Text style={styles.metaLabel}>Study Tags</Text>
-          <View style={styles.tags}>
-            {caseItem.tags.map((tag) => (
-              <View key={tag} style={styles.tag}>
-                <Text style={styles.tagText}>{tag}</Text>
-              </View>
-            ))}
-          </View>
+          <Text style={styles.metaLabel}>Next</Text>
+          <Text style={styles.nextText}>{nextLabel ?? 'Follow the next section below.'}</Text>
         </View>
       </View>
+
     </View>
   );
 }
@@ -64,23 +64,10 @@ const styles = StyleSheet.create({
   topRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 14,
     gap: 12,
     flexWrap: 'wrap',
-  },
-  kicker: {
-    backgroundColor: colors.maroonFaint,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 999,
-  },
-  kickerText: {
-    color: colors.maroon,
-    fontWeight: '700',
-    fontSize: 12,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
   },
   bookmarkButton: {
     paddingHorizontal: 12,
@@ -141,20 +128,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'capitalize',
   },
-  tags: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  tag: {
-    backgroundColor: colors.white,
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-  },
-  tagText: {
-    color: colors.maroon,
-    fontSize: 12,
+  nextText: {
+    color: colors.textPrimary,
+    fontSize: 15,
+    lineHeight: 22,
     fontWeight: '600',
   },
 });

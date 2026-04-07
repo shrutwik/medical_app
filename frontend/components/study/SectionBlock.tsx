@@ -1,14 +1,13 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import type { Section } from '../../types/section';
 import { colors } from '../../constants/theme';
 
 interface SectionBlockProps {
   section: Section;
   completed: boolean;
-  onComplete: () => void;
 }
 
-export default function SectionBlock({ section, completed, onComplete }: SectionBlockProps) {
+export default function SectionBlock({ section, completed }: SectionBlockProps) {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -16,14 +15,11 @@ export default function SectionBlock({ section, completed, onComplete }: Section
           <Text style={styles.eyebrow}>{section.type}</Text>
           <Text style={styles.title}>{section.title}</Text>
         </View>
-        <Pressable
-          style={[styles.completeButton, completed && styles.completeButtonDone]}
-          onPress={onComplete}
-        >
-          <Text style={[styles.completeText, completed && styles.completeTextDone]}>
-            {completed ? 'Completed' : 'Mark Section Done'}
+        <View style={[styles.statusPill, completed && styles.statusPillDone]}>
+          <Text style={[styles.statusText, completed && styles.statusTextDone]}>
+            {completed ? 'Saved' : 'In focus'}
           </Text>
-        </Pressable>
+        </View>
       </View>
       <Text style={styles.content}>{section.content}</Text>
     </View>
@@ -61,21 +57,21 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 24,
   },
-  completeButton: {
+  statusPill: {
     backgroundColor: colors.maroonFaint,
     borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  completeButtonDone: {
+  statusPillDone: {
     backgroundColor: colors.successBg,
   },
-  completeText: {
+  statusText: {
     color: colors.maroon,
     fontSize: 12,
     fontWeight: '700',
   },
-  completeTextDone: {
+  statusTextDone: {
     color: colors.success,
   },
   content: {

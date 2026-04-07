@@ -1,30 +1,37 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Linking, Platform } from 'react-native';
 import { Resource } from '../../types/resource';
 import { colors } from '../../constants/theme';
+import { getResourceAccessLabel, getResourceUrl } from '../../services/content/resourceLibrary';
 
 interface ResourceCardProps {
   resource: Resource;
   bookmarked?: boolean;
-  onToggleBookmark?: () => void;
 }
 
 export default function ResourceCard({
   resource,
   bookmarked = false,
-  onToggleBookmark,
 }: ResourceCardProps) {
+  const resourceUrl = getResourceUrl(resource);
+  const openResource = async () => {
+    if (!resourceUrl) return;
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      window.open(resourceUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    await Linking.openURL(resourceUrl);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
         <View style={styles.typeBadge}>
           <Text style={styles.typeText}>{resource.type}</Text>
         </View>
-        {onToggleBookmark ? (
-          <Pressable style={styles.bookmarkButton} onPress={onToggleBookmark}>
-            <Text style={styles.bookmarkText}>
-              {bookmarked ? 'Saved' : 'Save Resource'}
-            </Text>
-          </Pressable>
+        {bookmarked ? (
+          <View style={styles.savedBadge}>
+            <Text style={styles.savedText}>Saved</Text>
+          </View>
         ) : null}
       </View>
       <Text style={styles.title}>{resource.title}</Text>
@@ -40,6 +47,15 @@ export default function ResourceCard({
             : ''}
         </Text>
       ) : null}
+      <View style={styles.actions}>
+        <Pressable
+          style={[styles.primaryButton, !resourceUrl && styles.primaryButtonDisabled]}
+          onPress={openResource}
+          disabled={!resourceUrl}
+        >
+          <Text style={styles.primaryButtonText}>{getResourceAccessLabel(resource)}</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -73,15 +89,15 @@ const styles = StyleSheet.create({
     color: colors.maroon,
     textTransform: 'uppercase',
   },
-  bookmarkButton: {
+  savedBadge: {
     backgroundColor: colors.cloud,
     borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
-  bookmarkText: {
-    color: colors.textPrimary,
-    fontSize: 12,
+  savedText: {
+    color: colors.textSecondary,
+    fontSize: 11,
     fontWeight: '700',
   },
   title: {
@@ -106,5 +122,25 @@ const styles = StyleSheet.create({
   source: {
     fontSize: 11,
     color: colors.textMuted,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 14,
+    flexWrap: 'wrap',
+  },
+  primaryButton: {
+    backgroundColor: colors.maroon,
+    borderRadius: 999,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  primaryButtonDisabled: {
+    opacity: 0.45,
+  },
+  primaryButtonText: {
+    color: colors.white,
+    fontSize: 12,
+    fontWeight: '700',
   },
 });
