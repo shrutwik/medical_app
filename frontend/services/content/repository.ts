@@ -127,7 +127,6 @@ const staticImportBatches: ImportBatchRecord[] = [
     batchId: 'respiratory_resource_batch',
     title: 'Respiratory Resource Batch',
     folderName: 'respiratory-resource-batch',
-    notesPath: 'frontend/imports/respiratory-resource-batch/working/BATCH_NOTES.md',
     sourceFileCount: 11,
     dataset: respiratoryBatchDatasetJson as ContentDataset,
     report: respiratoryBatchReportJson as ImportReport,

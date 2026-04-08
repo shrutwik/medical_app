@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import CaseCard from '../../components/cards/CaseCard';
+import StudyScreenScroll from '../../components/layout/StudyScreenScroll';
 import BackLink from '../../components/navigation/BackLink';
-import { colors } from '../../constants/theme';
+import { colors, layout, shadows } from '../../constants/theme';
+import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
 import { getContentRepository, type AdminCase, type CaseBundle } from '../../services/content/repository';
 import { calculateCompletion, getProgressRepository } from '../../services/progress/repository';
 import type { Condition } from '../../types/condition';
@@ -29,7 +31,9 @@ function getMilestoneKeys(bundle: CaseBundle) {
 export default function ConditionDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const { setBreadcrumbs } = useBreadcrumbs();
   const [condition, setCondition] = useState<Condition>();
+  const [trackMeta, setTrackMeta] = useState<{ systemId: string; systemName: string }>();
   const [rows, setRows] = useState<CaseRow[]>([]);
   const [loading, setLoading] = useState(true);
   const nextCase = rows.find((row) => row.progress < 100) ?? rows[0];
@@ -44,13 +48,22 @@ export default function ConditionDetail() {
   const load = useCallback(async () => {
     if (!id) return;
     setLoading(true);
+    setTrackMeta(undefined);
     const contentRepo = getContentRepository();
     const progressRepo = getProgressRepository();
-    const [nextCondition, cases, snapshot] = await Promise.all([
+    const [nextCondition, cases, snapshot, systems] = await Promise.all([
       contentRepo.getConditionById(id),
       contentRepo.getCasesByCondition(id),
       progressRepo.getSnapshot(),
+      contentRepo.getSystems(),
     ]);
+
+    const parentSystem = systems.find((system) => system.id === nextCondition?.systemId);
+    setTrackMeta(
+      parentSystem && nextCondition
+        ? { systemId: parentSystem.id, systemName: parentSystem.name }
+        : undefined,
+    );
 
     const bundles = await Promise.all(cases.map((item) => contentRepo.getCaseBundle(item.id)));
     const nextRows = cases.map((caseItem, index) => ({
@@ -67,11 +80,24 @@ export default function ConditionDetail() {
     load();
   }, [load]);
 
+  useEffect(() => {
+    if (!id || !condition || !trackMeta) {
+      setBreadcrumbs([]);
+      return;
+    }
+    setBreadcrumbs([
+      { label: 'Home', href: '/' },
+      { label: trackMeta.systemName, href: `/system/${trackMeta.systemId}` },
+      { label: condition.name },
+    ]);
+    return () => setBreadcrumbs([]);
+  }, [id, condition, trackMeta, setBreadcrumbs]);
+
   return (
     <>
       <Stack.Screen options={{ title: condition?.name ?? 'Condition' }} />
-      <ScrollView style={styles.page} contentContainerStyle={styles.content}>
-        <View style={styles.heroCard}>
+      <StudyScreenScroll>
+        <View style={[styles.heroCard, shadows.card]}>
           <BackLink
             label="Track"
             onPress={() => router.push(condition ? `/system/${condition.systemId}` : '/')}
@@ -130,23 +156,15 @@ export default function ConditionDetail() {
             />
           ))}
         </View>
-      </ScrollView>
+      </StudyScreenScroll>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: colors.offWhite,
-  },
-  content: {
-    padding: 20,
-    paddingBottom: 40,
-  },
   heroCard: {
     backgroundColor: colors.white,
-    borderRadius: 24,
+    borderRadius: layout.radiusLg,
     padding: 24,
     borderWidth: 1,
     borderColor: colors.border,

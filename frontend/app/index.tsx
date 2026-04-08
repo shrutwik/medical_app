@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import SystemCard from '../components/cards/SystemCard';
-import { colors } from '../constants/theme';
+import StudyScreenScroll from '../components/layout/StudyScreenScroll';
+import { colors, layout, shadows, typography } from '../constants/theme';
+import { useBreadcrumbs } from '../contexts/BreadcrumbContext';
 import { useResponsive } from '../hooks/useResponsive';
 import { getContentRepository, type CaseBundle } from '../services/content/repository';
 import { calculateCompletion, getProgressRepository } from '../services/progress/repository';
@@ -38,6 +40,7 @@ function getMilestoneKeys(bundle: CaseBundle) {
 export default function Index() {
   const router = useRouter();
   const { isDesktop } = useResponsive();
+  const { setBreadcrumbs } = useBreadcrumbs();
   const [state, setState] = useState<DashboardState>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
@@ -94,6 +97,11 @@ export default function Index() {
     loadDashboard();
   }, [loadDashboard]);
 
+  useEffect(() => {
+    setBreadcrumbs([{ label: 'Home' }]);
+    return () => setBreadcrumbs([]);
+  }, [setBreadcrumbs]);
+
   const resumeActivity = state?.snapshot.recentActivity[0];
   const completedCases = useMemo(() => {
     if (!state) return 0;
@@ -102,11 +110,12 @@ export default function Index() {
     ).length;
   }, [state]);
   const featuredSystem = state?.systems[0];
+  const canPrimaryCta = Boolean(resumeActivity || featuredSystem);
   const primaryCtaLabel = resumeActivity
     ? 'Continue where you left off'
     : featuredSystem
       ? `Start ${featuredSystem.system.name}`
-      : 'Begin studying';
+      : 'Pick a track to begin';
   const primaryCtaAction = () => {
     if (resumeActivity) {
       router.push(`/case/${resumeActivity.caseId}`);
@@ -117,125 +126,167 @@ export default function Index() {
     }
   };
 
+  const heroBlock = (
+    <View style={[styles.heroCard, shadows.card]}>
+      <Text style={styles.eyebrow}>Medical Study Hub</Text>
+      <Text style={styles.heroTitle}>Study with one clear next step.</Text>
+      <Text style={styles.heroText}>
+        Choose a track, open a condition, then work through cases in order—or jump anywhere from the nav.
+      </Text>
+
+      {resumeActivity ? (
+        <View style={styles.resumeCard}>
+          <Text style={styles.resumeLabel}>Continue</Text>
+          <Text style={styles.resumeTitle}>{resumeActivity.title}</Text>
+          <Text style={styles.resumeText}>{resumeActivity.detail}</Text>
+        </View>
+      ) : (
+        <View style={styles.resumeCard}>
+          <Text style={styles.resumeLabel}>Suggested start</Text>
+          <Text style={styles.resumeTitle}>
+            {featuredSystem ? featuredSystem.system.name : 'Your tracks'}
+          </Text>
+          <Text style={styles.resumeText}>
+            {featuredSystem
+              ? 'Open this track and start or resume the next case.'
+              : 'When tracks load, pick one from the list to begin.'}
+          </Text>
+        </View>
+      )}
+
+      <Pressable
+        style={[styles.primaryButton, !canPrimaryCta && styles.primaryButtonDisabled]}
+        onPress={primaryCtaAction}
+        disabled={!canPrimaryCta}
+      >
+        <Text style={styles.primaryButtonText}>{primaryCtaLabel}</Text>
+      </Pressable>
+    </View>
+  );
+
+  const statsBlock = (
+    <View style={[styles.statsRow, isDesktop && styles.statsRowDesktop]}>
+      <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
+        <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Streak</Text>
+        <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
+          {state?.snapshot.streak.current ?? 0} day{(state?.snapshot.streak.current ?? 0) === 1 ? '' : 's'}
+        </Text>
+      </View>
+      <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
+        <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Saved</Text>
+        <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
+          {state?.snapshot.bookmarks.length ?? 0}
+        </Text>
+      </View>
+      <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
+        <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Cases touched</Text>
+        <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>{completedCases}</Text>
+      </View>
+    </View>
+  );
+
+  const tracksHeader = (
+    <View style={styles.sectionHeader}>
+      <Text style={styles.sectionTitle}>Study tracks</Text>
+      <Text style={styles.sectionSubtitle}>Open a track to see conditions and cases.</Text>
+    </View>
+  );
+
+  const tracksBody = (
+    <>
+      {loading ? <Text style={styles.statusText}>Loading study tracks...</Text> : null}
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      <View style={styles.systemList}>
+        {state?.systems.map((item) => (
+          <SystemCard
+            key={item.system.id}
+            system={item.system}
+            progress={item.progress}
+            meta={`${item.conditions.length} condition${item.conditions.length === 1 ? '' : 's'} · ${item.casesCount} case${item.casesCount === 1 ? '' : 's'}`}
+            onPress={() => router.push(`/system/${item.system.id}`)}
+          />
+        ))}
+      </View>
+    </>
+  );
+
   return (
     <>
       <Stack.Screen options={{ title: 'Medical Study Hub' }} />
-      <ScrollView style={styles.page} contentContainerStyle={styles.pageContent}>
-        <View style={styles.heroCard}>
-          <Text style={styles.eyebrow}>Medical Study Hub</Text>
-          <Text style={styles.heroTitle}>Study with one clear next step.</Text>
-          <Text style={styles.heroText}>
-            Start with a track, move into a condition, then work through one case at a time.
-          </Text>
-
-          {resumeActivity ? (
-            <View style={styles.resumeCard}>
-              <Text style={styles.resumeLabel}>Continue</Text>
-              <Text style={styles.resumeTitle}>{resumeActivity.title}</Text>
-              <Text style={styles.resumeText}>{resumeActivity.detail}</Text>
+      <StudyScreenScroll>
+        {isDesktop ? (
+          <View style={styles.desktopGrid}>
+            <View style={styles.desktopMain}>
+              {heroBlock}
+              {statsBlock}
             </View>
-          ) : (
-            <View style={styles.resumeCard}>
-              <Text style={styles.resumeLabel}>Recommended start</Text>
-              <Text style={styles.resumeTitle}>
-                {featuredSystem ? featuredSystem.system.name : 'Respiratory'}
-              </Text>
-              <Text style={styles.resumeText}>Open the track and begin the first case flow.</Text>
+            <View style={styles.desktopAside}>
+              {tracksHeader}
+              {tracksBody}
             </View>
-          )}
-
-          <Pressable style={styles.primaryButton} onPress={primaryCtaAction}>
-            <Text style={styles.primaryButtonText}>{primaryCtaLabel}</Text>
-          </Pressable>
-        </View>
-
-        <View style={[styles.statsRow, isDesktop && styles.statsRowDesktop]}>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Streak</Text>
-            <Text style={styles.statValue}>
-              {state?.snapshot.streak.current ?? 0} day{(state?.snapshot.streak.current ?? 0) === 1 ? '' : 's'}
-            </Text>
           </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Saved</Text>
-            <Text style={styles.statValue}>{state?.snapshot.bookmarks.length ?? 0}</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Cases</Text>
-            <Text style={styles.statValue}>{completedCases}</Text>
-          </View>
-        </View>
-
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Study Tracks</Text>
-          <Text style={styles.sectionSubtitle}>Choose a track to begin.</Text>
-        </View>
-
-        {loading ? <Text style={styles.statusText}>Loading study tracks...</Text> : null}
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
-        <View style={styles.systemList}>
-          {state?.systems.map((item) => (
-            <SystemCard
-              key={item.system.id}
-              system={item.system}
-              progress={item.progress}
-              meta={`${item.conditions.length} condition${item.conditions.length === 1 ? '' : 's'} • ${item.casesCount} case${item.casesCount === 1 ? '' : 's'}`}
-              onPress={() => router.push(`/system/${item.system.id}`)}
-            />
-          ))}
-        </View>
-      </ScrollView>
+        ) : (
+          <>
+            {heroBlock}
+            {statsBlock}
+            {tracksHeader}
+            {tracksBody}
+          </>
+        )}
+      </StudyScreenScroll>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: colors.offWhite,
+  desktopGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    gap: layout.pagePaddingDesktop,
   },
-  pageContent: {
-    padding: 20,
-    paddingBottom: 48,
+  desktopMain: {
+    flex: 1,
+    minWidth: 300,
+    maxWidth: 560,
+  },
+  desktopAside: {
+    flex: 1,
+    minWidth: 280,
   },
   heroCard: {
     backgroundColor: colors.white,
-    borderRadius: 30,
+    borderRadius: layout.radiusXl,
     padding: 28,
     borderWidth: 1,
     borderColor: colors.border,
     marginBottom: 16,
   },
   eyebrow: {
+    ...typography.label,
     color: colors.maroon,
-    fontSize: 12,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 0.7,
     marginBottom: 10,
   },
   heroTitle: {
     color: colors.maroonDeep,
-    fontSize: 34,
-    fontWeight: '800',
-    lineHeight: 40,
+    ...typography.heroTitle,
     marginBottom: 12,
     maxWidth: 760,
   },
   heroText: {
     color: colors.textSecondary,
-    fontSize: 16,
-    lineHeight: 26,
-    maxWidth: 720,
+    ...typography.body,
     marginBottom: 18,
+    maxWidth: 720,
   },
   resumeCard: {
     backgroundColor: colors.cloud,
-    borderRadius: 22,
+    borderRadius: layout.radiusLg,
     padding: 20,
     maxWidth: 620,
     marginBottom: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   resumeLabel: {
     color: colors.textMuted,
@@ -259,29 +310,40 @@ const styles = StyleSheet.create({
   primaryButton: {
     alignSelf: 'flex-start',
     backgroundColor: colors.maroon,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
     borderRadius: 999,
+  },
+  primaryButtonDisabled: {
+    opacity: 0.45,
   },
   primaryButtonText: {
     color: colors.white,
     fontWeight: '700',
-    fontSize: 13,
+    fontSize: 14,
   },
   statsRow: {
     gap: 12,
     marginBottom: 24,
   },
   statsRowDesktop: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    marginBottom: 0,
+    gap: 10,
   },
   statCard: {
     backgroundColor: colors.white,
-    borderRadius: 22,
+    borderRadius: layout.radiusLg,
     padding: 18,
     borderWidth: 1,
     borderColor: colors.border,
     flex: 1,
+  },
+  statCardDesktop: {
+    backgroundColor: colors.cloud,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: layout.radiusMd,
   },
   statLabel: {
     color: colors.textMuted,
@@ -290,13 +352,23 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginBottom: 6,
   },
+  statLabelDesktop: {
+    fontSize: 10,
+    marginBottom: 4,
+  },
   statValue: {
     color: colors.maroonDeep,
     fontSize: 28,
     fontWeight: '800',
   },
+  statValueDesktop: {
+    color: colors.textSecondary,
+    fontSize: 18,
+    fontWeight: '700',
+  },
   sectionHeader: {
     marginBottom: 14,
+    marginTop: 4,
   },
   sectionTitle: {
     color: colors.maroonDeep,

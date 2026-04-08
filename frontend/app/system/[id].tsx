@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import ConditionCard from '../../components/cards/ConditionCard';
+import StudyScreenScroll from '../../components/layout/StudyScreenScroll';
 import BackLink from '../../components/navigation/BackLink';
-import { colors } from '../../constants/theme';
+import { colors, layout, shadows } from '../../constants/theme';
+import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
 import { getContentRepository, type CaseBundle } from '../../services/content/repository';
 import { calculateCompletion, getProgressRepository } from '../../services/progress/repository';
 import type { Condition } from '../../types/condition';
@@ -30,6 +32,7 @@ function getMilestoneKeys(bundle: CaseBundle) {
 export default function SystemDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const { setBreadcrumbs } = useBreadcrumbs();
   const [title, setTitle] = useState('Study Track');
   const [rows, setRows] = useState<ConditionRow[]>([]);
   const [loading, setLoading] = useState(true);
@@ -84,11 +87,23 @@ export default function SystemDetail() {
     load();
   }, [load]);
 
+  useEffect(() => {
+    if (!id || loading) {
+      setBreadcrumbs([]);
+      return;
+    }
+    setBreadcrumbs([
+      { label: 'Home', href: '/' },
+      { label: title },
+    ]);
+    return () => setBreadcrumbs([]);
+  }, [id, title, loading, setBreadcrumbs]);
+
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <ScrollView style={styles.page} contentContainerStyle={styles.content}>
-        <View style={styles.heroCard}>
+      <StudyScreenScroll>
+        <View style={[styles.heroCard, shadows.card]}>
           <BackLink label="Tracks" onPress={() => router.push('/')} />
           <Text style={styles.eyebrow}>Track</Text>
           <Text style={styles.title}>{title}</Text>
@@ -132,23 +147,15 @@ export default function SystemDetail() {
             />
           ))}
         </View>
-      </ScrollView>
+      </StudyScreenScroll>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: colors.offWhite,
-  },
-  content: {
-    padding: 20,
-    paddingBottom: 40,
-  },
   heroCard: {
     backgroundColor: colors.white,
-    borderRadius: 24,
+    borderRadius: layout.radiusLg,
     padding: 24,
     borderWidth: 1,
     borderColor: colors.border,

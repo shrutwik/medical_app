@@ -5,27 +5,37 @@ import BackLink from '../navigation/BackLink';
 
 interface CaseHeaderProps {
   caseItem: AdminCase;
-  completion: number;
   bookmarked: boolean;
   nextLabel?: string;
   onToggleBookmark: () => void;
   onBack?: () => void;
   backLabel?: string;
+  /** Jump to the parent study track (system). */
+  onTrack?: () => void;
+  trackLabel?: string;
 }
 
 export default function CaseHeader({
   caseItem,
-  completion,
   bookmarked,
   nextLabel,
   onToggleBookmark,
   onBack,
   backLabel = 'Cases',
+  onTrack,
+  trackLabel = 'Track',
 }: CaseHeaderProps) {
   return (
     <View style={styles.shell}>
       <View style={styles.topRow}>
-        {onBack ? <BackLink label={backLabel} onPress={onBack} /> : <View />}
+        <View style={styles.leftCluster}>
+          {onBack ? <BackLink label={backLabel} onPress={onBack} /> : <View />}
+          {onTrack ? (
+            <Pressable onPress={onTrack} style={styles.trackLink} accessibilityRole="link">
+              <Text style={styles.trackLinkText}>{trackLabel}</Text>
+            </Pressable>
+          ) : null}
+        </View>
         <Pressable style={styles.bookmarkButton} onPress={onToggleBookmark}>
           <Text style={styles.bookmarkText}>{bookmarked ? 'Saved' : 'Save'}</Text>
         </Pressable>
@@ -38,10 +48,6 @@ export default function CaseHeader({
         <View style={styles.metaCard}>
           <Text style={styles.metaLabel}>Difficulty</Text>
           <Text style={styles.metaValue}>{caseItem.difficulty}</Text>
-        </View>
-        <View style={styles.metaCard}>
-          <Text style={styles.metaLabel}>Progress</Text>
-          <Text style={styles.metaValue}>{completion}%</Text>
         </View>
         <View style={styles.metaCardWide}>
           <Text style={styles.metaLabel}>Next</Text>
@@ -68,6 +74,22 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     gap: 12,
     flexWrap: 'wrap',
+  },
+  leftCluster: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 14,
+    flex: 1,
+  },
+  trackLink: {
+    paddingVertical: 4,
+  },
+  trackLinkText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: colors.maroon,
+    textDecorationLine: 'underline',
   },
   bookmarkButton: {
     paddingHorizontal: 12,

@@ -1,7 +1,29 @@
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { Platform } from 'react-native';
+import { Platform, useWindowDimensions } from 'react-native';
+import DesktopAppShell from '../components/navigation/DesktopAppShell';
 import { colors } from '../constants/theme';
+import { BreadcrumbProvider } from '../contexts/BreadcrumbContext';
+
+function LayoutBody() {
+  const { width } = useWindowDimensions();
+  const isDesktopWeb = Platform.OS === 'web' && width >= 1100;
+
+  const stack = (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: colors.offWhite, flex: 1 },
+      }}
+    />
+  );
+
+  if (isDesktopWeb) {
+    return <DesktopAppShell>{stack}</DesktopAppShell>;
+  }
+
+  return stack;
+}
 
 export default function RootLayout() {
   useEffect(() => {
@@ -53,11 +75,8 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: colors.offWhite, flex: 1 },
-      }}
-    />
+    <BreadcrumbProvider>
+      <LayoutBody />
+    </BreadcrumbProvider>
   );
 }

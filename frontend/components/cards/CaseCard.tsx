@@ -1,6 +1,7 @@
 import { Pressable, Text, View, StyleSheet } from 'react-native';
-import { Case } from '../../types/case';
-import { colors } from '../../constants/theme';
+import type { Case } from '../../types/case';
+import { colors, shadows } from '../../constants/theme';
+import { CardChevron, CardProgressTrack, cardPressableBase } from './cardShared';
 
 interface CaseCardProps {
   caseItem: Case;
@@ -9,14 +10,14 @@ interface CaseCardProps {
   publishStatus?: string;
 }
 
-export default function CaseCard({
-  caseItem,
-  onPress,
-  progress,
-  publishStatus,
-}: CaseCardProps) {
+export default function CaseCard({ caseItem, onPress, progress, publishStatus }: CaseCardProps) {
   return (
-    <Pressable style={styles.card} onPress={onPress}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [cardPressableBase, shadows.card, pressed && styles.pressed]}
+      accessibilityRole="button"
+      accessibilityLabel={`Open case ${caseItem.title}`}
+    >
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>{caseItem.title}</Text>
@@ -25,15 +26,8 @@ export default function CaseCard({
           </View>
         </View>
         <Text style={styles.description}>{caseItem.shortDescription}</Text>
+        <CardProgressTrack progress={progress} />
         <View style={styles.footer}>
-          {typeof progress === 'number' ? (
-            <View style={styles.progressRow}>
-              <View style={styles.track}>
-                <View style={[styles.fill, { width: `${progress}%` }]} />
-              </View>
-              <Text style={styles.progressText}>{progress}% complete</Text>
-            </View>
-          ) : null}
           {publishStatus ? (
             <View style={styles.publishBadge}>
               <Text style={styles.publishText}>{publishStatus}</Text>
@@ -41,27 +35,17 @@ export default function CaseCard({
           ) : null}
         </View>
       </View>
-      <View style={styles.sideMeta}>
-        <Text style={styles.sideMetaText}>Open</Text>
-      </View>
+      <CardChevron />
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 18,
-    borderRadius: 18,
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginBottom: 12,
-  },
   content: {
     flex: 1,
+    minWidth: 0,
   },
+  pressed: { opacity: 0.94 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -92,29 +76,8 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   footer: {
-    marginTop: 12,
+    marginTop: 8,
     gap: 10,
-  },
-  progressRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  track: {
-    flex: 1,
-    height: 8,
-    borderRadius: 999,
-    backgroundColor: colors.cardBg,
-    overflow: 'hidden',
-  },
-  fill: {
-    height: '100%',
-    backgroundColor: colors.maroon,
-  },
-  progressText: {
-    color: colors.textMuted,
-    fontSize: 12,
-    fontWeight: '700',
   },
   publishBadge: {
     alignSelf: 'flex-start',
@@ -128,18 +91,5 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
-  },
-  sideMeta: {
-    marginLeft: 14,
-    alignSelf: 'flex-start',
-    backgroundColor: colors.cloud,
-    borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  sideMetaText: {
-    fontSize: 12,
-    color: colors.maroon,
-    fontWeight: '700',
   },
 });

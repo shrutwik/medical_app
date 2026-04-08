@@ -9,9 +9,11 @@ import QuizPanel from '../../components/study/QuizPanel';
 import SectionBlock from '../../components/study/SectionBlock';
 import StudyNav, { type StudyNavItem } from '../../components/study/StudyNav';
 import MechanismRenderer from '../../components/sections/MechanismRenderer';
-import { colors } from '../../constants/theme';
-import { getContentRepository, type CaseBundle } from '../../services/content/repository';
-import { calculateCompletion, getProgressRepository } from '../../services/progress/repository';
+import { colors, layout } from '../../constants/theme';
+import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
+import { useResponsive } from '../../hooks/useResponsive';
+import { getContentRepository, type AdminCase, type CaseBundle } from '../../services/content/repository';
+import { getProgressRepository } from '../../services/progress/repository';
 import type { QuizQuestion } from '../../types/quiz';
 import type { Bookmark, ProgressSnapshot } from '../../types/study';
 import type { SectionType } from '../../types/section';
@@ -27,34 +29,31 @@ const SECTION_LABELS: Record<string, string> = {
   clinicalPearl: 'Clinical Pearl',
 };
 
-function getMilestoneKeys(bundle: CaseBundle) {
-  const keys = ['overview'];
-  if (bundle.details) keys.push('clinical', 'diagnosis', 'treatment');
-  for (const section of bundle.sections) {
-    const key = `section_${section.type}`;
-    if (!keys.includes(key)) keys.push(key);
-  }
-  if (bundle.mechanisms.length > 0) keys.push('mechanisms');
-  if (bundle.resources.length > 0) keys.push('resources');
-  if (bundle.quizzes.length > 0) keys.push('quiz');
-  return keys;
-}
-
 export default function CaseDetailScreen() {
   const { id, preview } = useLocalSearchParams<{ id: string; preview?: string }>();
   const router = useRouter();
+  const { isDesktop } = useResponsive();
+  const { setBreadcrumbs } = useBreadcrumbs();
   const includeDrafts = preview === '1';
   const [bundle, setBundle] = useState<CaseBundle>();
   const [snapshot, setSnapshot] = useState<ProgressSnapshot>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
   const [activeTab, setActiveTab] = useState('overview');
+  const [parentNav, setParentNav] = useState<{
+    systemId: string;
+    systemName: string;
+    conditionName: string;
+  }>();
+  const [siblingCases, setSiblingCases] = useState<AdminCase[]>([]);
   const touchedCaseId = useRef<string | undefined>(undefined);
 
   const load = useCallback(async () => {
     if (!id) return;
     setLoading(true);
     setError(undefined);
+    setParentNav(undefined);
+    setSiblingCases([]);
 
     try {
       const contentRepo = getContentRepository();
@@ -70,6 +69,23 @@ export default function CaseDetailScreen() {
       const savedTab = nextSnapshot.cases[id]?.activeTab;
       if (savedTab) {
         setActiveTab(savedTab);
+      }
+
+      if (nextBundle.caseItem) {
+        const [condition, systems, siblings] = await Promise.all([
+          contentRepo.getConditionById(nextBundle.caseItem.conditionId),
+          contentRepo.getSystems(),
+          contentRepo.getCasesByCondition(nextBundle.caseItem.conditionId, includeDrafts),
+        ]);
+        const system = systems.find((item) => item.id === condition?.systemId);
+        if (condition && system) {
+          setParentNav({
+            systemId: system.id,
+            systemName: system.name,
+            conditionName: condition.name,
+          });
+        }
+        setSiblingCases(siblings);
       }
     } catch (nextError) {
       setError(nextError instanceof Error ? nextError.message : 'Unable to load case.');
@@ -103,15 +119,6 @@ export default function CaseDetailScreen() {
     return map;
   }, [bundle?.sections]);
 
-  const milestones = useMemo(() => getMilestoneKeys(bundle ?? {
-    sections: [],
-    mechanisms: [],
-    resources: [],
-    quizzes: [],
-    checkpoints: [],
-  }), [bundle]);
-
-  const completion = calculateCompletion(caseProgress, milestones);
   const completedSet = new Set(caseProgress?.completedSections.map((item) => item.key) ?? []);
   const currentBookmarks = snapshot?.bookmarks.filter((item) => item.caseId === id) ?? [];
 
@@ -154,6 +161,33 @@ export default function CaseDetailScreen() {
   const activeIndex = navItems.findIndex((item) => item.key === activeTab);
   const previousItem = activeIndex > 0 ? navItems[activeIndex - 1] : undefined;
   const nextItem = activeIndex >= 0 ? navItems[activeIndex + 1] : undefined;
+
+  const sortedSiblings = useMemo(
+    () => [...siblingCases].sort((a, b) => a.title.localeCompare(b.title)),
+    [siblingCases],
+  );
+
+  const nextCaseInCondition = useMemo(() => {
+    if (!id) return undefined;
+    const idx = sortedSiblings.findIndex((item) => item.id === id);
+    if (idx < 0 || idx >= sortedSiblings.length - 1) return undefined;
+    return sortedSiblings[idx + 1];
+  }, [id, sortedSiblings]);
+
+  useEffect(() => {
+    if (!id || !bundle?.caseItem || !parentNav || bundle.caseItem.id !== id) {
+      setBreadcrumbs([]);
+      return;
+    }
+    const conditionId = bundle.caseItem.conditionId;
+    setBreadcrumbs([
+      { label: 'Home', href: '/' },
+      { label: parentNav.systemName, href: `/system/${parentNav.systemId}` },
+      { label: parentNav.conditionName, href: `/condition/${conditionId}` },
+      { label: bundle.caseItem.title },
+    ]);
+    return () => setBreadcrumbs([]);
+  }, [id, bundle?.caseItem, parentNav, setBreadcrumbs]);
 
   useEffect(() => {
     if (!id || !bundle?.caseItem) return;
@@ -257,11 +291,13 @@ export default function CaseDetailScreen() {
       <View style={styles.page}>
         <CaseHeader
           caseItem={bundle.caseItem}
-          completion={completion}
           bookmarked={currentBookmarks.some((item) => item.entityType === 'case')}
           nextLabel={nextMilestone}
           backLabel="Condition"
           onBack={() => router.push(`/condition/${bundle.caseItem!.conditionId}`)}
+          onTrack={
+            parentNav ? () => router.push(`/system/${parentNav.systemId}`) : undefined
+          }
           onToggleBookmark={() =>
             toggleBookmark({
               caseId: bundle.caseItem!.id,
@@ -272,25 +308,20 @@ export default function CaseDetailScreen() {
           }
         />
 
-        <StudyNav items={navItems} activeKey={activeTab} onSelect={handleTabChange} />
+        {!isDesktop ? <StudyNav items={navItems} activeKey={activeTab} onSelect={handleTabChange} /> : null}
 
-        <ScrollView style={styles.mainColumn} contentContainerStyle={styles.mainContent}>
-          <View style={styles.summaryRow}>
-            <View style={styles.summaryCard}>
-              <Text style={styles.summaryLabel}>Progress</Text>
-              <Text style={styles.summaryValue}>{completion}%</Text>
+        <View style={[styles.workspace, isDesktop && styles.workspaceDesktop]}>
+          {isDesktop ? (
+            <View style={styles.leftRail}>
+              <StudyNav
+                items={navItems}
+                activeKey={activeTab}
+                onSelect={handleTabChange}
+                orientation="vertical"
+              />
             </View>
-            <View style={[styles.summaryCard, styles.summaryCardWide]}>
-              <Text style={styles.summaryLabel}>Current section</Text>
-              <Text style={styles.summaryText}>
-                {navItems.find((item) => item.key === activeTab)?.label ?? 'Overview'}
-              </Text>
-            </View>
-            <View style={styles.summaryCard}>
-              <Text style={styles.summaryLabel}>Saved</Text>
-              <Text style={styles.summaryValue}>{currentBookmarks.length}</Text>
-            </View>
-          </View>
+          ) : null}
+          <ScrollView style={styles.mainColumn} contentContainerStyle={styles.mainContent}>
             {activeTab === 'overview' ? (
               <OverviewPanel
                 caseItem={bundle.caseItem}
@@ -361,7 +392,9 @@ export default function CaseDetailScreen() {
                 <Text style={styles.flowText}>
                   {nextItem
                     ? 'Move one step forward.'
-                    : 'Review saved items any time.'}
+                    : nextCaseInCondition
+                      ? 'Continue with the next case in this condition.'
+                      : 'Return to the case list or choose another topic.'}
                 </Text>
               </View>
               <View style={styles.flowActions}>
@@ -381,9 +414,28 @@ export default function CaseDetailScreen() {
                     <Text style={styles.flowPrimaryText}>Continue</Text>
                   </Pressable>
                 ) : null}
+                {!nextItem && nextCaseInCondition ? (
+                  <Pressable
+                    style={styles.flowPrimaryButton}
+                    onPress={() => router.push(`/case/${nextCaseInCondition.id}`)}
+                  >
+                    <Text style={styles.flowPrimaryText}>
+                      {`Next case: ${nextCaseInCondition.title}`}
+                    </Text>
+                  </Pressable>
+                ) : null}
+                {!nextItem && !nextCaseInCondition ? (
+                  <Pressable
+                    style={styles.flowPrimaryButton}
+                    onPress={() => router.push(`/condition/${bundle.caseItem!.conditionId}`)}
+                  >
+                    <Text style={styles.flowPrimaryText}>Back to cases</Text>
+                  </Pressable>
+                ) : null}
               </View>
             </View>
           </ScrollView>
+        </View>
       </View>
     </>
   );
@@ -398,7 +450,9 @@ function OverviewPanel({
     <View>
       <InfoCard label="Description" value={caseItem.shortDescription} />
       <InfoCard label="Difficulty" value={caseItem.difficulty} />
-      <InfoCard label="Why this case matters" value="Use it to connect outpatient control, rescue therapy, adverse effects, and mechanism-level pharmacology." />
+      {caseItem.tags.length > 0 ? (
+        <InfoCard label="Tags" value={caseItem.tags.join(', ')} />
+      ) : null}
     </View>
   );
 }
@@ -506,12 +560,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.offWhite,
   },
+  workspace: {
+    flex: 1,
+  },
+  workspaceDesktop: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  leftRail: {
+    width: 240,
+    backgroundColor: colors.white,
+  },
   mainColumn: {
     flex: 1,
   },
   mainContent: {
-    padding: 20,
-    paddingBottom: 40,
+    paddingHorizontal: layout.pagePadding,
+    paddingVertical: layout.pagePadding,
+    paddingBottom: layout.pageBottomPadding,
+    maxWidth: layout.maxContentWidth,
+    width: '100%',
+    alignSelf: 'center',
   },
   centered: {
     flex: 1,
@@ -522,41 +591,6 @@ const styles = StyleSheet.create({
   emptyText: {
     color: colors.textMuted,
     fontSize: 14,
-  },
-  summaryRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-    marginBottom: 16,
-  },
-  summaryCard: {
-    minWidth: 140,
-    backgroundColor: colors.white,
-    borderRadius: 18,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  summaryCardWide: {
-    flex: 1,
-  },
-  summaryLabel: {
-    color: colors.textMuted,
-    fontSize: 11,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    marginBottom: 6,
-  },
-  summaryValue: {
-    color: colors.maroonDeep,
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  summaryText: {
-    color: colors.textPrimary,
-    fontSize: 15,
-    lineHeight: 22,
-    fontWeight: '600',
   },
   whitePanel: {
     backgroundColor: colors.white,

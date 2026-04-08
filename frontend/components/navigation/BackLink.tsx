@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
-import { colors } from '../../constants/theme';
+import { colors, layout } from '../../constants/theme';
 
 interface BackLinkProps {
   label: string;
@@ -8,8 +8,13 @@ interface BackLinkProps {
 
 export default function BackLink({ label, onPress }: BackLinkProps) {
   return (
-    <Pressable style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{`< Back to ${label}`}</Text>
+    <Pressable
+      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+      onPress={onPress}
+      accessibilityRole="link"
+      accessibilityLabel={`Back to ${label}`}
+    >
+      <Text style={styles.text}>{`← ${label}`}</Text>
     </Pressable>
   );
 }
@@ -17,17 +22,20 @@ export default function BackLink({ label, onPress }: BackLinkProps) {
 const styles = StyleSheet.create({
   button: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.cloud,
-    borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginBottom: 14,
+    backgroundColor: colors.white,
+    borderRadius: layout.radiusSm,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: colors.border,
   },
+  pressed: {
+    backgroundColor: colors.cloud,
+  },
   text: {
-    color: colors.maroon,
-    fontSize: 12,
+    color: colors.maroonDeep,
+    fontSize: 13,
     fontWeight: '700',
   },
 });
