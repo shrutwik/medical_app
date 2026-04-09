@@ -8,6 +8,11 @@ export type SectionType =
   | 'treatment'
   | 'clinicalPearl';
 
+export interface SectionIllustration {
+  url: string;
+  caption?: string;
+}
+
 export interface Section {
   id: string;
   caseId: string;
@@ -16,4 +21,6 @@ export interface Section {
   content: string;
   order: number;
   tags: string[];
+  /** Optional figures (HTTPS URLs from curriculum data). */
+  illustrations?: SectionIllustration[];
 }

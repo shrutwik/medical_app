@@ -61,14 +61,51 @@ function toArray(value) {
   return [];
 }
 
+function normalizeSectionIllustrations(rawItem) {
+  if (Array.isArray(rawItem.illustrations)) {
+    const list = rawItem.illustrations
+      .map((item) => ({
+        url: String(item?.url ?? '').trim(),
+        caption: item?.caption ? String(item.caption).trim() : undefined,
+      }))
+      .filter((item) => /^https?:\/\//i.test(item.url));
+    return list.length ? list : undefined;
+  }
+  const single = rawItem.illustrationUrl ? String(rawItem.illustrationUrl).trim() : '';
+  if (/^https?:\/\//i.test(single)) {
+    return [
+      {
+        url: single,
+        caption: rawItem.illustrationCaption ? String(rawItem.illustrationCaption).trim() : undefined,
+      },
+    ];
+  }
+  return undefined;
+}
+
 function parseSteps(value) {
   if (Array.isArray(value)) {
     return value
-      .map((item, index) => ({
-        stepNumber: Number(item.stepNumber ?? index + 1),
-        label: String(item.label ?? '').trim(),
-        description: String(item.description ?? '').trim(),
-      }))
+      .map((item, index) => {
+        const illustrationUrl =
+          item.illustrationUrl && /^https?:\/\//i.test(String(item.illustrationUrl).trim())
+            ? String(item.illustrationUrl).trim()
+            : undefined;
+        const illustrationCaption =
+          illustrationUrl && item.illustrationCaption
+            ? String(item.illustrationCaption).trim()
+            : undefined;
+        const base = {
+          stepNumber: Number(item.stepNumber ?? index + 1),
+          label: String(item.label ?? '').trim(),
+          description: String(item.description ?? '').trim(),
+        };
+        if (illustrationUrl) {
+          base.illustrationUrl = illustrationUrl;
+          if (illustrationCaption) base.illustrationCaption = illustrationCaption;
+        }
+        return base;
+      })
       .filter((item) => item.label && item.description);
   }
 
@@ -352,7 +389,8 @@ function normalizeBatch(batch) {
       const orderKey = `${resolvedCase.id}:${sectionType}`;
       const nextOrder = rawItem.order ?? ((sectionOrderCounters.get(orderKey) ?? 0) + 1);
       sectionOrderCounters.set(orderKey, nextOrder);
-      dataset.sections.push({
+      const illustrations = normalizeSectionIllustrations(rawItem);
+      const sectionRow = {
         id: uniqueId(sectionIds, mapped.id || slugify(`${resolvedCase.id}_${titleBase}`), issues, rawItem.sourceId),
         caseId: resolvedCase.id,
         type: sectionType,
@@ -360,7 +398,11 @@ function normalizeBatch(batch) {
         content,
         order: nextOrder,
         tags: toArray(rawItem.tags),
-      });
+      };
+      if (illustrations?.length) {
+        sectionRow.illustrations = illustrations;
+      }
+      dataset.sections.push(sectionRow);
       continue;
     }
 
@@ -444,6 +486,10 @@ function normalizeBatch(batch) {
         },
         assetKey: String(rawItem.assetKey ?? slugify(titleBase)).trim(),
         externalUrl: rawItem.externalUrl ? String(rawItem.externalUrl).trim() : undefined,
+        thumbnailUrl:
+          rawItem.thumbnailUrl && /^https?:\/\//i.test(String(rawItem.thumbnailUrl).trim())
+            ? String(rawItem.thumbnailUrl).trim()
+            : undefined,
         tags: toArray(rawItem.tags),
       });
       continue;
@@ -462,13 +508,20 @@ function normalizeBatch(batch) {
         unresolvedItems.push(mapped);
         continue;
       }
-      dataset.mechanisms.push({
+      const mechanismRow = {
         id: uniqueId(mechanismIds, mapped.id || slugify(`${resolvedCase.id}_${titleBase}`), issues, rawItem.sourceId),
         caseId: resolvedCase.id,
         title: String(titleBase).trim(),
         relatedDrug: String(rawItem.relatedDrug ?? '').trim(),
         steps,
-      });
+      };
+      if (rawItem.diagramUrl && /^https?:\/\//i.test(String(rawItem.diagramUrl).trim())) {
+        mechanismRow.diagramUrl = String(rawItem.diagramUrl).trim();
+        if (rawItem.diagramCaption) {
+          mechanismRow.diagramCaption = String(rawItem.diagramCaption).trim();
+        }
+      }
+      dataset.mechanisms.push(mechanismRow);
       continue;
     }
 

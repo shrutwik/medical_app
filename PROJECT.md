@@ -87,6 +87,8 @@ Flat, ID-linked entities (no deep nesting in one document):
 - **Case** — `id`, `conditionId`, `title`, `shortDescription`, `difficulty`, `tags`, optional `publishStatus` (admin)
 - **CaseDetail**, **Section**, **Mechanism**, **Resource**, **QuizQuestion**, **StudyCheckpoint** — keyed by `caseId` or own `id` per types
 
+**Figures (optional, data-only):** Sections may include `illustrations[]` (`url`, `caption`) and/or `![caption](https://…)` in `content`. Mechanisms may include `diagramUrl` / `diagramCaption` and per-step `illustrationUrl`. Resources may include `thumbnailUrl`. The importer accepts `illustrations`, `illustrationUrl`, `diagramUrl`, `thumbnailUrl`, and step-level illustration fields on source items. All URLs must be `http(s)`; the app does not ship fixed medical images in code.
+
 Firestore-style collection names used in code: `systems`, `conditions`, `cases`, `caseDetails`, `sections`, `mechanisms`, `resources`, `quizzes`, `checkpoints`.
 
 **Rules:** Prefer flat documents and IDs over deep trees; schema stays extensible for new section/media types.
@@ -144,8 +146,10 @@ After a successful run, review `output/content-dataset.json` and `report/import-
 - **Desktop web:** Max-width content, centered column or split home layout; persistent shell and breadcrumbs when width ≥ 1100px.
 - **Navigation:** Clear back links, breadcrumb trail on desktop, minimal depth.
 - **Performance:** Lazy-friendly data loading; avoid unnecessary re-renders (no premature optimization theater).
+- **Motion:** `react-native-reanimated` drives short entrance animations (staggered topic lists, study nav segments, case tab content fades). Keep durations modest; prefer layout-preserving fades over distracting loops.
+- **Figures:** `expo-image` renders remote HTTPS illustrations from the dataset; failed loads show a neutral fallback. Related PDFs/links for a section type appear as an inline “Related sources” strip on that section tab.
 
-Design tokens live in `frontend/constants/theme.ts` (`colors`, `layout`, `shadows`, `typography`).
+Design tokens live in `frontend/constants/theme.ts` (`colors`, `layout`, `shadows`, `typography`). Motion wrappers live in `frontend/components/motion/`. Media helpers live in `frontend/components/media/` and `frontend/services/content/sectionMedia.ts`.
 
 ---
 

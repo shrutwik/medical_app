@@ -18,6 +18,12 @@
     "type": "pathology",
     "title": "Early-phase and late-phase inflammatory response",
     "content": "Early asthma involves allergen-driven IgE cross-linking on mast cells and basophils with release of histamine, prostaglandins, and leukotrienes that rapidly narrow the airway. The late phase recruits eosinophils, T cells, basophils, and neutrophils, sustaining inflammation, edema, mucus production, and airway injury.",
+    "illustrations": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/IgE_mediated_activation_of_mast_cell.svg/640px-IgE_mediated_activation_of_mast_cell.svg.png",
+        "caption": "Conceptual overview: IgE-mediated mast-cell activation (open-license reference figure)."
+      }
+    ],
     "order": 1,
     "tags": [
       "early-phase",
@@ -31,7 +37,13 @@
     "caseId": "asthma_foundation_case",
     "type": "physiology",
     "title": "Physiology of airflow limitation",
-    "content": "Asthma is an obstructive lung disease in which airway narrowing sharply raises resistance and reduces expiratory flow. Pulmonary function testing typically shows reduced FEV1 and reduced FEV1/FVC, with improvement after bronchodilator use. Air trapping increases work of breathing and contributes to hyperinflation during exacerbations.",
+    "content": "Asthma is an obstructive lung disease in which airway narrowing sharply raises resistance and reduces expiratory flow. Pulmonary function testing typically shows reduced FEV1 and reduced FEV1/FVC, with improvement after bronchodilator use. Air trapping increases work of breathing and contributes to hyperinflation during exacerbations.\n\n![Flow-volume loop patterns](https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Flow_volume_loops.png/500px-Flow_volume_loops.png)",
+    "illustrations": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Spirometry_curve.png/640px-Spirometry_curve.png",
+        "caption": "Spirometry time–volume curve (reference diagram)."
+      }
+    ],
     "order": 1,
     "tags": [
       "FEV1",
@@ -46,6 +58,12 @@
     "type": "histology",
     "title": "Normal airway versus asthmatic airway histology",
     "content": "Normal conducting airways are lined by ciliated pseudostratified columnar epithelium with goblet cells and a relatively thin basement membrane. Asthmatic airways show epithelial shedding, goblet-cell hyperplasia, eosinophilic inflammation, increased vascular permeability, subepithelial fibrosis, smooth muscle hypertrophy, and greater mucus burden.",
+    "illustrations": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pseudostratified_ciliated_columnar_epithelium.JPEG/640px-Pseudostratified_ciliated_columnar_epithelium.JPEG",
+        "caption": "Pseudostratified ciliated columnar epithelium (reference micrograph)."
+      }
+    ],
     "order": 1,
     "tags": [
       "histology",

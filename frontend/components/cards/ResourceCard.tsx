@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, Pressable, Linking, Platform } from 'react-native';
+import { Image } from 'expo-image';
 import { Resource } from '../../types/resource';
 import { colors } from '../../constants/theme';
 import { getResourceAccessLabel, getResourceUrl } from '../../services/content/resourceLibrary';
@@ -24,6 +25,16 @@ export default function ResourceCard({
 
   return (
     <View style={styles.container}>
+      {resource.thumbnailUrl ? (
+        <View style={styles.thumbWrap}>
+          <Image
+            source={{ uri: resource.thumbnailUrl }}
+            style={styles.thumbnail}
+            contentFit="cover"
+            transition={200}
+          />
+        </View>
+      ) : null}
       <View style={styles.topRow}>
         <View style={styles.typeBadge}>
           <Text style={styles.typeText}>{resource.type}</Text>
@@ -67,6 +78,18 @@ const styles = StyleSheet.create({
     padding: 16,
     borderWidth: 1,
     borderColor: colors.border,
+    overflow: 'hidden',
+  },
+  thumbWrap: {
+    marginHorizontal: -16,
+    marginTop: -16,
+    marginBottom: 12,
+    height: 140,
+    backgroundColor: colors.cloud,
+  },
+  thumbnail: {
+    width: '100%',
+    height: '100%',
   },
   topRow: {
     flexDirection: 'row',

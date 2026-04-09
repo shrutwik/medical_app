@@ -4,6 +4,8 @@
     "caseId": "asthma_foundation_case",
     "title": "Beta2-agonist bronchodilation",
     "relatedDrug": "albuterol",
+    "diagramUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/GPCR_Gs_protein.png/640px-GPCR_Gs_protein.png",
+    "diagramCaption": "GPCR–Gs–adenylyl cyclase signaling overview (reference schematic).",
     "steps": [
       {
         "stepNumber": 1,
@@ -18,7 +20,9 @@
       {
         "stepNumber": 3,
         "label": "cAMP increase",
-        "description": "Intracellular cAMP rises and activates downstream relaxing pathways."
+        "description": "Intracellular cAMP rises and activates downstream relaxing pathways.",
+        "illustrationUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/3%2A5_-cyclic_adenosine_monophosphate_acid.svg/320px-3%2A5_-cyclic_adenosine_monophosphate_acid.svg.png",
+        "illustrationCaption": "cAMP structure (reference diagram)."
       },
       {
         "stepNumber": 4,

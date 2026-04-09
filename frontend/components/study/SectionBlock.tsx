@@ -1,13 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native';
+import ContentIllustration from '../media/ContentIllustration';
+import RelatedResourceStrip from '../media/RelatedResourceStrip';
+import type { Resource } from '../../types/resource';
 import type { Section } from '../../types/section';
 import { colors } from '../../constants/theme';
+import { mergeSectionVisuals } from '../../services/content/sectionMedia';
 
 interface SectionBlockProps {
   section: Section;
   completed: boolean;
+  /** Resources tagged for this section type in the same case (from data). */
+  relatedResources?: Resource[];
 }
 
-export default function SectionBlock({ section, completed }: SectionBlockProps) {
+export default function SectionBlock({ section, completed, relatedResources }: SectionBlockProps) {
+  const { text, images } = mergeSectionVisuals(section);
+
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -21,7 +29,21 @@ export default function SectionBlock({ section, completed }: SectionBlockProps) 
           </Text>
         </View>
       </View>
-      <Text style={styles.content}>{section.content}</Text>
+
+      {relatedResources && relatedResources.length > 0 ? (
+        <RelatedResourceStrip resources={relatedResources} />
+      ) : null}
+
+      {images.map((item, index) => (
+        <ContentIllustration
+          key={`${item.url}_${index}`}
+          url={item.url}
+          caption={item.caption}
+          animationIndex={index}
+        />
+      ))}
+
+      <Text style={styles.content}>{text}</Text>
     </View>
   );
 }

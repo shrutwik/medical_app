@@ -57,11 +57,19 @@ export interface RawSourceItem {
   sourcePageNumber?: number;
   assetKey?: string;
   externalUrl?: string;
+  thumbnailUrl?: string;
   relatedDrug?: string;
+  diagramUrl?: string;
+  diagramCaption?: string;
+  illustrations?: Array<{ url: string; caption?: string }>;
+  illustrationUrl?: string;
+  illustrationCaption?: string;
   steps?: Array<{
     stepNumber?: number;
     label: string;
     description: string;
+    illustrationUrl?: string;
+    illustrationCaption?: string;
   }>;
 }
 

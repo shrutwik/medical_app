@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import SystemCard from '../components/cards/SystemCard';
 import StudyScreenScroll from '../components/layout/StudyScreenScroll';
+import { FadeInBlock, StaggerIn } from '../components/motion/StaggerIn';
 import { colors, layout, shadows, typography } from '../constants/theme';
 import { useBreadcrumbs } from '../contexts/BreadcrumbContext';
 import { useResponsive } from '../hooks/useResponsive';
@@ -127,7 +128,8 @@ export default function Index() {
   };
 
   const heroBlock = (
-    <View style={[styles.heroCard, shadows.card]}>
+    <FadeInBlock delayMs={0} durationMs={420}>
+      <View style={[styles.heroCard, shadows.card]}>
       <Text style={styles.eyebrow}>Medical Study Hub</Text>
       <Text style={styles.heroTitle}>Study with one clear next step.</Text>
       <Text style={styles.heroText}>
@@ -162,34 +164,43 @@ export default function Index() {
         <Text style={styles.primaryButtonText}>{primaryCtaLabel}</Text>
       </Pressable>
     </View>
+    </FadeInBlock>
   );
 
   const statsBlock = (
     <View style={[styles.statsRow, isDesktop && styles.statsRowDesktop]}>
-      <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
-        <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Streak</Text>
-        <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
-          {state?.snapshot.streak.current ?? 0} day{(state?.snapshot.streak.current ?? 0) === 1 ? '' : 's'}
-        </Text>
-      </View>
-      <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
-        <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Saved</Text>
-        <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
-          {state?.snapshot.bookmarks.length ?? 0}
-        </Text>
-      </View>
-      <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
-        <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Cases touched</Text>
-        <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>{completedCases}</Text>
-      </View>
+      <StaggerIn index={0}>
+        <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
+          <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Streak</Text>
+          <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
+            {state?.snapshot.streak.current ?? 0} day{(state?.snapshot.streak.current ?? 0) === 1 ? '' : 's'}
+          </Text>
+        </View>
+      </StaggerIn>
+      <StaggerIn index={1}>
+        <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
+          <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Saved</Text>
+          <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
+            {state?.snapshot.bookmarks.length ?? 0}
+          </Text>
+        </View>
+      </StaggerIn>
+      <StaggerIn index={2}>
+        <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
+          <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Cases touched</Text>
+          <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>{completedCases}</Text>
+        </View>
+      </StaggerIn>
     </View>
   );
 
   const tracksHeader = (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>Study tracks</Text>
-      <Text style={styles.sectionSubtitle}>Open a track to see conditions and cases.</Text>
-    </View>
+    <FadeInBlock delayMs={100} durationMs={380}>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>Study tracks</Text>
+        <Text style={styles.sectionSubtitle}>Open a track to see conditions and cases.</Text>
+      </View>
+    </FadeInBlock>
   );
 
   const tracksBody = (
@@ -197,14 +208,15 @@ export default function Index() {
       {loading ? <Text style={styles.statusText}>Loading study tracks...</Text> : null}
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <View style={styles.systemList}>
-        {state?.systems.map((item) => (
-          <SystemCard
-            key={item.system.id}
-            system={item.system}
-            progress={item.progress}
-            meta={`${item.conditions.length} condition${item.conditions.length === 1 ? '' : 's'} · ${item.casesCount} case${item.casesCount === 1 ? '' : 's'}`}
-            onPress={() => router.push(`/system/${item.system.id}`)}
-          />
+        {state?.systems.map((item, index) => (
+          <StaggerIn key={item.system.id} index={index}>
+            <SystemCard
+              system={item.system}
+              progress={item.progress}
+              meta={`${item.conditions.length} condition${item.conditions.length === 1 ? '' : 's'} · ${item.casesCount} case${item.casesCount === 1 ? '' : 's'}`}
+              onPress={() => router.push(`/system/${item.system.id}`)}
+            />
+          </StaggerIn>
         ))}
       </View>
     </>

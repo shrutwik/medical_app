@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import Animated, { FadeIn } from 'react-native-reanimated';
 import InfoCard from '../../components/cards/InfoCard';
 import ResourcePanel from '../../components/study/ResourcePanel';
 import CaseHeader from '../../components/study/CaseHeader';
@@ -9,6 +10,7 @@ import QuizPanel from '../../components/study/QuizPanel';
 import SectionBlock from '../../components/study/SectionBlock';
 import StudyNav, { type StudyNavItem } from '../../components/study/StudyNav';
 import MechanismRenderer from '../../components/sections/MechanismRenderer';
+import { FadeInBlock } from '../../components/motion/StaggerIn';
 import { colors, layout } from '../../constants/theme';
 import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
 import { useResponsive } from '../../hooks/useResponsive';
@@ -288,25 +290,24 @@ export default function CaseDetailScreen() {
   return (
     <>
       <Stack.Screen options={{ title: bundle.caseItem.title }} />
-      <View style={styles.page}>
-        <CaseHeader
-          caseItem={bundle.caseItem}
-          bookmarked={currentBookmarks.some((item) => item.entityType === 'case')}
-          nextLabel={nextMilestone}
-          backLabel="Condition"
-          onBack={() => router.push(`/condition/${bundle.caseItem!.conditionId}`)}
-          onTrack={
-            parentNav ? () => router.push(`/system/${parentNav.systemId}`) : undefined
-          }
-          onToggleBookmark={() =>
-            toggleBookmark({
-              caseId: bundle.caseItem!.id,
-              entityId: bundle.caseItem!.id,
-              entityType: 'case',
-              label: bundle.caseItem!.title,
-            })
-          }
-        />
+      <View style={styles.page} key={id}>
+        <FadeInBlock delayMs={0} durationMs={380}>
+          <CaseHeader
+            caseItem={bundle.caseItem}
+            bookmarked={currentBookmarks.some((item) => item.entityType === 'case')}
+            nextLabel={nextMilestone}
+            backLabel="Condition"
+            onBack={() => router.push(`/condition/${bundle.caseItem!.conditionId}`)}
+            onToggleBookmark={() =>
+              toggleBookmark({
+                caseId: bundle.caseItem!.id,
+                entityId: bundle.caseItem!.id,
+                entityType: 'case',
+                label: bundle.caseItem!.title,
+              })
+            }
+          />
+        </FadeInBlock>
 
         {!isDesktop ? <StudyNav items={navItems} activeKey={activeTab} onSelect={handleTabChange} /> : null}
 
@@ -322,6 +323,7 @@ export default function CaseDetailScreen() {
             </View>
           ) : null}
           <ScrollView style={styles.mainColumn} contentContainerStyle={styles.mainContent}>
+            <Animated.View key={activeTab} entering={FadeIn.duration(260)}>
             {activeTab === 'overview' ? (
               <OverviewPanel
                 caseItem={bundle.caseItem}
@@ -346,6 +348,7 @@ export default function CaseDetailScreen() {
                     key={section.id}
                     section={section}
                     completed={completedSet.has(`section_${section.type}`)}
+                    relatedResources={bundle.resources.filter((r) => r.sectionType === section.type)}
                   />
                 ))
               : null}
@@ -434,6 +437,7 @@ export default function CaseDetailScreen() {
                 ) : null}
               </View>
             </View>
+            </Animated.View>
           </ScrollView>
         </View>
       </View>

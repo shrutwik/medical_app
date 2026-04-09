@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import ConditionCard from '../../components/cards/ConditionCard';
 import StudyScreenScroll from '../../components/layout/StudyScreenScroll';
+import { FadeInBlock, StaggerIn } from '../../components/motion/StaggerIn';
 import BackLink from '../../components/navigation/BackLink';
 import { colors, layout, shadows } from '../../constants/theme';
 import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
@@ -102,8 +103,9 @@ export default function SystemDetail() {
   return (
     <>
       <Stack.Screen options={{ title }} />
-      <StudyScreenScroll>
-        <View style={[styles.heroCard, shadows.card]}>
+      <StudyScreenScroll key={id}>
+        <FadeInBlock delayMs={0} durationMs={400}>
+          <View style={[styles.heroCard, shadows.card]}>
           <BackLink label="Tracks" onPress={() => router.push('/')} />
           <Text style={styles.eyebrow}>Track</Text>
           <Text style={styles.title}>{title}</Text>
@@ -133,18 +135,20 @@ export default function SystemDetail() {
             </View>
           </View>
         </View>
+        </FadeInBlock>
 
         {loading ? <Text style={styles.statusText}>Loading conditions...</Text> : null}
 
         <View style={styles.list}>
-          {rows.map((row) => (
-            <ConditionCard
-              key={row.condition.id}
-              condition={row.condition}
-              progress={row.progress}
-              meta={`${row.casesCount} case${row.casesCount === 1 ? '' : 's'} · ${row.condition.learningGoals.length} learning goals`}
-              onPress={() => router.push(`/condition/${row.condition.id}`)}
-            />
+          {rows.map((row, index) => (
+            <StaggerIn key={row.condition.id} index={index}>
+              <ConditionCard
+                condition={row.condition}
+                progress={row.progress}
+                meta={`${row.casesCount} case${row.casesCount === 1 ? '' : 's'} · ${row.condition.learningGoals.length} learning goals`}
+                onPress={() => router.push(`/condition/${row.condition.id}`)}
+              />
+            </StaggerIn>
           ))}
         </View>
       </StudyScreenScroll>

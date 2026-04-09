@@ -1,4 +1,5 @@
 import { ScrollView, Pressable, Text, View, StyleSheet } from 'react-native';
+import { StaggerNavItem } from '../motion/StaggerNavItem';
 import { colors, layout } from '../../constants/theme';
 
 export interface StudyNavItem {
@@ -32,34 +33,40 @@ export default function StudyNav({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[styles.container, isVertical && styles.containerVertical]}
       >
-        {items.map((item) => {
+        {items.map((item, index) => {
           const active = item.key === activeKey;
           return (
-            <Pressable
+            <StaggerNavItem
               key={item.key}
-              onPress={() => onSelect(item.key)}
-              style={[
-                styles.pill,
-                item.completed && !active && styles.pillComplete,
-                item.accent && !active && styles.pillAccent,
-                active && styles.pillActive,
-                isVertical && styles.pillVertical,
-              ]}
+              index={index}
+              vertical={isVertical}
+              style={isVertical ? styles.staggerVertical : undefined}
             >
-              <View style={styles.labelRow}>
-                <Text
-                  style={[
-                    styles.label,
-                    item.completed && !active && styles.labelComplete,
-                    item.accent && !active && styles.labelAccent,
-                    active && styles.labelActive,
-                  ]}
-                >
-                  {item.label}
-                </Text>
-                {item.badge ? <Text style={[styles.badge, active && styles.badgeActive]}>{item.badge}</Text> : null}
-              </View>
-            </Pressable>
+              <Pressable
+                onPress={() => onSelect(item.key)}
+                style={[
+                  styles.pill,
+                  item.completed && !active && styles.pillComplete,
+                  item.accent && !active && styles.pillAccent,
+                  active && styles.pillActive,
+                  isVertical && styles.pillVertical,
+                ]}
+              >
+                <View style={styles.labelRow}>
+                  <Text
+                    style={[
+                      styles.label,
+                      item.completed && !active && styles.labelComplete,
+                      item.accent && !active && styles.labelAccent,
+                      active && styles.labelActive,
+                    ]}
+                  >
+                    {item.label}
+                  </Text>
+                  {item.badge ? <Text style={[styles.badge, active && styles.badgeActive]}>{item.badge}</Text> : null}
+                </View>
+              </Pressable>
+            </StaggerNavItem>
           );
         })}
       </ScrollView>
@@ -137,5 +144,8 @@ const styles = StyleSheet.create({
   },
   badgeActive: {
     color: colors.white,
+  },
+  staggerVertical: {
+    width: '100%',
   },
 });

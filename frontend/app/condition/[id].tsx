@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import CaseCard from '../../components/cards/CaseCard';
 import StudyScreenScroll from '../../components/layout/StudyScreenScroll';
+import { FadeInBlock, StaggerIn } from '../../components/motion/StaggerIn';
 import BackLink from '../../components/navigation/BackLink';
 import { colors, layout, shadows } from '../../constants/theme';
 import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
@@ -96,8 +97,9 @@ export default function ConditionDetail() {
   return (
     <>
       <Stack.Screen options={{ title: condition?.name ?? 'Condition' }} />
-      <StudyScreenScroll>
-        <View style={[styles.heroCard, shadows.card]}>
+      <StudyScreenScroll key={id}>
+        <FadeInBlock delayMs={0} durationMs={400}>
+          <View style={[styles.heroCard, shadows.card]}>
           <BackLink
             label="Track"
             onPress={() => router.push(condition ? `/system/${condition.systemId}` : '/')}
@@ -142,18 +144,22 @@ export default function ConditionDetail() {
             </View>
           ) : null}
         </View>
+        </FadeInBlock>
 
-        <Text style={styles.sectionTitle}>Cases</Text>
+        <FadeInBlock delayMs={80} durationMs={360}>
+          <Text style={styles.sectionTitle}>Cases</Text>
+        </FadeInBlock>
         {loading ? <Text style={styles.statusText}>Loading cases...</Text> : null}
 
         <View style={styles.list}>
-          {rows.map((row) => (
-            <CaseCard
-              key={row.caseItem.id}
-              caseItem={row.caseItem}
-              progress={row.progress}
-              onPress={() => router.push(`/case/${row.caseItem.id}`)}
-            />
+          {rows.map((row, index) => (
+            <StaggerIn key={row.caseItem.id} index={index}>
+              <CaseCard
+                caseItem={row.caseItem}
+                progress={row.progress}
+                onPress={() => router.push(`/case/${row.caseItem.id}`)}
+              />
+            </StaggerIn>
           ))}
         </View>
       </StudyScreenScroll>

@@ -164,6 +164,94 @@ function coerceDataset(payload: ContentDataset): ContentDataset {
   };
 }
 
+/** Text before the first markdown image block `![...](url)` — used to safely merge figure content from seed. */
+function proseBeforeMarkdownFigures(content: string): string {
+  if (!content) return '';
+  return content.split(/\n\n!\[/)[0].trim();
+}
+
+/**
+ * Older saved local datasets may lack `illustrations` / thumbnails added later in the seed JSON.
+ * Fills in missing media fields from the current seed so figures appear without a manual reset.
+ * (Local repository only — does not change Firebase-backed datasets.)
+ */
+function mergeSeedVisualsIntoStoredDataset(stored: ContentDataset, seed: ContentDataset): ContentDataset {
+  const seedSections = new Map(seed.sections.map((x) => [x.id, x]));
+  const seedMech = new Map(seed.mechanisms.map((x) => [x.id, x]));
+  const seedRes = new Map(seed.resources.map((x) => [x.id, x]));
+  const norm = (value?: string) => (value ?? '').trim().toLowerCase();
+
+  const sections = stored.sections.map((s) => {
+    const seedS =
+      seedSections.get(s.id) ??
+      seed.sections.find(
+        (candidate) =>
+          candidate.caseId === s.caseId &&
+          (candidate.order === s.order ||
+            norm(candidate.title) === norm(s.title)),
+      );
+    if (!seedS) return s;
+    let next: Section = { ...s };
+    if (!s.illustrations?.length && seedS.illustrations?.length) {
+      next = { ...next, illustrations: seedS.illustrations };
+    }
+    if (!s.content?.includes('![') && seedS.content?.includes('![')) {
+      if (proseBeforeMarkdownFigures(s.content) === proseBeforeMarkdownFigures(seedS.content)) {
+        next = { ...next, content: seedS.content };
+      }
+    }
+    return next;
+  });
+
+  const mechanisms = stored.mechanisms.map((m) => {
+    const seedM =
+      seedMech.get(m.id) ??
+      seed.mechanisms.find(
+        (candidate) =>
+          candidate.caseId === m.caseId &&
+          (norm(candidate.title) === norm(m.title) ||
+            norm(candidate.relatedDrug) === norm(m.relatedDrug)),
+      );
+    if (!seedM) return m;
+    const hasStoredMedia =
+      Boolean(m.diagramUrl) || m.steps.some((st) => Boolean(st.illustrationUrl));
+    if (hasStoredMedia) return m;
+    const seedHasMedia =
+      Boolean(seedM.diagramUrl) || seedM.steps.some((st) => Boolean(st.illustrationUrl));
+    if (!seedHasMedia) return m;
+    return {
+      ...m,
+      ...(seedM.diagramUrl
+        ? { diagramUrl: seedM.diagramUrl, diagramCaption: seedM.diagramCaption }
+        : {}),
+      steps: m.steps.map((step) => {
+        const seedStep = seedM.steps.find((ss) => ss.stepNumber === step.stepNumber);
+        if (!seedStep?.illustrationUrl || step.illustrationUrl) return step;
+        return {
+          ...step,
+          illustrationUrl: seedStep.illustrationUrl,
+          illustrationCaption: seedStep.illustrationCaption,
+        };
+      }),
+    };
+  });
+
+  const resources = stored.resources.map((r) => {
+    const seedR =
+      seedRes.get(r.id) ??
+      seed.resources.find(
+        (candidate) =>
+          candidate.caseId === r.caseId &&
+          (norm(candidate.title) === norm(r.title) ||
+            norm(candidate.externalUrl) === norm(r.externalUrl)),
+      );
+    if (!seedR?.thumbnailUrl || r.thumbnailUrl) return r;
+    return { ...r, thumbnailUrl: seedR.thumbnailUrl };
+  });
+
+  return { ...stored, sections, mechanisms, resources };
+}
+
 function buildImportOutputCounts(
   dataset: ContentDataset | undefined,
   sourceFileCount: number,
@@ -280,7 +368,9 @@ function deleteByCaseId<T extends { caseId: string }>(items: T[], id: string) {
 
 class LocalContentRepository implements AdminContentRepository {
   private async getLocalDataset(): Promise<ContentDataset> {
-    return getStoredJson(CONTENT_KEY, createSeedDataset());
+    const stored = await getStoredJson(CONTENT_KEY, createSeedDataset());
+    const coerced = coerceDataset(stored);
+    return mergeSeedVisualsIntoStoredDataset(coerced, createSeedDataset());
   }
 
   private async writeDataset(dataset: ContentDataset): Promise<void> {
@@ -499,7 +589,7 @@ class FirebaseContentRepository implements AdminContentRepository {
       this.readCollection<StudyCheckpoint>('checkpoints'),
     ]);
 
-    return {
+    const dataset = {
       systems,
       conditions,
       cases,
@@ -510,6 +600,7 @@ class FirebaseContentRepository implements AdminContentRepository {
       quizzes,
       checkpoints,
     };
+    return mergeSeedVisualsIntoStoredDataset(coerceDataset(dataset), createSeedDataset());
   }
 
   async replaceDataset(dataset: ContentDataset): Promise<void> {
