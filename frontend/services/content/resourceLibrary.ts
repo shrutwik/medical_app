@@ -26,12 +26,13 @@ export function getResourceUrl(resource: Resource) {
 
   const localFile = resourceFilesByName[resource.sourceReference?.fileName];
   if (!localFile) return undefined;
+  const encodedLocalFile = encodeURI(localFile);
 
   if (resource.sourceType === 'pdf' && resource.sourceReference?.pageNumber) {
-    return `${localFile}#page=${resource.sourceReference.pageNumber}`;
+    return `${encodedLocalFile}#page=${resource.sourceReference.pageNumber}`;
   }
 
-  return localFile;
+  return encodedLocalFile;
 }
 
 export function getResourceAccessLabel(resource: Resource) {

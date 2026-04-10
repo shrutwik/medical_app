@@ -7,27 +7,14 @@ import { FadeInBlock, StaggerIn } from '../../components/motion/StaggerIn';
 import BackLink from '../../components/navigation/BackLink';
 import { colors, layout, shadows } from '../../constants/theme';
 import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
-import { getContentRepository, type CaseBundle } from '../../services/content/repository';
-import { calculateCompletion, getProgressRepository } from '../../services/progress/repository';
+import { getContentRepository } from '../../services/content/repository';
+import { calculateCompletion, getMilestoneKeys, getProgressRepository } from '../../services/progress/repository';
 import type { Condition } from '../../types/condition';
 
 interface ConditionRow {
   condition: Condition;
   progress: number;
   casesCount: number;
-}
-
-function getMilestoneKeys(bundle: CaseBundle) {
-  const keys = ['overview'];
-  if (bundle.details) keys.push('clinical', 'diagnosis', 'treatment');
-  for (const section of bundle.sections) {
-    const key = `section_${section.type}`;
-    if (!keys.includes(key)) keys.push(key);
-  }
-  if (bundle.mechanisms.length > 0) keys.push('mechanisms');
-  if (bundle.resources.length > 0) keys.push('resources');
-  if (bundle.quizzes.length > 0) keys.push('quiz');
-  return keys;
 }
 
 export default function SystemDetail() {

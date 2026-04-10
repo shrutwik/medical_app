@@ -121,7 +121,10 @@ export default function CaseDetailScreen() {
     return map;
   }, [bundle?.sections]);
 
-  const completedSet = new Set(caseProgress?.completedSections.map((item) => item.key) ?? []);
+  const completedSet = useMemo(
+    () => new Set(caseProgress?.completedSections.map((item) => item.key) ?? []),
+    [caseProgress?.completedSections],
+  );
   const currentBookmarks = snapshot?.bookmarks.filter((item) => item.caseId === id) ?? [];
 
   const navItems = useMemo<StudyNavItem[]>(() => {
@@ -488,8 +491,8 @@ function ClinicalPanel({
       <InfoCard label="Examination" value={details.clinicalNarrative.exam} />
       <View style={styles.whitePanel}>
         <Text style={styles.panelLabel}>Discussion Prompts</Text>
-        {details.clinicalNarrative.discussionPrompts.map((prompt) => (
-          <View key={prompt} style={styles.bulletRow}>
+        {details.clinicalNarrative.discussionPrompts.map((prompt, index) => (
+          <View key={index} style={styles.bulletRow}>
             <Text style={styles.bullet}>•</Text>
             <Text style={styles.bulletText}>{prompt}</Text>
           </View>
@@ -509,8 +512,8 @@ function DiagnosisPanel({
       <InfoCard label="Diagnosis" value={details.diagnosis.name} />
       <View style={styles.whitePanel}>
         <Text style={styles.panelLabel}>Key Findings</Text>
-        {details.diagnosis.keyFindings.map((finding) => (
-          <View key={finding} style={styles.bulletRow}>
+        {details.diagnosis.keyFindings.map((finding, index) => (
+          <View key={index} style={styles.bulletRow}>
             <Text style={styles.bullet}>•</Text>
             <Text style={styles.bulletText}>{finding}</Text>
           </View>

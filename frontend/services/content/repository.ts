@@ -727,7 +727,9 @@ class FirebaseContentRepository implements AdminContentRepository {
     return {
       caseItem,
       details: dataset.caseDetails.find((item) => item.caseId === caseId),
-      sections: dataset.sections.filter((item) => item.caseId === caseId),
+      sections: dataset.sections
+        .filter((item) => item.caseId === caseId)
+        .sort((a, b) => a.order - b.order),
       mechanisms: dataset.mechanisms.filter((item) => item.caseId === caseId),
       resources: dataset.resources.filter((item) => item.caseId === caseId),
       quizzes: dataset.quizzes.filter((item) => item.caseId === caseId),

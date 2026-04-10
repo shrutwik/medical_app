@@ -1,4 +1,5 @@
 import type { Bookmark, CaseProgress, ProgressSnapshot, QuizAttempt, RecentActivity } from '../../types/study';
+import type { CaseBundle } from '../content/repository';
 import { getStoredJson, setStoredJson } from '../storage/keyValueStore';
 
 const STORAGE_KEY = 'medical-app/progress/v1';
@@ -80,6 +81,19 @@ async function withSnapshot(
   const next = (result ?? snapshot) as ProgressSnapshot;
   await setStoredJson(STORAGE_KEY, next);
   return next;
+}
+
+export function getMilestoneKeys(bundle: CaseBundle) {
+  const keys = ['overview'];
+  if (bundle.details) keys.push('clinical', 'diagnosis', 'treatment');
+  for (const section of bundle.sections) {
+    const key = `section_${section.type}`;
+    if (!keys.includes(key)) keys.push(key);
+  }
+  if (bundle.mechanisms.length > 0) keys.push('mechanisms');
+  if (bundle.resources.length > 0) keys.push('resources');
+  if (bundle.quizzes.length > 0) keys.push('quiz');
+  return keys;
 }
 
 export function calculateCompletion(

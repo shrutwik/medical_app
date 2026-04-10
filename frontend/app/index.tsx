@@ -7,8 +7,8 @@ import { FadeInBlock, StaggerIn } from '../components/motion/StaggerIn';
 import { colors, layout, shadows, typography } from '../constants/theme';
 import { useBreadcrumbs } from '../contexts/BreadcrumbContext';
 import { useResponsive } from '../hooks/useResponsive';
-import { getContentRepository, type CaseBundle } from '../services/content/repository';
-import { calculateCompletion, getProgressRepository } from '../services/progress/repository';
+import { getContentRepository } from '../services/content/repository';
+import { calculateCompletion, getMilestoneKeys, getProgressRepository } from '../services/progress/repository';
 import type { Condition } from '../types/condition';
 import type { System } from '../types/system';
 import type { ProgressSnapshot } from '../types/study';
@@ -23,19 +23,6 @@ interface DashboardSystem {
 interface DashboardState {
   systems: DashboardSystem[];
   snapshot: ProgressSnapshot;
-}
-
-function getMilestoneKeys(bundle: CaseBundle) {
-  const keys = ['overview'];
-  if (bundle.details) keys.push('clinical', 'diagnosis', 'treatment');
-  for (const section of bundle.sections) {
-    const key = `section_${section.type}`;
-    if (!keys.includes(key)) keys.push(key);
-  }
-  if (bundle.mechanisms.length > 0) keys.push('mechanisms');
-  if (bundle.resources.length > 0) keys.push('resources');
-  if (bundle.quizzes.length > 0) keys.push('quiz');
-  return keys;
 }
 
 export default function Index() {
