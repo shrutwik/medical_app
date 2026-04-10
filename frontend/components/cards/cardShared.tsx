@@ -17,26 +17,26 @@ export function CardProgressTrack({ progress }: { progress?: number }) {
 export const cardPressableBase = {
   flexDirection: 'row' as const,
   alignItems: 'center' as const,
-  padding: 18,
-  borderRadius: layout.radiusMd,
+  padding: 20,
+  borderRadius: layout.radiusLg,
   backgroundColor: colors.white,
   borderWidth: 1,
   borderColor: colors.border,
-  marginBottom: 14,
+  marginBottom: 12,
 };
 
 export const sharedStyles = StyleSheet.create({
   trackWrap: {
-    marginTop: 10,
+    marginTop: 14,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
   },
   track: {
     flex: 1,
-    height: 5,
+    height: 6,
     borderRadius: 999,
-    backgroundColor: colors.cloud,
+    backgroundColor: colors.cloudDark,
     overflow: 'hidden',
   },
   fill: {
@@ -46,27 +46,27 @@ export const sharedStyles = StyleSheet.create({
   },
   pctLabel: {
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: '800',
     color: colors.maroon,
     minWidth: 34,
     textAlign: 'right',
   },
   chevronWrap: {
-    marginLeft: 12,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    marginLeft: 14,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: colors.maroonFaint,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: colors.borderStrong,
+    flexShrink: 0,
   },
   chevron: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '800',
     color: colors.maroon,
-    marginTop: -1,
   },
 });
 

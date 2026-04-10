@@ -1,7 +1,17 @@
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import type { Case } from '../../types/case';
-import { colors, shadows } from '../../constants/theme';
+import { colors, layout, shadows } from '../../constants/theme';
 import { CardChevron, CardProgressTrack, cardPressableBase } from './cardShared';
+
+const DIFFICULTY_STYLE: Record<string, { bg: string; text: string; label: string }> = {
+  easy:     { bg: colors.successBg,  text: colors.success, label: 'Foundational' },
+  medium:   { bg: colors.goldFaint,  text: colors.gold,    label: 'Intermediate' },
+  hard:     { bg: colors.maroonFaint, text: colors.maroon, label: 'Advanced' },
+};
+
+function getDifficultyStyle(difficulty: string) {
+  return DIFFICULTY_STYLE[difficulty.toLowerCase()] ?? { bg: colors.cloud, text: colors.textMuted, label: difficulty };
+}
 
 interface CaseCardProps {
   caseItem: Case;
@@ -11,29 +21,47 @@ interface CaseCardProps {
 }
 
 export default function CaseCard({ caseItem, onPress, progress, publishStatus }: CaseCardProps) {
+  const diff = getDifficultyStyle(caseItem.difficulty);
+  const started = typeof progress === 'number' && progress > 0;
+  const done = typeof progress === 'number' && progress >= 100;
+
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [cardPressableBase, shadows.card, pressed && styles.pressed]}
+      style={({ pressed }) => [cardPressableBase, shadows.card, styles.card, pressed && styles.pressed]}
       accessibilityRole="button"
       accessibilityLabel={`Open case ${caseItem.title}`}
     >
       <View style={styles.content}>
         <View style={styles.header}>
-          <Text style={styles.title}>{caseItem.title}</Text>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{caseItem.difficulty}</Text>
+          <Text style={styles.title} numberOfLines={2}>{caseItem.title}</Text>
+          <View style={[styles.diffBadge, { backgroundColor: diff.bg }]}>
+            <Text style={[styles.diffText, { color: diff.text }]}>{diff.label}</Text>
           </View>
         </View>
-        <Text style={styles.description}>{caseItem.shortDescription}</Text>
-        <CardProgressTrack progress={progress} />
+
+        <Text style={styles.description} numberOfLines={2}>
+          {caseItem.shortDescription}
+        </Text>
+
         <View style={styles.footer}>
+          {done ? (
+            <View style={styles.completeBadge}>
+              <Text style={styles.completeText}>✓ Completed</Text>
+            </View>
+          ) : started ? (
+            <View style={styles.inProgressBadge}>
+              <Text style={styles.inProgressText}>In progress</Text>
+            </View>
+          ) : null}
           {publishStatus ? (
             <View style={styles.publishBadge}>
               <Text style={styles.publishText}>{publishStatus}</Text>
             </View>
           ) : null}
         </View>
+
+        <CardProgressTrack progress={progress} />
       </View>
       <CardChevron />
     </Pressable>
@@ -41,50 +69,85 @@ export default function CaseCard({ caseItem, onPress, progress, publishStatus }:
 }
 
 const styles = StyleSheet.create({
+  card: {
+    borderRadius: layout.radiusLg,
+    alignItems: 'flex-start',
+  },
+  pressed: {
+    opacity: 0.93,
+    transform: [{ scale: 0.995 }],
+  },
   content: {
     flex: 1,
     minWidth: 0,
   },
-  pressed: { opacity: 0.94 },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    gap: 10,
     marginBottom: 8,
+    flexWrap: 'wrap',
   },
   title: {
-    fontSize: 18,
+    flex: 1,
+    fontSize: 17,
     fontWeight: '800',
     color: colors.maroonDeep,
-    flex: 1,
+    letterSpacing: -0.1,
+    lineHeight: 24,
+    minWidth: 120,
   },
-  badge: {
-    backgroundColor: colors.maroonFaint,
-    borderRadius: 10,
+  diffBadge: {
+    borderRadius: 8,
     paddingHorizontal: 8,
-    paddingVertical: 2,
-    marginLeft: 8,
+    paddingVertical: 4,
+    flexShrink: 0,
   },
-  badgeText: {
+  diffText: {
     fontSize: 11,
-    color: colors.maroon,
-    textTransform: 'capitalize',
-    fontWeight: '500',
+    fontWeight: '700',
+    letterSpacing: 0.2,
   },
   description: {
     fontSize: 14,
     color: colors.textSecondary,
     lineHeight: 22,
+    marginBottom: 10,
   },
   footer: {
-    marginTop: 8,
-    gap: 10,
+    flexDirection: 'row',
+    gap: 6,
+    flexWrap: 'wrap',
+  },
+  completeBadge: {
+    backgroundColor: colors.successBg,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: colors.successBorder,
+  },
+  completeText: {
+    color: colors.success,
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  inProgressBadge: {
+    backgroundColor: colors.maroonFaint,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  inProgressText: {
+    color: colors.maroon,
+    fontSize: 11,
+    fontWeight: '700',
   },
   publishBadge: {
-    alignSelf: 'flex-start',
     backgroundColor: colors.goldFaint,
     borderRadius: 999,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 4,
   },
   publishText: {
     color: colors.gold,

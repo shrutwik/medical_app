@@ -1,5 +1,12 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, signOut, type User } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  type User,
+} from 'firebase/auth';
 import { getStoredJson, setStoredJson, removeStoredValue } from '../storage/keyValueStore';
 
 const ADMIN_SESSION_KEY = 'medical-app/admin-session';
@@ -99,4 +106,36 @@ export async function signOutAdmin(): Promise<void> {
 
 export function getCurrentFirebaseUser(): User | null | undefined {
   return getFirebaseAuth()?.currentUser;
+}
+
+// ── Regular user auth (separate from admin) ────────────────────────────────
+
+export async function signInUser(email: string, password: string): Promise<User> {
+  const auth = getFirebaseAuth();
+  if (!auth) throw new Error('Firebase is not configured.');
+  const result = await signInWithEmailAndPassword(auth, email.trim(), password);
+  return result.user;
+}
+
+export async function signUpUser(email: string, password: string): Promise<User> {
+  const auth = getFirebaseAuth();
+  if (!auth) throw new Error('Firebase is not configured.');
+  const result = await createUserWithEmailAndPassword(auth, email.trim(), password);
+  return result.user;
+}
+
+export async function signOutUser(): Promise<void> {
+  const auth = getFirebaseAuth();
+  if (auth?.currentUser) {
+    await signOut(auth);
+  }
+}
+
+export function subscribeToUserAuth(callback: (user: User | null) => void): () => void {
+  const auth = getFirebaseAuth();
+  if (!auth) {
+    callback(null);
+    return () => {};
+  }
+  return onAuthStateChanged(auth, callback);
 }

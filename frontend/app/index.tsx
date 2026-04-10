@@ -61,19 +61,11 @@ export default function Index() {
               ? Math.round(completions.reduce((sum, value) => sum + value, 0) / completions.length)
               : 0;
 
-          return {
-            system,
-            conditions,
-            progress,
-            casesCount: cases.length,
-          };
+          return { system, conditions, progress, casesCount: cases.length };
         }),
       );
 
-      setState({
-        systems: nextSystems,
-        snapshot,
-      });
+      setState({ systems: nextSystems, snapshot });
     } catch (nextError) {
       setError(nextError instanceof Error ? nextError.message : 'Unable to load the dashboard.');
     } finally {
@@ -81,9 +73,7 @@ export default function Index() {
     }
   }, []);
 
-  useEffect(() => {
-    loadDashboard();
-  }, [loadDashboard]);
+  useEffect(() => { loadDashboard(); }, [loadDashboard]);
 
   useEffect(() => {
     setBreadcrumbs([{ label: 'Home' }]);
@@ -100,100 +90,129 @@ export default function Index() {
   const featuredSystem = state?.systems[0];
   const canPrimaryCta = Boolean(resumeActivity || featuredSystem);
   const primaryCtaLabel = resumeActivity
-    ? 'Continue where you left off'
+    ? 'Continue studying'
     : featuredSystem
-      ? `Start ${featuredSystem.system.name}`
+      ? `Begin ${featuredSystem.system.name}`
       : 'Pick a track to begin';
   const primaryCtaAction = () => {
-    if (resumeActivity) {
-      router.push(`/case/${resumeActivity.caseId}`);
-      return;
-    }
-    if (featuredSystem) {
-      router.push(`/system/${featuredSystem.system.id}`);
-    }
+    if (resumeActivity) { router.push(`/case/${resumeActivity.caseId}`); return; }
+    if (featuredSystem) { router.push(`/system/${featuredSystem.system.id}`); }
   };
 
-  const heroBlock = (
+  const streak = state?.snapshot.streak.current ?? 0;
+  const bookmarks = state?.snapshot.bookmarks.length ?? 0;
+
+  // ── Hero card ──────────────────────────────────────────────────────────────
+  const heroCard = (
     <FadeInBlock delayMs={0} durationMs={420}>
       <View style={[styles.heroCard, shadows.card]}>
-      <Text style={styles.eyebrow}>Medical Study Hub</Text>
-      <Text style={styles.heroTitle}>Study with one clear next step.</Text>
-      <Text style={styles.heroText}>
-        Choose a track, open a condition, then work through cases in order—or jump anywhere from the nav.
-      </Text>
+        {/* Accent stripe */}
+        <View style={styles.heroStripe} />
 
-      {resumeActivity ? (
-        <View style={styles.resumeCard}>
-          <Text style={styles.resumeLabel}>Continue</Text>
-          <Text style={styles.resumeTitle}>{resumeActivity.title}</Text>
-          <Text style={styles.resumeText}>{resumeActivity.detail}</Text>
-        </View>
-      ) : (
-        <View style={styles.resumeCard}>
-          <Text style={styles.resumeLabel}>Suggested start</Text>
-          <Text style={styles.resumeTitle}>
-            {featuredSystem ? featuredSystem.system.name : 'Your tracks'}
+        <View style={styles.heroBody}>
+          <Text style={styles.heroEyebrow}>Medical Study Hub</Text>
+          <Text style={styles.heroTitle}>
+            {resumeActivity ? `Welcome back.` : 'Start learning.'}
           </Text>
-          <Text style={styles.resumeText}>
-            {featuredSystem
-              ? 'Open this track and start or resume the next case.'
-              : 'When tracks load, pick one from the list to begin.'}
+          <Text style={styles.heroSubtitle}>
+            {resumeActivity
+              ? `Pick up where you left off — every case builds your clinical reasoning.`
+              : 'Choose a study track, work through cases, and test your knowledge as you go.'}
           </Text>
-        </View>
-      )}
 
-      <Pressable
-        style={[styles.primaryButton, !canPrimaryCta && styles.primaryButtonDisabled]}
-        onPress={primaryCtaAction}
-        disabled={!canPrimaryCta}
-      >
-        <Text style={styles.primaryButtonText}>{primaryCtaLabel}</Text>
-      </Pressable>
-    </View>
+          {/* Resume/start card */}
+          {resumeActivity ? (
+            <View style={styles.resumeCard}>
+              <View style={styles.resumeDot} />
+              <View style={styles.resumeText}>
+                <Text style={styles.resumeLabel}>Last studied</Text>
+                <Text style={styles.resumeTitle}>{resumeActivity.title}</Text>
+                <Text style={styles.resumeDetail}>{resumeActivity.detail}</Text>
+              </View>
+            </View>
+          ) : featuredSystem ? (
+            <View style={[styles.resumeCard, styles.suggestCard]}>
+              <Text style={styles.resumeLabel}>Suggested start</Text>
+              <Text style={styles.resumeTitle}>{featuredSystem.system.name}</Text>
+              <Text style={styles.resumeDetail}>
+                {featuredSystem.conditions.length} condition{featuredSystem.conditions.length !== 1 ? 's' : ''} · {featuredSystem.casesCount} case{featuredSystem.casesCount !== 1 ? 's' : ''}
+              </Text>
+            </View>
+          ) : null}
+
+          <Pressable
+            style={({ pressed }) => [
+              styles.heroCta,
+              !canPrimaryCta && styles.heroCtaDisabled,
+              pressed && styles.heroCtaPressed,
+            ]}
+            onPress={primaryCtaAction}
+            disabled={!canPrimaryCta}
+          >
+            <Text style={styles.heroCtaText}>{primaryCtaLabel} →</Text>
+          </Pressable>
+        </View>
+      </View>
     </FadeInBlock>
   );
 
+  // ── Stat cards ─────────────────────────────────────────────────────────────
   const statsBlock = (
     <View style={[styles.statsRow, isDesktop && styles.statsRowDesktop]}>
       <StaggerIn index={0}>
-        <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
-          <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Streak</Text>
-          <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
-            {state?.snapshot.streak.current ?? 0} day{(state?.snapshot.streak.current ?? 0) === 1 ? '' : 's'}
-          </Text>
+        <View style={[styles.statCard, shadows.subtle, isDesktop && styles.statCardDesktop]}>
+          <Text style={styles.statValue}>{streak}</Text>
+          <Text style={styles.statLabel}>Day streak</Text>
+          <Text style={styles.statEmoji}>{streak > 0 ? '🔥' : '—'}</Text>
         </View>
       </StaggerIn>
       <StaggerIn index={1}>
-        <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
-          <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Saved</Text>
-          <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>
-            {state?.snapshot.bookmarks.length ?? 0}
-          </Text>
+        <View style={[styles.statCard, shadows.subtle, isDesktop && styles.statCardDesktop]}>
+          <Text style={styles.statValue}>{completedCases}</Text>
+          <Text style={styles.statLabel}>Cases touched</Text>
+          <Text style={styles.statEmoji}>📖</Text>
         </View>
       </StaggerIn>
       <StaggerIn index={2}>
-        <View style={[styles.statCard, isDesktop && styles.statCardDesktop]}>
-          <Text style={[styles.statLabel, isDesktop && styles.statLabelDesktop]}>Cases touched</Text>
-          <Text style={[styles.statValue, isDesktop && styles.statValueDesktop]}>{completedCases}</Text>
+        <View style={[styles.statCard, shadows.subtle, isDesktop && styles.statCardDesktop]}>
+          <Text style={styles.statValue}>{bookmarks}</Text>
+          <Text style={styles.statLabel}>Bookmarked</Text>
+          <Text style={styles.statEmoji}>★</Text>
         </View>
       </StaggerIn>
     </View>
   );
 
+  // ── Tracks list ────────────────────────────────────────────────────────────
   const tracksHeader = (
-    <FadeInBlock delayMs={100} durationMs={380}>
+    <FadeInBlock delayMs={80} durationMs={380}>
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Study tracks</Text>
-        <Text style={styles.sectionSubtitle}>Open a track to see conditions and cases.</Text>
+        <Text style={styles.sectionSubtitle}>
+          Each track covers a system in depth — from basic science to clinical application.
+        </Text>
       </View>
     </FadeInBlock>
   );
 
   const tracksBody = (
     <>
-      {loading ? <Text style={styles.statusText}>Loading study tracks...</Text> : null}
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      {loading ? (
+        <View style={styles.loadingRow}>
+          <View style={styles.loadingPulse} />
+          <View style={[styles.loadingPulse, { opacity: 0.6 }]} />
+          <View style={[styles.loadingPulse, { opacity: 0.3 }]} />
+        </View>
+      ) : null}
+      {error ? (
+        <View style={styles.errorCard}>
+          <Text style={styles.errorTitle}>Couldn't load tracks</Text>
+          <Text style={styles.errorText}>{error}</Text>
+          <Pressable style={styles.retryButton} onPress={loadDashboard}>
+            <Text style={styles.retryText}>Try again</Text>
+          </Pressable>
+        </View>
+      ) : null}
       <View style={styles.systemList}>
         {state?.systems.map((item, index) => (
           <StaggerIn key={item.system.id} index={index}>
@@ -216,7 +235,7 @@ export default function Index() {
         {isDesktop ? (
           <View style={styles.desktopGrid}>
             <View style={styles.desktopMain}>
-              {heroBlock}
+              {heroCard}
               {statsBlock}
             </View>
             <View style={styles.desktopAside}>
@@ -226,7 +245,7 @@ export default function Index() {
           </View>
         ) : (
           <>
-            {heroBlock}
+            {heroCard}
             {statsBlock}
             {tracksHeader}
             {tracksBody}
@@ -238,6 +257,7 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+  // ── Desktop grid
   desktopGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -246,151 +266,221 @@ const styles = StyleSheet.create({
   },
   desktopMain: {
     flex: 1,
-    minWidth: 300,
-    maxWidth: 560,
+    minWidth: 320,
+    maxWidth: 540,
   },
   desktopAside: {
-    flex: 1,
-    minWidth: 280,
+    flex: 1.2,
+    minWidth: 300,
   },
+
+  // ── Hero card
   heroCard: {
     backgroundColor: colors.white,
-    borderRadius: layout.radiusXl,
-    padding: 28,
+    borderRadius: layout.radius2xl,
     borderWidth: 1,
     borderColor: colors.border,
     marginBottom: 16,
+    overflow: 'hidden',
   },
-  eyebrow: {
+  heroStripe: {
+    height: 4,
+    backgroundColor: colors.maroon,
+  },
+  heroBody: {
+    padding: 28,
+  },
+  heroEyebrow: {
     ...typography.label,
     color: colors.maroon,
     marginBottom: 10,
   },
   heroTitle: {
+    fontSize: 34,
+    fontWeight: '800',
     color: colors.maroonDeep,
-    ...typography.heroTitle,
-    marginBottom: 12,
-    maxWidth: 760,
+    letterSpacing: -0.6,
+    marginBottom: 10,
+    lineHeight: 40,
   },
-  heroText: {
-    color: colors.textSecondary,
+  heroSubtitle: {
     ...typography.body,
-    marginBottom: 18,
-    maxWidth: 720,
+    color: colors.textSecondary,
+    marginBottom: 22,
+    maxWidth: 480,
   },
   resumeCard: {
     backgroundColor: colors.cloud,
     borderRadius: layout.radiusLg,
-    padding: 20,
-    maxWidth: 620,
-    marginBottom: 16,
+    padding: 18,
+    marginBottom: 20,
     borderWidth: 1,
     borderColor: colors.border,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 14,
   },
-  resumeLabel: {
-    color: colors.textMuted,
-    fontSize: 11,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 0.7,
-    marginBottom: 8,
+  resumeDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: colors.maroon,
+    marginTop: 5,
+    flexShrink: 0,
   },
-  resumeTitle: {
-    color: colors.maroonDeep,
-    fontSize: 22,
-    fontWeight: '800',
-    marginBottom: 6,
+  suggestCard: {
+    flexDirection: 'column',
+    gap: 0,
   },
   resumeText: {
-    color: colors.textSecondary,
-    fontSize: 14,
-    lineHeight: 22,
+    flex: 1,
   },
-  primaryButton: {
+  resumeLabel: {
+    ...typography.label,
+    color: colors.textMuted,
+    marginBottom: 5,
+  },
+  resumeTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.maroonDeep,
+    letterSpacing: -0.2,
+    marginBottom: 4,
+    textTransform: 'capitalize',
+  },
+  resumeDetail: {
+    fontSize: 13,
+    color: colors.textSecondary,
+    lineHeight: 20,
+  },
+  heroCta: {
     alignSelf: 'flex-start',
     backgroundColor: colors.maroon,
-    paddingHorizontal: 20,
+    paddingHorizontal: 22,
     paddingVertical: 14,
     borderRadius: 999,
   },
-  primaryButtonDisabled: {
-    opacity: 0.45,
-  },
-  primaryButtonText: {
+  heroCtaDisabled: { opacity: 0.4 },
+  heroCtaPressed: { opacity: 0.85 },
+  heroCtaText: {
     color: colors.white,
-    fontWeight: '700',
-    fontSize: 14,
+    fontWeight: '800',
+    fontSize: 15,
+    letterSpacing: -0.1,
   },
+
+  // ── Stats
   statsRow: {
-    gap: 12,
-    marginBottom: 24,
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 28,
   },
   statsRowDesktop: {
     flexDirection: 'column',
     marginBottom: 0,
-    gap: 10,
+    gap: 8,
   },
   statCard: {
+    flex: 1,
     backgroundColor: colors.white,
     borderRadius: layout.radiusLg,
     padding: 18,
     borderWidth: 1,
     borderColor: colors.border,
-    flex: 1,
+    position: 'relative',
+    overflow: 'hidden',
   },
   statCardDesktop: {
-    backgroundColor: colors.cloud,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingVertical: 14,
     borderRadius: layout.radiusMd,
-  },
-  statLabel: {
-    color: colors.textMuted,
-    fontSize: 11,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    marginBottom: 6,
-  },
-  statLabelDesktop: {
-    fontSize: 10,
-    marginBottom: 4,
+    backgroundColor: colors.cloud,
   },
   statValue: {
-    color: colors.maroonDeep,
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: '800',
+    color: colors.maroonDeep,
+    letterSpacing: -0.5,
+    marginBottom: 2,
   },
-  statValueDesktop: {
-    color: colors.textSecondary,
-    fontSize: 18,
-    fontWeight: '700',
+  statLabel: {
+    fontSize: 11,
+    color: colors.textMuted,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
+  statEmoji: {
+    position: 'absolute',
+    right: 14,
+    bottom: 12,
+    fontSize: 22,
+    opacity: 0.35,
+  },
+
+  // ── Section header
   sectionHeader: {
-    marginBottom: 14,
-    marginTop: 4,
+    marginBottom: 16,
   },
   sectionTitle: {
+    ...typography.section,
     color: colors.maroonDeep,
-    fontSize: 24,
-    fontWeight: '800',
     marginBottom: 4,
   },
   sectionSubtitle: {
-    color: colors.textSecondary,
     fontSize: 14,
+    color: colors.textSecondary,
     lineHeight: 22,
+    maxWidth: 560,
   },
   systemList: {
-    marginTop: 8,
+    marginTop: 4,
   },
-  statusText: {
-    color: colors.textMuted,
-    fontSize: 14,
-    paddingVertical: 20,
+
+  // ── Loading skeleton
+  loadingRow: {
+    gap: 10,
+    marginBottom: 8,
+  },
+  loadingPulse: {
+    height: 80,
+    borderRadius: layout.radiusLg,
+    backgroundColor: colors.cloudDark,
+    marginBottom: 2,
+  },
+
+  // ── Error
+  errorCard: {
+    backgroundColor: colors.errorBg,
+    borderRadius: layout.radiusLg,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: colors.errorBorder,
+    marginBottom: 16,
+  },
+  errorTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.error,
+    marginBottom: 6,
   },
   errorText: {
-    color: colors.error,
     fontSize: 14,
-    paddingVertical: 12,
+    color: colors.textSecondary,
+    marginBottom: 14,
+  },
+  retryButton: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.maroon,
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  retryText: {
+    color: colors.white,
+    fontSize: 13,
+    fontWeight: '700',
   },
 });

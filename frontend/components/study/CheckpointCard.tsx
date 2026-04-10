@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import type { StudyCheckpoint } from '../../types/checkpoint';
-import { colors } from '../../constants/theme';
+import { colors, layout } from '../../constants/theme';
 
 interface CheckpointCardProps {
   checkpoint: StudyCheckpoint;
@@ -25,30 +26,68 @@ export default function CheckpointCard({
   };
 
   return (
-    <View style={styles.card}>
-      <Text style={styles.kicker}>Active Recall Checkpoint</Text>
-      <Text style={styles.title}>{checkpoint.title}</Text>
-      <Text style={styles.prompt}>{checkpoint.prompt}</Text>
+    <View style={[styles.card, completed && styles.cardDone]}>
+      {/* Header strip */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Text style={styles.kicker}>Active Recall</Text>
+          <Text style={styles.title}>{checkpoint.title}</Text>
+        </View>
+        {completed ? (
+          <View style={styles.completedBadge}>
+            <Text style={styles.completedBadgeText}>✓ Done</Text>
+          </View>
+        ) : (
+          <View style={styles.pendingBadge}>
+            <Text style={styles.pendingBadgeText}>Reflect</Text>
+          </View>
+        )}
+      </View>
 
+      {/* Prompt */}
+      <View style={styles.promptBlock}>
+        <Text style={styles.promptLabel}>Consider this question</Text>
+        <Text style={styles.prompt}>{checkpoint.prompt}</Text>
+      </View>
+
+      {/* Hint */}
       <View style={styles.hintBox}>
         <Text style={styles.hintLabel}>Hint</Text>
         <Text style={styles.hintText}>{checkpoint.hint}</Text>
       </View>
 
+      {/* Revealed coaching note */}
       {revealed ? (
-        <View style={styles.answerBox}>
-          <Text style={styles.answerLabel}>Coaching Note</Text>
+        <Animated.View entering={FadeIn.duration(280)} exiting={FadeOut.duration(200)} style={styles.answerBox}>
+          <View style={styles.answerHeader}>
+            <View style={styles.answerDot} />
+            <Text style={styles.answerLabel}>Coaching Note</Text>
+          </View>
           <Text style={styles.answerText}>{checkpoint.answer}</Text>
-        </View>
+        </Animated.View>
       ) : null}
 
+      {/* CTA */}
       <View style={styles.actions}>
         <Pressable
-          style={[styles.primaryButton, completed && styles.primaryButtonDone]}
+          style={({ pressed }) => [
+            styles.revealButton,
+            completed && !revealed && styles.revealButtonDone,
+            revealed && styles.revealButtonHide,
+            pressed && styles.revealButtonPressed,
+          ]}
           onPress={toggleReveal}
         >
-          <Text style={[styles.primaryText, completed && styles.primaryTextDone]}>
-            {revealed ? 'Hide coaching note' : completed ? 'Saved note' : 'Reveal coaching note'}
+          <Text style={[
+            styles.revealText,
+            completed && !revealed && styles.revealTextDone,
+            revealed && styles.revealTextHide,
+          ]}>
+            {revealed
+              ? 'Hide coaching note'
+              : completed
+              ? '★ Show coaching note again'
+              : 'Reveal coaching note'}
           </Text>
         </Pressable>
       </View>
@@ -59,45 +98,102 @@ export default function CheckpointCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.goldFaint,
-    borderRadius: 20,
-    padding: 20,
+    borderRadius: layout.radiusLg,
     marginBottom: 14,
     borderWidth: 1,
-    borderColor: '#F2D0A5',
+    borderColor: '#F0C98A',
+    overflow: 'hidden',
+  },
+  cardDone: {
+    borderColor: '#D4B87A',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    padding: 18,
+    paddingBottom: 14,
+    gap: 12,
+    flexWrap: 'wrap',
+  },
+  headerLeft: {
+    flex: 1,
   },
   kicker: {
-    color: colors.gold,
-    fontSize: 11,
+    color: colors.goldDeep,
+    fontSize: 10,
     fontWeight: '800',
     textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    marginBottom: 8,
+    letterSpacing: 0.9,
+    marginBottom: 5,
   },
   title: {
     color: colors.maroonDeep,
     fontSize: 18,
+    fontWeight: '800',
+    lineHeight: 24,
+    letterSpacing: -0.1,
+  },
+  completedBadge: {
+    backgroundColor: colors.successBg,
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: colors.successBorder,
+    flexShrink: 0,
+  },
+  completedBadgeText: {
+    color: colors.success,
+    fontSize: 12,
     fontWeight: '700',
-    marginBottom: 8,
+  },
+  pendingBadge: {
+    backgroundColor: 'rgba(192,112,48,0.12)',
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    flexShrink: 0,
+  },
+  pendingBadgeText: {
+    color: colors.goldDeep,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  promptBlock: {
+    marginHorizontal: 18,
+    marginBottom: 12,
+  },
+  promptLabel: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: colors.goldDeep,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+    marginBottom: 6,
   },
   prompt: {
     color: colors.textPrimary,
-    fontSize: 15,
-    lineHeight: 24,
-    marginBottom: 12,
+    fontSize: 16,
+    lineHeight: 26,
+    fontWeight: '500',
   },
   hintBox: {
-    borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    marginHorizontal: 18,
+    marginBottom: 14,
+    borderRadius: layout.radiusMd,
+    backgroundColor: 'rgba(255,255,255,0.55)',
     padding: 14,
-    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(192,112,48,0.15)',
   },
   hintLabel: {
     color: colors.textMuted,
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: 10,
+    fontWeight: '800',
     textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    marginBottom: 4,
+    letterSpacing: 0.8,
+    marginBottom: 5,
   },
   hintText: {
     color: colors.textSecondary,
@@ -105,44 +201,68 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   answerBox: {
-    borderRadius: 14,
+    marginHorizontal: 18,
+    marginBottom: 14,
+    borderRadius: layout.radiusMd,
     backgroundColor: colors.white,
-    padding: 14,
-    marginBottom: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  answerHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
+  answerDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: colors.maroon,
   },
   answerLabel: {
     color: colors.maroon,
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: 10,
+    fontWeight: '800',
     textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    marginBottom: 4,
+    letterSpacing: 0.9,
   },
   answerText: {
     color: colors.textPrimary,
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 15,
+    lineHeight: 24,
+    fontWeight: '400',
   },
   actions: {
-    flexDirection: 'row',
-    gap: 10,
-    flexWrap: 'wrap',
+    padding: 18,
+    paddingTop: 4,
   },
-  primaryButton: {
-    backgroundColor: colors.maroon,
+  revealButton: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.gold,
     borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 18,
+    paddingVertical: 11,
   },
-  primaryButtonDone: {
-    backgroundColor: colors.successBg,
+  revealButtonDone: {
+    backgroundColor: 'rgba(192,112,48,0.15)',
   },
-  primaryText: {
+  revealButtonHide: {
+    backgroundColor: colors.cloud,
+  },
+  revealButtonPressed: {
+    opacity: 0.8,
+  },
+  revealText: {
     color: colors.white,
     fontWeight: '700',
-    fontSize: 12,
+    fontSize: 13,
   },
-  primaryTextDone: {
-    color: colors.success,
+  revealTextDone: {
+    color: colors.goldDeep,
+  },
+  revealTextHide: {
+    color: colors.textSecondary,
   },
 });

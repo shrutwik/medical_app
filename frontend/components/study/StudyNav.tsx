@@ -44,15 +44,26 @@ export default function StudyNav({
             >
               <Pressable
                 onPress={() => onSelect(item.key)}
-                style={[
+                style={({ pressed }) => [
                   styles.pill,
                   item.completed && !active && styles.pillComplete,
                   item.accent && !active && styles.pillAccent,
                   active && styles.pillActive,
                   isVertical && styles.pillVertical,
+                  pressed && styles.pillPressed,
                 ]}
               >
                 <View style={styles.labelRow}>
+                  {/* Status indicator dot */}
+                  {isVertical ? (
+                    <View style={[
+                      styles.statusDot,
+                      item.completed && !active && styles.statusDotComplete,
+                      item.accent && !active && styles.statusDotAccent,
+                      active && styles.statusDotActive,
+                    ]} />
+                  ) : null}
+
                   <Text
                     style={[
                       styles.label,
@@ -60,10 +71,21 @@ export default function StudyNav({
                       item.accent && !active && styles.labelAccent,
                       active && styles.labelActive,
                     ]}
+                    numberOfLines={1}
                   >
                     {item.label}
                   </Text>
-                  {item.badge ? <Text style={[styles.badge, active && styles.badgeActive]}>{item.badge}</Text> : null}
+
+                  {item.badge ? (
+                    <View style={[styles.badgePill, active && styles.badgePillActive]}>
+                      <Text style={[styles.badge, active && styles.badgeActive]}>{item.badge}</Text>
+                    </View>
+                  ) : null}
+
+                  {/* Checkmark for completed */}
+                  {item.completed && !active ? (
+                    <Text style={styles.checkmark}>✓</Text>
+                  ) : null}
                 </View>
               </Pressable>
             </StaggerNavItem>
@@ -82,60 +104,97 @@ const styles = StyleSheet.create({
   },
   wrapperVertical: {
     borderBottomWidth: 0,
-    borderLeftWidth: StyleSheet.hairlineWidth,
-    borderLeftColor: colors.border,
+    borderRightWidth: StyleSheet.hairlineWidth,
+    borderRightColor: colors.border,
     height: '100%',
+    backgroundColor: colors.cardBg,
   },
   container: {
     paddingHorizontal: layout.pagePadding,
     paddingVertical: 12,
-    gap: 10,
+    gap: 8,
   },
   containerVertical: {
-    paddingHorizontal: 14,
-    paddingVertical: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
+    gap: 4,
+    flexDirection: 'column',
   },
   pill: {
     borderRadius: 999,
-    backgroundColor: colors.white,
+    backgroundColor: 'transparent',
+    paddingHorizontal: 14,
+    paddingVertical: 9,
     borderWidth: 1,
-    borderColor: colors.border,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    borderColor: 'transparent',
   },
   pillVertical: {
-    width: '100%',
     borderRadius: layout.radiusMd,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
   },
   pillAccent: {
-    borderColor: colors.cardBgStrong,
+    backgroundColor: colors.goldFaint,
+    borderColor: '#F2D0A5',
   },
   pillComplete: {
-    backgroundColor: colors.cloud,
-    borderColor: colors.cardBgStrong,
+    backgroundColor: colors.successBg,
+    borderColor: colors.successBorder,
   },
   pillActive: {
     backgroundColor: colors.maroon,
     borderColor: colors.maroon,
   },
+  pillPressed: {
+    opacity: 0.8,
+  },
   labelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
+  },
+  statusDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: colors.borderStrong,
+    flexShrink: 0,
+  },
+  statusDotComplete: {
+    backgroundColor: colors.success,
+  },
+  statusDotAccent: {
+    backgroundColor: colors.gold,
+  },
+  statusDotActive: {
+    backgroundColor: colors.white,
   },
   label: {
     color: colors.textSecondary,
     fontSize: 13,
     fontWeight: '600',
+    flexShrink: 1,
   },
   labelAccent: {
-    color: colors.textSecondary,
+    color: colors.goldDeep,
+    fontWeight: '700',
   },
   labelComplete: {
-    color: colors.maroon,
+    color: colors.success,
+    fontWeight: '700',
   },
   labelActive: {
     color: colors.white,
+    fontWeight: '700',
+  },
+  badgePill: {
+    backgroundColor: colors.cloud,
+    borderRadius: 999,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  badgePillActive: {
+    backgroundColor: 'rgba(255,255,255,0.2)',
   },
   badge: {
     color: colors.textMuted,
@@ -144,6 +203,11 @@ const styles = StyleSheet.create({
   },
   badgeActive: {
     color: colors.white,
+  },
+  checkmark: {
+    color: colors.success,
+    fontSize: 12,
+    fontWeight: '800',
   },
   staggerVertical: {
     width: '100%',

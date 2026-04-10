@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { colors, layout, shadows, typography } from '../../constants/theme';
+import { useAuth } from '../../contexts/AuthContext';
 import { useBreadcrumbs } from '../../contexts/BreadcrumbContext';
 import { hasFirebaseConfig, isAdminDemoEnabled } from '../../services/auth/firebase';
 
@@ -12,7 +13,9 @@ interface DesktopAppShellProps {
 export default function DesktopAppShell({ children }: DesktopAppShellProps) {
   const router = useRouter();
   const { segments } = useBreadcrumbs();
+  const { user, guestMode } = useAuth();
   const showAdminLink = isAdminDemoEnabled() || hasFirebaseConfig();
+  const showSettingsLink = !!user || guestMode;
 
   return (
     <View style={styles.root}>
@@ -26,6 +29,11 @@ export default function DesktopAppShell({ children }: DesktopAppShellProps) {
           <Pressable onPress={() => router.push('/')} style={styles.navPill} accessibilityRole="link">
             <Text style={styles.navPillText}>Home</Text>
           </Pressable>
+          {showSettingsLink ? (
+            <Pressable onPress={() => router.push('/settings')} style={styles.navPillMuted} accessibilityRole="link">
+              <Text style={styles.navPillMutedText}>Settings</Text>
+            </Pressable>
+          ) : null}
           {showAdminLink ? (
             <Pressable onPress={() => router.push('/admin')} style={styles.navPillMuted} accessibilityRole="link">
               <Text style={styles.navPillMutedText}>Admin</Text>

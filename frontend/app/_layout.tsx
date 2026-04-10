@@ -1,9 +1,31 @@
-import { Stack } from 'expo-router';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
 import { Platform, useWindowDimensions } from 'react-native';
 import DesktopAppShell from '../components/navigation/DesktopAppShell';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { colors } from '../constants/theme';
+import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { BreadcrumbProvider } from '../contexts/BreadcrumbContext';
+
+function RouteGuard({ children }: { children: React.ReactNode }) {
+  const { user, loading, guestMode } = useAuth();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loading) return;
+    const onLoginScreen = segments[0] === 'login';
+    const isAuthenticated = !!user || guestMode;
+
+    if (!isAuthenticated && !onLoginScreen) {
+      router.replace('/login');
+    } else if (isAuthenticated && onLoginScreen) {
+      router.replace('/');
+    }
+  }, [user, loading, guestMode, segments, router]);
+
+  return <>{children}</>;
+}
 
 function LayoutBody() {
   const { width } = useWindowDimensions();
@@ -75,8 +97,14 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <BreadcrumbProvider>
-      <LayoutBody />
-    </BreadcrumbProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <BreadcrumbProvider>
+          <RouteGuard>
+            <LayoutBody />
+          </RouteGuard>
+        </BreadcrumbProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
