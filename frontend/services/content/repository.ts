@@ -194,6 +194,19 @@ function mergeSeedVisualsIntoStoredDataset(stored: ContentDataset, seed: Content
     let next: Section = { ...s };
     if (!s.illustrations?.length && seedS.illustrations?.length) {
       next = { ...next, illustrations: seedS.illustrations };
+    } else if (s.illustrations?.length && seedS.illustrations?.length) {
+      next = {
+        ...next,
+        illustrations: s.illustrations.map((ill) => {
+          const seedIll = seedS.illustrations?.find((c) => c.url === ill.url);
+          if (!seedIll) return ill;
+          return {
+            ...ill,
+            ...(!ill.hotspots?.length && seedIll.hotspots?.length ? { hotspots: seedIll.hotspots } : {}),
+            ...(!ill.animation && seedIll.animation ? { animation: seedIll.animation } : {}),
+          };
+        }),
+      };
     }
     if (!s.content?.includes('![') && seedS.content?.includes('![')) {
       if (proseBeforeMarkdownFigures(s.content) === proseBeforeMarkdownFigures(seedS.content)) {
@@ -214,24 +227,56 @@ function mergeSeedVisualsIntoStoredDataset(stored: ContentDataset, seed: Content
       );
     if (!seedM) return m;
     const hasStoredMedia =
-      Boolean(m.diagramUrl) || m.steps.some((st) => Boolean(st.illustrationUrl));
-    if (hasStoredMedia) return m;
+      Boolean(m.diagramUrl) ||
+      m.steps.some((st) => Boolean(st.illustrationUrl)) ||
+      Boolean(m.diagramHotspots?.length);
+    if (hasStoredMedia) {
+      let enriched = m;
+      if (m.diagramUrl && seedM.diagramHotspots?.length && !m.diagramHotspots?.length) {
+        enriched = { ...enriched, diagramHotspots: seedM.diagramHotspots };
+      }
+      if (m.diagramUrl && seedM.diagramAnimation && !m.diagramAnimation) {
+        enriched = { ...enriched, diagramAnimation: seedM.diagramAnimation };
+      }
+      enriched = {
+        ...enriched,
+        steps: enriched.steps.map((step) => {
+          const seedStep = seedM.steps.find((ss) => ss.stepNumber === step.stepNumber);
+          if (!seedStep) return step;
+          if (!step.hotspotId && seedStep.hotspotId) {
+            return { ...step, hotspotId: seedStep.hotspotId };
+          }
+          return step;
+        }),
+      };
+      return enriched;
+    }
     const seedHasMedia =
-      Boolean(seedM.diagramUrl) || seedM.steps.some((st) => Boolean(st.illustrationUrl));
+      Boolean(seedM.diagramUrl) ||
+      seedM.steps.some((st) => Boolean(st.illustrationUrl)) ||
+      Boolean(seedM.diagramHotspots?.length);
     if (!seedHasMedia) return m;
     return {
       ...m,
       ...(seedM.diagramUrl
         ? { diagramUrl: seedM.diagramUrl, diagramCaption: seedM.diagramCaption }
         : {}),
+      ...(seedM.diagramHotspots?.length ? { diagramHotspots: seedM.diagramHotspots } : {}),
+      ...(seedM.diagramAnimation ? { diagramAnimation: seedM.diagramAnimation } : {}),
       steps: m.steps.map((step) => {
         const seedStep = seedM.steps.find((ss) => ss.stepNumber === step.stepNumber);
-        if (!seedStep?.illustrationUrl || step.illustrationUrl) return step;
-        return {
-          ...step,
-          illustrationUrl: seedStep.illustrationUrl,
-          illustrationCaption: seedStep.illustrationCaption,
-        };
+        if (!seedStep) return step;
+        if (!step.illustrationUrl && seedStep.illustrationUrl) {
+          return {
+            ...step,
+            illustrationUrl: seedStep.illustrationUrl,
+            illustrationCaption: seedStep.illustrationCaption,
+          };
+        }
+        if (!step.hotspotId && seedStep.hotspotId) {
+          return { ...step, hotspotId: seedStep.hotspotId };
+        }
+        return step;
       }),
     };
   });

@@ -96,7 +96,7 @@ export default function SystemDetail() {
           <BackLink label="Tracks" onPress={() => router.push('/')} />
           <Text style={styles.eyebrow}>Track</Text>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>Choose a condition, then move into the next case.</Text>
+          <Text style={styles.description}>Pick a condition to explore and start with any case.</Text>
           {highlightedCondition ? (
             <Pressable
               style={styles.primaryButton}

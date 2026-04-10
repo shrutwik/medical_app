@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import ContentIllustration from '../media/ContentIllustration';
 import RelatedResourceStrip from '../media/RelatedResourceStrip';
 import type { Resource } from '../../types/resource';
@@ -26,6 +27,8 @@ interface SectionBlockProps {
 
 export default function SectionBlock({ section, completed, relatedResources }: SectionBlockProps) {
   const { text, images } = mergeSectionVisuals(section);
+  const [activeHotspotId, setActiveHotspotId] = useState<string | null>(null);
+  const hasHotspots = images.some((img) => (img.hotspots?.length ?? 0) > 0);
   const accent = SECTION_ACCENT[section.type] ?? { color: colors.maroon, bg: colors.maroonFaint, label: section.type };
 
   return (
@@ -56,8 +59,31 @@ export default function SectionBlock({ section, completed, relatedResources }: S
           url={item.url}
           caption={item.caption}
           animationIndex={index}
+          hotspots={item.hotspots}
+          animation={item.animation}
+          activeHotspotId={hasHotspots ? activeHotspotId : undefined}
+          onHotspotPress={hasHotspots ? (id) => setActiveHotspotId(id) : undefined}
         />
       ))}
+
+      {hasHotspots ? (
+        <View style={styles.hotspotLegend}>
+          <Text style={styles.hotspotLegendTitle}>Explore the figure</Text>
+          <View style={styles.hotspotChips}>
+            {images.flatMap((img) => img.hotspots ?? []).map((h) => (
+              <Pressable
+                key={h.id}
+                onPress={() => setActiveHotspotId(h.id)}
+                style={[styles.hotspotChip, activeHotspotId === h.id && styles.hotspotChipActive]}
+              >
+                <Text style={[styles.hotspotChipText, activeHotspotId === h.id && styles.hotspotChipTextActive]}>
+                  {h.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+      ) : null}
 
       {/* Body text */}
       <View style={styles.body}>
@@ -137,5 +163,44 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 28,
     fontWeight: '400',
+  },
+  hotspotLegend: {
+    paddingHorizontal: 18,
+    paddingBottom: 12,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  hotspotLegendTitle: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: colors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.6,
+    marginBottom: 8,
+  },
+  hotspotChips: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  hotspotChip: {
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.cloud,
+  },
+  hotspotChipActive: {
+    borderColor: colors.maroon,
+    backgroundColor: colors.maroonFaint,
+  },
+  hotspotChipText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: colors.textSecondary,
+  },
+  hotspotChipTextActive: {
+    color: colors.maroon,
   },
 });

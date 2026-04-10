@@ -63,3 +63,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## Superpowers Workflow (required for agents)
+
+Use `obra/superpowers` skills for work in this repository. Install and verify per `docs/superpowers-setup.md`. Project rule: `.cursor/rules/superpowers.mdc` (always on).

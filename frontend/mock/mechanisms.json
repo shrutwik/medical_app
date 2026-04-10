@@ -6,33 +6,75 @@
     "relatedDrug": "albuterol",
     "diagramUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/GPCR_Gs_protein.png/640px-GPCR_Gs_protein.png",
     "diagramCaption": "GPCR–Gs–adenylyl cyclase signaling overview (reference schematic).",
+    "diagramHotspots": [
+      {
+        "id": "step_1",
+        "label": "Receptor region",
+        "description": "Beta2 agonist binding at the GPCR.",
+        "shape": "rect",
+        "rect": { "x": 0.02, "y": 0.28, "w": 0.18, "h": 0.42 }
+      },
+      {
+        "id": "step_2",
+        "label": "G protein / Gs",
+        "description": "Gs activation couples receptor occupancy to downstream enzymes.",
+        "shape": "rect",
+        "rect": { "x": 0.2, "y": 0.22, "w": 0.2, "h": 0.38 }
+      },
+      {
+        "id": "step_3",
+        "label": "Second messengers",
+        "description": "cAMP couples receptor signaling to smooth muscle relaxation pathways.",
+        "shape": "rect",
+        "rect": { "x": 0.4, "y": 0.3, "w": 0.22, "h": 0.36 }
+      },
+      {
+        "id": "step_4",
+        "label": "Effector enzymes",
+        "description": "Kinase/phosphatase balance shifts away from contraction.",
+        "shape": "rect",
+        "rect": { "x": 0.6, "y": 0.32, "w": 0.2, "h": 0.34 }
+      },
+      {
+        "id": "step_5",
+        "label": "Outcome",
+        "description": "Reduced tone improves airway caliber and expiratory flow.",
+        "shape": "rect",
+        "rect": { "x": 0.78, "y": 0.38, "w": 0.18, "h": 0.28 }
+      }
+    ],
     "steps": [
       {
         "stepNumber": 1,
         "label": "Receptor binding",
-        "description": "Beta2 agonists bind adrenergic receptors on airway smooth muscle."
+        "description": "Beta2 agonists bind adrenergic receptors on airway smooth muscle.",
+        "hotspotId": "step_1"
       },
       {
         "stepNumber": 2,
         "label": "Gs signaling",
-        "description": "Receptor activation stimulates Gs protein and adenylate cyclase."
+        "description": "Receptor activation stimulates Gs protein and adenylate cyclase.",
+        "hotspotId": "step_2"
       },
       {
         "stepNumber": 3,
         "label": "cAMP increase",
         "description": "Intracellular cAMP rises and activates downstream relaxing pathways.",
         "illustrationUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/3%2A5_-cyclic_adenosine_monophosphate_acid.svg/320px-3%2A5_-cyclic_adenosine_monophosphate_acid.svg.png",
-        "illustrationCaption": "cAMP structure (reference diagram)."
+        "illustrationCaption": "cAMP structure (reference diagram).",
+        "hotspotId": "step_3"
       },
       {
         "stepNumber": 4,
         "label": "MLCK inhibition",
-        "description": "Reduced myosin light-chain kinase activity lowers smooth muscle contraction."
+        "description": "Reduced myosin light-chain kinase activity lowers smooth muscle contraction.",
+        "hotspotId": "step_4"
       },
       {
         "stepNumber": 5,
         "label": "Bronchodilation",
-        "description": "Airway smooth muscle relaxes, improving airflow during bronchospasm."
+        "description": "Airway smooth muscle relaxes, improving airflow during bronchospasm.",
+        "hotspotId": "step_5"
       }
     ]
   },

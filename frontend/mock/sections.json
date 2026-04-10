@@ -5,6 +5,12 @@
     "type": "narrative",
     "title": "Asthma overview",
     "content": "Asthma is a chronic inflammatory airway disorder with variable, usually reversible airflow obstruction. Core features include bronchoconstriction, mucus hypersecretion, mucosal edema, airway hyperresponsiveness, and over time airway remodeling with smooth muscle hypertrophy, fibrosis, and basement membrane thickening.",
+    "illustrations": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Asthma_%28Lungs%29.png/640px-Asthma_%28Lungs%29.png",
+        "caption": "Conceptual comparison: narrowed versus relaxed airway (reference illustration)."
+      }
+    ],
     "order": 1,
     "tags": [
       "overview",
@@ -21,7 +27,30 @@
     "illustrations": [
       {
         "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/IgE_mediated_activation_of_mast_cell.svg/640px-IgE_mediated_activation_of_mast_cell.svg.png",
-        "caption": "Conceptual overview: IgE-mediated mast-cell activation (open-license reference figure)."
+        "caption": "Conceptual overview: IgE-mediated mast-cell activation (open-license reference figure).",
+        "hotspots": [
+          {
+            "id": "ige_binding",
+            "label": "IgE / FcεRI",
+            "description": "Allergen-specific IgE bound to high-affinity receptors primes mast cells for activation.",
+            "shape": "rect",
+            "rect": { "x": 0.08, "y": 0.12, "w": 0.22, "h": 0.2 }
+          },
+          {
+            "id": "mast_cell",
+            "label": "Mast cell",
+            "description": "Cross-linking triggers degranulation and release of histamine, leukotrienes, and other mediators.",
+            "shape": "rect",
+            "rect": { "x": 0.38, "y": 0.28, "w": 0.32, "h": 0.45 }
+          },
+          {
+            "id": "mediators",
+            "label": "Released mediators",
+            "description": "Vasoactive and inflammatory mediators drive early bronchoconstriction and mucus secretion.",
+            "shape": "circle",
+            "circle": { "cx": 0.78, "cy": 0.42, "r": 0.12 }
+          }
+        ]
       }
     ],
     "order": 1,

@@ -1,0 +1,23 @@
+---
+description: Require obra/superpowers workflow for all work in this repository
+alwaysApply: true
+---
+
+# Superpowers workflow (required)
+
+Use the **obra/superpowers** skills workflow for this repository on **every** task (questions, planning, implementation, review, and debugging)—not only for large features.
+
+## Setup (human + agent)
+
+- Install and verify per [docs/superpowers-setup.md](docs/superpowers-setup.md) (`~/.codex/superpowers` + symlink under `~/.agents/skills/superpowers`). Restart the agent after install.
+- If Superpowers skills are **not** listed in the session’s available skills, say so once and point to that doc; still follow the same discipline (explicit success criteria, small steps, verify as you go) until skills are available.
+
+## How to apply each time
+
+1. **At task start**, check whether a Superpowers skill matches the work (e.g. testing, debugging, implementation workflow). If yes, **read and follow** that skill’s steps before writing code.
+2. **Prefer Superpowers patterns** over ad-hoc flow when they conflict with generic habits.
+3. **Merge** with [CLAUDE.md](CLAUDE.md) (simplicity, surgical edits, goal-driven execution). If Superpowers and CLAUDE.md conflict, favor **correctness + verifiability**, then simplicity.
+
+## Scope
+
+This rule applies to all files and all agent modes unless the user explicitly opts out for a single message.

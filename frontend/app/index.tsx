@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import SystemCard from '../components/cards/SystemCard';
@@ -81,12 +81,6 @@ export default function Index() {
   }, [setBreadcrumbs]);
 
   const resumeActivity = state?.snapshot.recentActivity[0];
-  const completedCases = useMemo(() => {
-    if (!state) return 0;
-    return Object.values(state.snapshot.cases).filter(
-      (item) => item.completedSections.length > 0 || item.quizAttempts.length > 0,
-    ).length;
-  }, [state]);
   const featuredSystem = state?.systems[0];
   const canPrimaryCta = Boolean(resumeActivity || featuredSystem);
   const primaryCtaLabel = resumeActivity
@@ -99,9 +93,6 @@ export default function Index() {
     if (featuredSystem) { router.push(`/system/${featuredSystem.system.id}`); }
   };
 
-  const streak = state?.snapshot.streak.current ?? 0;
-  const bookmarks = state?.snapshot.bookmarks.length ?? 0;
-
   // ── Hero card ──────────────────────────────────────────────────────────────
   const heroCard = (
     <FadeInBlock delayMs={0} durationMs={420}>
@@ -110,14 +101,14 @@ export default function Index() {
         <View style={styles.heroStripe} />
 
         <View style={styles.heroBody}>
-          <Text style={styles.heroEyebrow}>Medical Study Hub</Text>
+          <Text style={styles.heroEyebrow}>Study Hub</Text>
           <Text style={styles.heroTitle}>
-            {resumeActivity ? `Welcome back.` : 'Start learning.'}
+            {resumeActivity ? `Welcome back.` : 'Ready when you are.'}
           </Text>
           <Text style={styles.heroSubtitle}>
             {resumeActivity
-              ? `Pick up where you left off — every case builds your clinical reasoning.`
-              : 'Choose a study track, work through cases, and test your knowledge as you go.'}
+              ? `Pick up right where you left off.`
+              : 'Choose a track and work through cases at your own pace.'}
           </Text>
 
           {/* Resume/start card */}
@@ -156,40 +147,13 @@ export default function Index() {
     </FadeInBlock>
   );
 
-  // ── Stat cards ─────────────────────────────────────────────────────────────
-  const statsBlock = (
-    <View style={[styles.statsRow, isDesktop && styles.statsRowDesktop]}>
-      <StaggerIn index={0}>
-        <View style={[styles.statCard, shadows.subtle, isDesktop && styles.statCardDesktop]}>
-          <Text style={styles.statValue}>{streak}</Text>
-          <Text style={styles.statLabel}>Day streak</Text>
-          <Text style={styles.statEmoji}>{streak > 0 ? '🔥' : '—'}</Text>
-        </View>
-      </StaggerIn>
-      <StaggerIn index={1}>
-        <View style={[styles.statCard, shadows.subtle, isDesktop && styles.statCardDesktop]}>
-          <Text style={styles.statValue}>{completedCases}</Text>
-          <Text style={styles.statLabel}>Cases touched</Text>
-          <Text style={styles.statEmoji}>📖</Text>
-        </View>
-      </StaggerIn>
-      <StaggerIn index={2}>
-        <View style={[styles.statCard, shadows.subtle, isDesktop && styles.statCardDesktop]}>
-          <Text style={styles.statValue}>{bookmarks}</Text>
-          <Text style={styles.statLabel}>Bookmarked</Text>
-          <Text style={styles.statEmoji}>★</Text>
-        </View>
-      </StaggerIn>
-    </View>
-  );
-
   // ── Tracks list ────────────────────────────────────────────────────────────
   const tracksHeader = (
     <FadeInBlock delayMs={80} durationMs={380}>
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Study tracks</Text>
         <Text style={styles.sectionSubtitle}>
-          Each track covers a system in depth — from basic science to clinical application.
+          Pick any track — each one walks you through a system step by step.
         </Text>
       </View>
     </FadeInBlock>
@@ -236,7 +200,6 @@ export default function Index() {
           <View style={styles.desktopGrid}>
             <View style={styles.desktopMain}>
               {heroCard}
-              {statsBlock}
             </View>
             <View style={styles.desktopAside}>
               {tracksHeader}
@@ -246,7 +209,6 @@ export default function Index() {
         ) : (
           <>
             {heroCard}
-            {statsBlock}
             {tracksHeader}
             {tracksBody}
           </>
@@ -367,57 +329,6 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 15,
     letterSpacing: -0.1,
-  },
-
-  // ── Stats
-  statsRow: {
-    flexDirection: 'row',
-    gap: 10,
-    marginBottom: 28,
-  },
-  statsRowDesktop: {
-    flexDirection: 'column',
-    marginBottom: 0,
-    gap: 8,
-  },
-  statCard: {
-    flex: 1,
-    backgroundColor: colors.white,
-    borderRadius: layout.radiusLg,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: colors.border,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  statCardDesktop: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    paddingVertical: 14,
-    borderRadius: layout.radiusMd,
-    backgroundColor: colors.cloud,
-  },
-  statValue: {
-    fontSize: 30,
-    fontWeight: '800',
-    color: colors.maroonDeep,
-    letterSpacing: -0.5,
-    marginBottom: 2,
-  },
-  statLabel: {
-    fontSize: 11,
-    color: colors.textMuted,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  statEmoji: {
-    position: 'absolute',
-    right: 14,
-    bottom: 12,
-    fontSize: 22,
-    opacity: 0.35,
   },
 
   // ── Section header

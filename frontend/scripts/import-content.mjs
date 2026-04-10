@@ -61,24 +61,92 @@ function toArray(value) {
   return [];
 }
 
+function normalizeHotspot(raw) {
+  if (!raw || typeof raw !== 'object') return undefined;
+  const id = String(raw.id ?? '').trim();
+  const label = String(raw.label ?? '').trim();
+  const shape = raw.shape === 'circle' ? 'circle' : 'rect';
+  if (!id || !label) return undefined;
+  const out = {
+    id,
+    label,
+    shape,
+    description: raw.description ? String(raw.description).trim() : undefined,
+    linkedStepIndex:
+      raw.linkedStepIndex !== undefined && raw.linkedStepIndex !== null
+        ? Number(raw.linkedStepIndex)
+        : undefined,
+    linkedTabKey: raw.linkedTabKey ? String(raw.linkedTabKey).trim() : undefined,
+  };
+  if (Number.isNaN(out.linkedStepIndex)) delete out.linkedStepIndex;
+  if (shape === 'rect' && raw.rect && typeof raw.rect === 'object') {
+    const { x, y, w, h } = raw.rect;
+    if ([x, y, w, h].every((n) => typeof n === 'number' && !Number.isNaN(n))) {
+      out.rect = { x, y, w, h };
+    }
+  }
+  if (shape === 'circle' && raw.circle && typeof raw.circle === 'object') {
+    const { cx, cy, r } = raw.circle;
+    if ([cx, cy, r].every((n) => typeof n === 'number' && !Number.isNaN(n))) {
+      out.circle = { cx, cy, r };
+    }
+  }
+  if (shape === 'rect' && !out.rect) return undefined;
+  if (shape === 'circle' && !out.circle) return undefined;
+  return out;
+}
+
+function normalizeAnimation(raw) {
+  if (!raw || typeof raw !== 'object') return undefined;
+  const kind = String(raw.kind ?? '').trim();
+  const url = String(raw.url ?? '').trim();
+  if (!/^https?:\/\//i.test(url)) return undefined;
+  if (!['gif', 'lottie', 'video'].includes(kind)) return undefined;
+  const out = {
+    kind,
+    url,
+    autoplay: typeof raw.autoplay === 'boolean' ? raw.autoplay : undefined,
+    durationMs:
+      raw.durationMs !== undefined && raw.durationMs !== null ? Number(raw.durationMs) : undefined,
+    posterUrl:
+      raw.posterUrl && /^https?:\/\//i.test(String(raw.posterUrl).trim())
+        ? String(raw.posterUrl).trim()
+        : undefined,
+  };
+  if (Number.isNaN(out.durationMs)) delete out.durationMs;
+  return out;
+}
+
 function normalizeSectionIllustrations(rawItem) {
   if (Array.isArray(rawItem.illustrations)) {
     const list = rawItem.illustrations
-      .map((item) => ({
-        url: String(item?.url ?? '').trim(),
-        caption: item?.caption ? String(item.caption).trim() : undefined,
-      }))
-      .filter((item) => /^https?:\/\//i.test(item.url));
+      .map((item) => {
+        const url = String(item?.url ?? '').trim();
+        if (!/^https?:\/\//i.test(url)) return null;
+        const entry = {
+          url,
+          caption: item?.caption ? String(item.caption).trim() : undefined,
+        };
+        if (Array.isArray(item.hotspots)) {
+          const hotspots = item.hotspots.map(normalizeHotspot).filter(Boolean);
+          if (hotspots.length) entry.hotspots = hotspots;
+        }
+        const anim = normalizeAnimation(item.animation);
+        if (anim) entry.animation = anim;
+        return entry;
+      })
+      .filter(Boolean);
     return list.length ? list : undefined;
   }
   const single = rawItem.illustrationUrl ? String(rawItem.illustrationUrl).trim() : '';
   if (/^https?:\/\//i.test(single)) {
-    return [
-      {
-        url: single,
-        caption: rawItem.illustrationCaption ? String(rawItem.illustrationCaption).trim() : undefined,
-      },
-    ];
+    const entry = {
+      url: single,
+      caption: rawItem.illustrationCaption ? String(rawItem.illustrationCaption).trim() : undefined,
+    };
+    const anim = normalizeAnimation(rawItem.animation);
+    if (anim) entry.animation = anim;
+    return [entry];
   }
   return undefined;
 }
@@ -103,6 +171,9 @@ function parseSteps(value) {
         if (illustrationUrl) {
           base.illustrationUrl = illustrationUrl;
           if (illustrationCaption) base.illustrationCaption = illustrationCaption;
+        }
+        if (item.hotspotId && String(item.hotspotId).trim()) {
+          base.hotspotId = String(item.hotspotId).trim();
         }
         return base;
       })
@@ -521,6 +592,12 @@ function normalizeBatch(batch) {
           mechanismRow.diagramCaption = String(rawItem.diagramCaption).trim();
         }
       }
+      if (Array.isArray(rawItem.diagramHotspots)) {
+        const diagramHotspots = rawItem.diagramHotspots.map(normalizeHotspot).filter(Boolean);
+        if (diagramHotspots.length) mechanismRow.diagramHotspots = diagramHotspots;
+      }
+      const diagAnim = normalizeAnimation(rawItem.diagramAnimation);
+      if (diagAnim) mechanismRow.diagramAnimation = diagAnim;
       dataset.mechanisms.push(mechanismRow);
       continue;
     }

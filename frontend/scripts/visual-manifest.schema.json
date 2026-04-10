@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://medical-app.local/schemas/visual-manifest.json",
+  "title": "Offline AI visual generation manifest",
+  "type": "object",
+  "required": ["manifestVersion", "generatedAt", "items"],
+  "properties": {
+    "manifestVersion": { "type": "integer", "minimum": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "provider": { "type": "string", "description": "Optional: openai | stability | replicate | custom" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["target", "prompt"],
+        "properties": {
+          "target": {
+            "type": "object",
+            "required": ["kind", "id"],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": ["sectionIllustration", "mechanismDiagram", "conditionHero", "systemHero"]
+              },
+              "id": { "type": "string" },
+              "caseId": { "type": "string" },
+              "illustrationIndex": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "prompt": { "type": "string" },
+          "negativePrompt": { "type": "string" },
+          "output": {
+            "type": "object",
+            "properties": {
+              "imageUrl": { "type": "string" },
+              "animation": {
+                "type": "object",
+                "properties": {
+                  "kind": { "type": "string", "enum": ["gif", "lottie", "video"] },
+                  "url": { "type": "string" },
+                  "autoplay": { "type": "boolean" },
+                  "posterUrl": { "type": "string" }
+                }
+              },
+              "hotspots": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["id", "label", "shape"],
+                  "properties": {
+                    "id": { "type": "string" },
+                    "label": { "type": "string" },
+                    "description": { "type": "string" },
+                    "shape": { "type": "string", "enum": ["rect", "circle"] },
+                    "rect": {
+                      "type": "object",
+                      "required": ["x", "y", "w", "h"],
+                      "properties": {
+                        "x": { "type": "number" },
+                        "y": { "type": "number" },
+                        "w": { "type": "number" },
+                        "h": { "type": "number" }
+                      }
+                    },
+                    "circle": {
+                      "type": "object",
+                      "required": ["cx", "cy", "r"],
+                      "properties": {
+                        "cx": { "type": "number" },
+                        "cy": { "type": "number" },
+                        "r": { "type": "number" }
+                      }
+                    },
+                    "linkedStepIndex": { "type": "integer", "minimum": 0 },
+                    "linkedTabKey": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

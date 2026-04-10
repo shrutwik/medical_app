@@ -115,10 +115,6 @@ export default function ConditionDetail() {
               <Text style={styles.metaLabel}>Progress</Text>
               <Text style={styles.metaValue}>{averageProgress}%</Text>
             </View>
-            <View style={styles.metaCard}>
-              <Text style={styles.metaLabel}>Goals</Text>
-              <Text style={styles.metaValue}>{condition?.learningGoals.length ?? 0}</Text>
-            </View>
           </View>
           {(condition?.learningGoals.length ?? 0) > 0 ? (
             <View style={styles.focusBlock}>

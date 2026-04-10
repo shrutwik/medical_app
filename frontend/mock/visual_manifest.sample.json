@@ -1,0 +1,33 @@
+{
+  "manifestVersion": 1,
+  "generatedAt": "2026-04-10T17:37:44.373Z",
+  "provider": "custom",
+  "items": [
+    {
+      "target": {
+        "kind": "sectionIllustration",
+        "id": "asthma_pathology_section",
+        "caseId": "asthma_foundation_case",
+        "illustrationIndex": 0
+      },
+      "prompt": "Educational diagram: mast cell activation in allergic response, labels for IgE and mediators.",
+      "output": {
+        "imageUrl": "https://example.com/placeholder.png",
+        "hotspots": [
+          {
+            "id": "mast_cell",
+            "label": "Mast cell",
+            "description": "IgE receptor cross-linking triggers degranulation.",
+            "shape": "rect",
+            "rect": {
+              "x": 0.2,
+              "y": 0.25,
+              "w": 0.25,
+              "h": 0.35
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

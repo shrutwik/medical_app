@@ -1,8 +1,11 @@
+import type { IllustrationAnimation, IllustrationHotspot } from '../../types/mediaInteractive';
 import type { Section } from '../../types/section';
 
 export interface SectionImageRef {
   url: string;
   caption?: string;
+  hotspots?: IllustrationHotspot[];
+  animation?: IllustrationAnimation;
 }
 
 const MARKDOWN_IMAGE = /!\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
@@ -44,7 +47,14 @@ export function mergeSectionVisuals(section: Pick<Section, 'content' | 'illustra
   for (const item of [...fromData, ...fromMarkdown]) {
     if (!item?.url || seen.has(item.url)) continue;
     seen.add(item.url);
-    merged.push({ url: item.url, caption: item.caption });
+    const row: SectionImageRef = { url: item.url, caption: item.caption };
+    if ('hotspots' in item && item.hotspots?.length) {
+      row.hotspots = item.hotspots;
+    }
+    if ('animation' in item && item.animation) {
+      row.animation = item.animation;
+    }
+    merged.push(row);
   }
   return { text, images: merged };
 }

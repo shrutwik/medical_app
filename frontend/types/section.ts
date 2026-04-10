@@ -1,3 +1,5 @@
+import type { IllustrationAnimation, IllustrationHotspot } from './mediaInteractive';
+
 export type SectionType =
   | 'narrative'
   | 'histology'
@@ -11,6 +13,10 @@ export type SectionType =
 export interface SectionIllustration {
   url: string;
   caption?: string;
+  /** Interactive regions (normalized coords). */
+  hotspots?: IllustrationHotspot[];
+  /** Optional animation asset (GIF/Lottie/video URL). */
+  animation?: IllustrationAnimation;
 }
 
 export interface Section {

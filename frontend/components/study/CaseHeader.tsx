@@ -76,19 +76,6 @@ export default function CaseHeader({
           <View style={[styles.chipDot, { backgroundColor: diff.color }]} />
           <Text style={[styles.chipText, { color: diff.color }]}>{diff.label}</Text>
         </View>
-
-        {caseItem.tags?.slice(0, 3).map((tag) => (
-          <View key={tag} style={styles.chip}>
-            <Text style={styles.chipTextMuted}>{tag}</Text>
-          </View>
-        ))}
-
-        {nextLabel ? (
-          <View style={[styles.chip, styles.chipNext]}>
-            <Text style={styles.chipArrow}>↓</Text>
-            <Text style={styles.chipTextNext}>Next: {nextLabel}</Text>
-          </View>
-        ) : null}
       </View>
     </View>
   );
@@ -197,24 +184,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
     letterSpacing: 0.1,
-  },
-  chipTextMuted: {
-    fontSize: 12,
-    color: colors.textMuted,
-    fontWeight: '600',
-    textTransform: 'capitalize',
-  },
-  chipNext: {
-    backgroundColor: colors.maroonDeep,
-  },
-  chipArrow: {
-    color: colors.maroonFaint,
-    fontSize: 11,
-    fontWeight: '800',
-  },
-  chipTextNext: {
-    color: colors.maroonFaint,
-    fontSize: 12,
-    fontWeight: '700',
   },
 });

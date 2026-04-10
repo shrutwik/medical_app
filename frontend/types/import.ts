@@ -4,6 +4,7 @@ import type { Condition } from './condition';
 import type { Mechanism } from './mechanism';
 import type { QuizQuestion } from './quiz';
 import type { Resource } from './resource';
+import type { IllustrationAnimation, IllustrationHotspot } from './mediaInteractive';
 import type { Section, SectionType } from './section';
 import type { PublishStatus } from './study';
 import type { System } from './system';
@@ -61,7 +62,14 @@ export interface RawSourceItem {
   relatedDrug?: string;
   diagramUrl?: string;
   diagramCaption?: string;
-  illustrations?: Array<{ url: string; caption?: string }>;
+  diagramHotspots?: IllustrationHotspot[];
+  diagramAnimation?: IllustrationAnimation;
+  illustrations?: Array<{
+    url: string;
+    caption?: string;
+    hotspots?: IllustrationHotspot[];
+    animation?: IllustrationAnimation;
+  }>;
   illustrationUrl?: string;
   illustrationCaption?: string;
   steps?: Array<{
@@ -70,6 +78,7 @@ export interface RawSourceItem {
     description: string;
     illustrationUrl?: string;
     illustrationCaption?: string;
+    hotspotId?: string;
   }>;
 }
 

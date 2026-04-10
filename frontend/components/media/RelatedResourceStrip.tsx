@@ -1,3 +1,4 @@
+import { Image } from 'expo-image';
 import { Linking, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { colors, layout } from '../../constants/theme';
@@ -29,7 +30,7 @@ export default function RelatedResourceStrip({ resources }: RelatedResourceStrip
     <Animated.View entering={FadeIn.delay(40).duration(320)} style={styles.block}>
       <Text style={styles.label}>Related sources</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
-        {usable.map((resource, index) => (
+        {usable.map((resource) => (
           <Pressable
             key={resource.id}
             style={({ pressed }) => [styles.chip, pressed && styles.chipPressed]}
@@ -37,10 +38,20 @@ export default function RelatedResourceStrip({ resources }: RelatedResourceStrip
             accessibilityRole="button"
             accessibilityLabel={`Open ${resource.title}`}
           >
-            <Text style={styles.chipText} numberOfLines={2}>
-              {resource.title}
-            </Text>
-            <Text style={styles.chipMeta}>{getResourceAccessLabel(resource)}</Text>
+            {resource.thumbnailUrl ? (
+              <Image
+                source={{ uri: resource.thumbnailUrl }}
+                style={styles.chipThumb}
+                contentFit="cover"
+                transition={160}
+              />
+            ) : null}
+            <View style={styles.chipTextCol}>
+              <Text style={styles.chipText} numberOfLines={2}>
+                {resource.title}
+              </Text>
+              <Text style={styles.chipMeta}>{getResourceAccessLabel(resource)}</Text>
+            </View>
           </Pressable>
         ))}
       </ScrollView>
@@ -65,13 +76,26 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   chip: {
-    maxWidth: 220,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
+    maxWidth: 260,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
     borderRadius: layout.radiusMd,
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.borderStrong,
+  },
+  chipThumb: {
+    width: 52,
+    height: 52,
+    borderRadius: 10,
+    backgroundColor: colors.cloud,
+  },
+  chipTextCol: {
+    flex: 1,
+    minWidth: 0,
   },
   chipPressed: {
     backgroundColor: colors.cloud,

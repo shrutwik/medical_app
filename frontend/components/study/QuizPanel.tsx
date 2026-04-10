@@ -10,18 +10,14 @@ const OPTION_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 interface QuizPanelProps {
   questions: QuizQuestion[];
   attempts: QuizAttempt[];
-  markedQuestionIds: string[];
   onAttempt: (question: QuizQuestion, selectedIndex: number, correct: boolean) => Promise<void>;
-  onToggleMarked: (questionId: string) => Promise<void>;
   onCompleteQuiz: () => Promise<void>;
 }
 
 export default function QuizPanel({
   questions,
   attempts,
-  markedQuestionIds,
   onAttempt,
-  onToggleMarked,
   onCompleteQuiz,
 }: QuizPanelProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,8 +50,6 @@ export default function QuizPanel({
   }
 
   const answeredCount = attemptMap.size;
-  const marked = markedQuestionIds.includes(question.id);
-  const progressPct = Math.round((answeredCount / questions.length) * 100);
 
   const handleSubmit = async () => {
     if (selectedIndex === null) return;
@@ -81,32 +75,11 @@ export default function QuizPanel({
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text style={styles.eyebrow}>Knowledge Check</Text>
+          <Text style={styles.eyebrow}>Practice Questions</Text>
           <Text style={styles.headerTitle}>
             Question {currentIndex + 1} <Text style={styles.headerOf}>of {questions.length}</Text>
           </Text>
         </View>
-        <Pressable
-          style={[styles.markButton, marked && styles.markButtonActive]}
-          onPress={() => onToggleMarked(question.id)}
-          accessibilityRole="button"
-          accessibilityLabel={marked ? 'Unmark for review' : 'Mark for review'}
-        >
-          <Text style={[styles.markIcon, marked && styles.markIconActive]}>
-            {marked ? '★' : '☆'}
-          </Text>
-          <Text style={[styles.markText, marked && styles.markTextActive]}>
-            {marked ? 'Marked' : 'Mark'}
-          </Text>
-        </Pressable>
-      </View>
-
-      {/* Progress bar */}
-      <View style={styles.progressWrap}>
-        <View style={styles.progressTrack}>
-          <View style={[styles.progressFill, { width: `${progressPct}%` }]} />
-        </View>
-        <Text style={styles.progressLabel}>{answeredCount}/{questions.length} answered</Text>
       </View>
 
       {/* Question */}
@@ -173,7 +146,7 @@ export default function QuizPanel({
                 <Text style={styles.feedbackIconText}>{isCorrect ? '✓' : '✗'}</Text>
               </View>
               <Text style={[styles.feedbackTitle, isCorrect ? styles.feedbackTitleCorrect : styles.feedbackTitleWrong]}>
-                {isCorrect ? 'Correct reasoning' : 'Review this concept'}
+                {isCorrect ? 'That\'s right!' : 'Not quite — here\'s why'}
               </Text>
             </View>
             <Text style={styles.feedbackText}>{question.explanation}</Text>
@@ -250,60 +223,6 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.5)',
     fontWeight: '600',
     fontSize: 18,
-  },
-  markButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 9,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.15)',
-  },
-  markButtonActive: {
-    backgroundColor: colors.goldFaint,
-    borderColor: '#F2D0A5',
-  },
-  markIcon: {
-    fontSize: 14,
-    color: 'rgba(255,255,255,0.6)',
-  },
-  markIconActive: {
-    color: colors.gold,
-  },
-  markText: {
-    color: 'rgba(255,255,255,0.7)',
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  markTextActive: {
-    color: colors.goldDeep,
-  },
-  progressWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  progressTrack: {
-    flex: 1,
-    height: 6,
-    borderRadius: 999,
-    backgroundColor: colors.cloudDark,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    height: '100%',
-    borderRadius: 999,
-    backgroundColor: colors.maroon,
-  },
-  progressLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: colors.textMuted,
-    minWidth: 90,
-    textAlign: 'right',
   },
   questionCard: {
     backgroundColor: colors.white,

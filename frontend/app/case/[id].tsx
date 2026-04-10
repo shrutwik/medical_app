@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import InfoCard from '../../components/cards/InfoCard';
+import CaseVisualOverview from '../../components/study/CaseVisualOverview';
 import ResourcePanel from '../../components/study/ResourcePanel';
 import CaseHeader from '../../components/study/CaseHeader';
 import CheckpointCard from '../../components/study/CheckpointCard';
@@ -18,7 +19,7 @@ import { getContentRepository, type AdminCase, type CaseBundle } from '../../ser
 import { getProgressRepository } from '../../services/progress/repository';
 import type { QuizQuestion } from '../../types/quiz';
 import type { Bookmark, ProgressSnapshot } from '../../types/study';
-import type { SectionType } from '../../types/section';
+import type { Section, SectionType } from '../../types/section';
 
 const SECTION_LABELS: Record<string, string> = {
   narrative: 'Narrative',
@@ -260,12 +261,6 @@ export default function CaseDetailScreen() {
     setSnapshot(nextSnapshot);
   };
 
-  const handleToggleMarkedQuestion = async (questionId: string) => {
-    if (!id) return;
-    const nextSnapshot = await getProgressRepository().toggleMarkedQuestion(id, questionId);
-    setSnapshot(nextSnapshot);
-  };
-
   if (loading) {
     return (
       <>
@@ -289,7 +284,6 @@ export default function CaseDetailScreen() {
   }
 
   const checkpoints = bundle.checkpoints.filter((item) => item.tabKey === activeTab);
-  const markedQuestions = caseProgress?.markedQuestionIds ?? [];
   return (
     <>
       <Stack.Screen options={{ title: bundle.caseItem.title }} />
@@ -330,6 +324,12 @@ export default function CaseDetailScreen() {
             {activeTab === 'overview' ? (
               <OverviewPanel
                 caseItem={bundle.caseItem}
+                sections={bundle.sections}
+                mechanisms={bundle.mechanisms}
+                resources={bundle.resources}
+                onOpenSectionTab={(type) => handleTabChange(`section_${type}`)}
+                onOpenMechanisms={() => handleTabChange('mechanisms')}
+                onOpenResources={() => handleTabChange('resources')}
               />
             ) : null}
 
@@ -374,9 +374,7 @@ export default function CaseDetailScreen() {
               <QuizPanel
                 questions={bundle.quizzes}
                 attempts={caseProgress?.quizAttempts ?? []}
-                markedQuestionIds={markedQuestions}
                 onAttempt={handleQuizAttempt}
-                onToggleMarked={handleToggleMarkedQuestion}
                 onCompleteQuiz={() => markComplete('quiz', 'Completed the quiz set')}
               />
             ) : null}
@@ -393,14 +391,14 @@ export default function CaseDetailScreen() {
             <View style={styles.flowCard}>
               <View style={styles.flowCopy}>
                 <Text style={styles.flowTitle}>
-                  {nextItem ? `Next: ${nextItem.label}` : 'Case complete'}
+                  {nextItem ? `Up next: ${nextItem.label}` : 'Nice work!'}
                 </Text>
                 <Text style={styles.flowText}>
                   {nextItem
-                    ? 'Move one step forward.'
+                    ? 'When you are ready, continue to the next section.'
                     : nextCaseInCondition
-                      ? 'Continue with the next case in this condition.'
-                      : 'Return to the case list or choose another topic.'}
+                      ? 'Ready for the next case?'
+                      : 'Head back whenever you like.'}
                 </Text>
               </View>
               <View style={styles.flowActions}>
@@ -450,16 +448,32 @@ export default function CaseDetailScreen() {
 
 function OverviewPanel({
   caseItem,
+  sections,
+  mechanisms,
+  resources,
+  onOpenSectionTab,
+  onOpenMechanisms,
+  onOpenResources,
 }: {
   caseItem: NonNullable<CaseBundle['caseItem']>;
+  sections: Section[];
+  mechanisms: CaseBundle['mechanisms'];
+  resources: CaseBundle['resources'];
+  onOpenSectionTab: (type: SectionType) => void;
+  onOpenMechanisms: () => void;
+  onOpenResources: () => void;
 }) {
   return (
     <View>
       <InfoCard label="Description" value={caseItem.shortDescription} />
-      <InfoCard label="Difficulty" value={caseItem.difficulty} />
-      {caseItem.tags.length > 0 ? (
-        <InfoCard label="Tags" value={caseItem.tags.join(', ')} />
-      ) : null}
+      <CaseVisualOverview
+        sections={sections}
+        mechanisms={mechanisms}
+        resources={resources}
+        onOpenSectionTab={onOpenSectionTab}
+        onOpenMechanisms={onOpenMechanisms}
+        onOpenResources={onOpenResources}
+      />
     </View>
   );
 }
