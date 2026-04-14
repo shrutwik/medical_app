@@ -97,5 +97,771 @@
       "inhaled-corticosteroids",
       "inflammation"
     ]
+  },
+  {
+    "id": "resp_q1",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "pharmacology",
+    "question": "A 25‑year‑old woman with intermittent asthma uses albuterol metered‑dose inhaler (MDI) multiple times per day for symptom relief. She presents with palpitations, fine tremors, and a serum potassium of 2.9 mEq/L. Which mechanism best explains her hypokalemia?",
+    "options": [
+      "Inhibition of Na⁺/K⁺‑ATPase in skeletal muscle",
+      "Increased renal potassium excretion via aldosterone release",
+      "β₂‑receptor‑mediated shift of potassium into cells",
+      "Direct stimulation of colonic potassium secretion",
+      "Decreased insulin release from pancreatic β cells"
+    ],
+    "answerIndex": 2,
+    "explanation": "β₂‑agonists increase intracellular cAMP in skeletal muscle, stimulating Na⁺/K⁺‑ATPase and driving potassium into cells, causing hypokalemia.",
+    "tags": [
+      "Treatment",
+      "Clinical",
+      "Pharmacology",
+      "Diagnosis"
+    ]
+  },
+  {
+    "id": "resp_q2",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "treatment",
+    "question": "A 60‑year‑old man with severe COPD is started on an ultra‑long‑acting β₂‑agonist for once‑daily maintenance bronchodilation. Which agent best fits this goal?",
+    "options": [
+      "Albuterol",
+      "Formoterol",
+      "Salmeterol",
+      "Indacaterol",
+      "Levalbuterol"
+    ],
+    "answerIndex": 3,
+    "explanation": "Indacaterol is an ultra‑long‑acting β₂‑agonist (ULABA) approved for once‑daily maintenance therapy in COPD.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q3",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "mechanism",
+    "question": "A 32‑year‑old pregnant woman at 30 weeks' gestation presents with preterm contractions. Terbutaline is considered for tocolysis. Which property of β₂‑receptor activation justifies its use?",
+    "options": [
+      "Decreased uterine blood flow",
+      "Direct inhibition of prostaglandin synthesis",
+      "Relaxation of uterine smooth muscle via cAMP elevation",
+      "Inhibition of oxytocin release from the pituitary",
+      "Blockade of calcium channels in uterine myocytes"
+    ],
+    "answerIndex": 2,
+    "explanation": "β₂‑agonists increase cAMP and activate protein kinase A, lowering intracellular calcium and relaxing smooth muscle, including the uterus.",
+    "tags": [
+      "Mechanism",
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q4",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "treatment",
+    "question": "A 55‑year‑old man with COPD and stable angina requires a β‑blocker. Which option best minimizes the risk of bronchoconstriction while treating his cardiac condition?",
+    "options": [
+      "Propranolol",
+      "Timolol eye drops",
+      "Carvedilol",
+      "Metoprolol",
+      "Butoxamine"
+    ],
+    "answerIndex": 3,
+    "explanation": "Metoprolol is a β₁‑selective (cardioselective) blocker and is preferred when a β‑blocker is necessary in a patient with reactive airway disease.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q5",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 40‑year‑old man with moderate persistent asthma has been using salmeterol alone for daily symptom control. Over the last year, his asthma control has worsened, and he had a severe exacerbation. Which is the most appropriate adjustment?",
+    "options": [
+      "Continue salmeterol monotherapy and add oral montelukast",
+      "Switch salmeterol to albuterol as needed only",
+      "Add a high‑dose oral corticosteroid to salmeterol",
+      "Discontinue salmeterol and start inhaled corticosteroid monotherapy",
+      "Change to a fixed‑dose combination of inhaled corticosteroid plus LABA"
+    ],
+    "answerIndex": 4,
+    "explanation": "LABAs like salmeterol must not be used as monotherapy in asthma due to risk of tolerance and increased asthma‑related events; they should be combined with inhaled corticosteroids.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q6",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "treatment",
+    "question": "A nurse inadvertently administers multiple high‑dose nebulized albuterol treatments over a short period to a patient with status asthmaticus. The patient now has marked tachycardia, tremor, blood pressure 90/40 mm Hg with bounding pulse, and serum potassium 2.4 mEq/L. Which medication can be used as an antidote to counteract the toxicity?",
+    "options": [
+      "Intravenous calcium gluconate",
+      "Intravenous propranolol",
+      "Intravenous magnesium sulfate",
+      "Intravenous hydrocortisone",
+      "Intravenous amiodarone"
+    ],
+    "answerIndex": 1,
+    "explanation": "Severe β₂‑agonist toxicity can be treated with β‑blockers such as propranolol or esmolol, which competitively antagonize β₂ receptors.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q7",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "treatment",
+    "question": "A 68‑year‑old woman with COPD is switched from four‑times‑daily nebulized albuterol to once‑daily indacaterol. Which advantage of inhaled long‑ or ultra‑long‑acting β₂‑agonists best supports this change?",
+    "options": [
+      "Higher systemic bioavailability and stronger cardiovascular stimulation",
+      "More reliable bronchodilation with lower total daily dose and fewer systemic effects",
+      "Faster onset of action compared to SABAs in acute attacks",
+      "Reduced need for inhaled corticosteroids in asthma",
+      "Ability to treat acute hyperkalemia more effectively"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled long‑acting β₂‑agonists provide sustained bronchodilation at the airway with relatively low systemic exposure, improving convenience and safety in chronic disease.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q8",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "mechanism",
+    "question": "A 50‑year‑old man with long‑standing asthma and hypertension is started on propranolol for migraine prophylaxis. Two weeks later, he presents with wheezing and shortness of breath requiring SABA use several times per day. Which mechanism best explains the worsening asthma?",
+    "options": [
+      "Upregulation of β₂ receptors in bronchial smooth muscle",
+      "Competitive blockade of bronchial β₂ receptors",
+      "Direct inhibition of muscarinic M₃ receptors",
+      "Increased release of histamine from mast cells",
+      "Inhibition of phosphodiesterase‑4 in airway cells"
+    ],
+    "answerIndex": 1,
+    "explanation": "Nonselective β‑blockers like propranolol antagonize bronchial β₂ receptors, preventing endogenous catecholamine‑mediated bronchodilation and precipitating bronchoconstriction in asthma.",
+    "tags": [
+      "Clinical",
+      "Mechanism"
+    ]
+  },
+  {
+    "id": "resp_q9",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "treatment",
+    "question": "A 72‑year‑old man with COPD on chronic LABA therapy presents for routine follow‑up. Which monitoring plan is most appropriate to detect LABA‑related systemic adverse effects?",
+    "options": [
+      "Serial liver function tests and coagulation profile",
+      "Serial serum potassium and blood glucose, plus heart rate and blood pressure",
+      "Monthly measurement of plasma drug concentrations",
+      "Routine measurement of serum drug‑specific antibodies",
+      "Daily peak flow monitoring only"
+    ],
+    "answerIndex": 1,
+    "explanation": "Prolonged β₂‑agonist use can cause hypokalemia, hyperglycemia, and cardiovascular effects; monitoring of electrolytes, glucose, heart rate, and blood pressure is recommended.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q10",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "clinicalPearl",
+    "question": "A 28‑year‑old man with type 1 diabetes and asthma is started on a nonselective β‑blocker for performance anxiety. Which complication related to his diabetes is most likely to be masked by this therapy?",
+    "options": [
+      "Polyuria from hyperglycemia",
+      "Sweating due to hypoglycemia",
+      "Nausea due to ketoacidosis",
+      "Tachycardia during hypoglycemia",
+      "Hyperventilation from lactic acidosis"
+    ],
+    "answerIndex": 3,
+    "explanation": "β‑blockers, especially nonselective agents, can mask adrenergic warning signs of hypoglycemia such as tachycardia and tremor.",
+    "tags": [
+      "Clinical",
+      "Diagnosis"
+    ]
+  },
+  {
+    "id": "resp_q11",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "mechanism",
+    "question": "A 34‑year‑old woman with severe status asthmaticus is intubated and mechanically ventilated in the ICU. Despite maximal doses of inhaled β₂‑agonists and anticholinergic agents, she remains critically ill. An intravenous medication is started that is life‑saving and exerts part of its effect by inhibiting phospholipase A₂. Which of the following drugs was most likely given?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Prednisone"
+    ],
+    "answerIndex": 4,
+    "explanation": "Systemic glucocorticoids inhibit phospholipase A₂ via induction of lipocortin, decreasing arachidonic acid and downstream prostaglandins and leukotrienes, and are life‑saving in status asthmaticus.",
+    "tags": [
+      "Treatment",
+      "Mechanism",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q12",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 40‑year‑old woman with persistent asthma is prescribed an inhaled medication with a slow onset of action and long duration. She is instructed that it must always be used together with an inhaled corticosteroid and never as monotherapy for her asthma. Which medication was prescribed?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone/prednisolone",
+      "Salmeterol",
+      "Zafirlukast",
+      "Zileuton"
+    ],
+    "answerIndex": 7,
+    "explanation": "Salmeterol is a LABA with slow onset and long duration; in asthma it must be combined with inhaled corticosteroids because LABA monotherapy increases risk of severe exacerbations.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q13",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 6‑year‑old boy has mild persistent asthma. His parents prefer oral medications because he struggles with inhaler techniques. The physician prescribes an oral drug that blocks leukotriene receptors to help control his symptoms. Which medication was most likely prescribed?",
+    "options": [
+      "Albuterol",
+      "Aminophylline",
+      "Ipratropium",
+      "Montelukast",
+      "Zileuton"
+    ],
+    "answerIndex": 3,
+    "explanation": "Montelukast is an orally active leukotriene receptor antagonist (CysLT₁), useful in pediatric asthma when inhaler technique is problematic.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q14",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "mechanism",
+    "question": "A pharmacology researcher compares the effects of several drugs—theophylline, nitroglycerin, isoproterenol, and histamine—on various organ systems. Which physiological response is most likely to be produced by all four agents?",
+    "options": [
+      "Direct stimulation of cardiac contractile force",
+      "Tachycardia",
+      "Bronchodilation",
+      "Postural hypotension",
+      "Throbbing headache"
+    ],
+    "answerIndex": 1,
+    "explanation": "All listed agents can increase heart rate via direct cardiac effects or reflex sympathetic activation, so tachycardia is common to all.",
+    "tags": [
+      "Mechanism",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q15",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "mechanism",
+    "question": "A 23‑year‑old woman with intermittent asthma uses an albuterol inhaler before exercise. She reports several unpleasant effects that she attributes to the medication. Which of the following is least likely to be a direct effect of albuterol?",
+    "options": [
+      "Diuretic effect",
+      "Positive inotropic effect",
+      "Skeletal muscle tremor",
+      "Smooth muscle relaxation",
+      "Tachycardia"
+    ],
+    "answerIndex": 0,
+    "explanation": "Albuterol does not have a significant primary diuretic action; tremor, smooth muscle relaxation, and tachycardia are expected β₂‑agonist effects.",
+    "tags": [
+      "Mechanism",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q16",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 10‑year‑old boy with severe, poorly controlled asthma was hospitalized five times between ages 7 and 9. With outpatient therapy, his attacks are now less frequent, but he requires multiple daily medications. Which of the following chronic therapies is most likely to cause serious adverse effects when used daily for many years?",
+    "options": [
+      "Albuterol by aerosol as needed",
+      "Beclomethasone by aerosol",
+      "Ipratropium by inhaler",
+      "Prednisone by mouth",
+      "Theophylline in long‑acting oral form"
+    ],
+    "answerIndex": 3,
+    "explanation": "Long‑term systemic glucocorticoids cause significant adverse effects (growth suppression, osteoporosis, adrenal suppression, metabolic changes), especially problematic in children.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q17",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "treatment",
+    "question": "A 16‑year‑old girl presents to the emergency department in severe respiratory distress. She is tachycardic, tachypneic, and has an expiratory peak flow <50% of predicted. Wheezes and rales are audible without a stethoscope. Several medications are considered. Which drug listed does NOT have a direct bronchodilator effect?",
+    "options": [
+      "Epinephrine",
+      "Terbutaline",
+      "Prednisone",
+      "Theophylline",
+      "Ipratropium"
+    ],
+    "answerIndex": 2,
+    "explanation": "Systemic glucocorticoids reduce inflammation and airway hyperresponsiveness but do not directly relax bronchial smooth muscle.",
+    "tags": [
+      "Clinical",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q18",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "treatment",
+    "question": "After stabilization, the 16‑year‑old patient from the previous question is seen in clinic for long‑term management. Which of the following is NOT an established prophylactic strategy in asthma?",
+    "options": [
+      "Avoidance of relevant allergens",
+      "Blockade of histamine H₁ receptors",
+      "Blockade of leukotriene receptors",
+      "IgE antibody blockade",
+      "Inhibition of phospholipase A₂"
+    ],
+    "answerIndex": 1,
+    "explanation": "H₁ antihistamines have only modest benefit in asthma and are not standard cornerstone prophylactic therapy.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q19",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "treatment",
+    "question": "A 60‑year‑old man with ischemic heart disease and severe COPD with frequent bronchospasm is evaluated for bronchodilator therapy. Which of the following is most appropriate to relieve bronchospasm while minimizing risk of cardiac arrhythmia?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone",
+      "Salmeterol",
+      "Zafirlukast",
+      "Zileuton"
+    ],
+    "answerIndex": 3,
+    "explanation": "Ipratropium is an inhaled antimuscarinic bronchodilator with minimal systemic cardiac effects, making it suitable in COPD with ischemic heart disease.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q20",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "treatment",
+    "question": "A 22‑year‑old man is brought to the emergency department after a generalized tonic‑clonic seizure. Friends report that he has been taking an oral medication \"for his asthma\" and that it often causes insomnia. Which of the following drugs best fits this description?",
+    "options": [
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone",
+      "Salmeterol",
+      "Theophylline",
+      "Zileuton"
+    ],
+    "answerIndex": 7,
+    "explanation": "Theophylline is an oral bronchodilator with a narrow therapeutic index; toxicity includes CNS stimulation leading to insomnia and seizures.",
+    "tags": [
+      "Clinical",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q21",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "treatment",
+    "question": "A 12‑year‑old girl with a history of atopic asthma develops severe cough, dyspnea, and wheezing shortly after spending the afternoon at a riding stable. In the emergency department she is in moderate respiratory distress with diffuse expiratory wheezes. Which of the following is the most appropriate drug to rapidly reverse her bronchoconstriction?",
+    "options": [
+      "Inhaled fluticasone",
+      "Inhaled beclomethasone",
+      "Inhaled albuterol",
+      "Intravenous propranolol",
+      "Oral theophylline"
+    ],
+    "answerIndex": 2,
+    "explanation": "Inhaled albuterol is a short‑acting β₂‑agonist with rapid onset and is first‑line for acute asthma symptoms.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q22",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 9‑year‑old girl has severe persistent asthma and was hospitalized three times in the past year. Over the last 6 months she has had no hospitalizations and only infrequent mild exacerbations. Which of the following long‑term therapies is most likely responsible for this improvement?",
+    "options": [
+      "Inhaled albuterol as needed",
+      "Inhaled ipratropium",
+      "Inhaled fluticasone",
+      "Oral theophylline",
+      "Oral zafirlukast"
+    ],
+    "answerIndex": 2,
+    "explanation": "Daily inhaled corticosteroids are the cornerstone of long‑term control in persistent asthma and reduce the frequency of severe attacks.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q23",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 68‑year‑old man with moderate COPD (FEV₁ 60% predicted) uses inhaled salmeterol twice daily but still experiences dyspnea with mild exertion. His resting oxygen saturation is 95% on room air. Which additional medication is most appropriate to improve his symptoms?",
+    "options": [
+      "Systemic corticosteroids",
+      "Inhaled albuterol as needed",
+      "Inhaled tiotropium",
+      "Oral roflumilast",
+      "Oral theophylline"
+    ],
+    "answerIndex": 2,
+    "explanation": "A long‑acting muscarinic antagonist (LAMA) such as tiotropium is recommended with a LABA for symptomatic moderate‑to‑severe COPD.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q24",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 58‑year‑old woman with COPD has had three hospitalizations in the past year for exacerbations. Between exacerbations she has mild symptoms. Current medications are salmeterol inhaled twice daily and tiotropium inhaled once daily. Her FEV₁ is 55% predicted. Which change in her regimen is most appropriate to reduce future exacerbations?",
+    "options": [
+      "Start chronic systemic corticosteroids",
+      "Discontinue tiotropium",
+      "Discontinue salmeterol",
+      "Switch salmeterol to a combination product containing a LABA plus inhaled corticosteroid",
+      "Add oral theophylline"
+    ],
+    "answerIndex": 3,
+    "explanation": "Escalation to a LABA/ICS combination (often as part of triple therapy with LAMA) reduces exacerbation frequency in COPD with frequent exacerbations.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q25",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "treatment",
+    "question": "A 32‑year‑old man with a history of intravenous heroin use presents with a 5‑day history of nonproductive cough, rhinorrhea, and sore throat. Examination is consistent with a viral upper respiratory infection. He requests \"something for this cough.\" Which is the most appropriate symptomatic treatment?",
+    "options": [
+      "Guaifenesin/dextromethorphan syrup",
+      "Guaifenesin/codeine syrup",
+      "Cromolyn nasal spray",
+      "Benzonatate capsules",
+      "Montelukast tablets"
+    ],
+    "answerIndex": 0,
+    "explanation": "Dextromethorphan is a non‑opioid antitussive appropriate for viral cough, especially in a patient with opioid addiction where codeine should be avoided.",
+    "tags": [
+      "Clinical",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q26",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "mechanism",
+    "question": "A 14‑year‑old girl with moderate persistent asthma is started on a new medication that reduces airway inflammation by altering gene transcription. She is told that it must be taken regularly, even when she feels well, because it does not provide immediate bronchodilation. Which medication was most likely prescribed?",
+    "options": [
+      "Tiotropium metered‑dose inhaler",
+      "Salmeterol dry‑powder inhaler",
+      "Mometasone dry‑powder inhaler",
+      "Albuterol metered‑dose inhaler"
+    ],
+    "answerIndex": 2,
+    "explanation": "Inhaled corticosteroids such as mometasone exert anti‑inflammatory effects via gene regulation and must be taken regularly as controller therapy.",
+    "tags": [
+      "Treatment",
+      "Mechanism",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q27",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "treatment",
+    "question": "A 26‑year‑old man with seasonal allergic rhinitis asks which over‑the‑counter medication is least likely to cause sedation so he can take it during the day. All of the following are commonly used for allergic rhinitis. Which is not considered a preferred agent for daytime use due to its sedating properties?",
+    "options": [
+      "Chlorpheniramine",
+      "Fexofenadine",
+      "Loratadine",
+      "Cetirizine",
+      "Intranasal azelastine"
+    ],
+    "answerIndex": 0,
+    "explanation": "Chlorpheniramine is a first‑generation H₁ antihistamine that causes significant sedation and is less preferred for routine daytime use.",
+    "tags": [
+      "Clinical",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q28",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "mechanism",
+    "question": "A 45‑year‑old man with asthma is started on an oral medication that decreases leukotriene synthesis by inhibiting 5‑lipoxygenase. This reduces production of leukotriene B₄ and cysteinyl leukotrienes. Which drug was prescribed?",
+    "options": [
+      "Cromolyn",
+      "Zafirlukast",
+      "Zileuton",
+      "Montelukast",
+      "Theophylline"
+    ],
+    "answerIndex": 2,
+    "explanation": "Zileuton directly inhibits 5‑lipoxygenase, blocking synthesis of leukotrienes from arachidonic acid.",
+    "tags": [
+      "Treatment",
+      "Mechanism"
+    ]
+  },
+  {
+    "id": "resp_q29",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "clinicalPearl",
+    "question": "A patient is being instructed on proper use of a dry‑powder inhaler (DPI) for asthma maintenance therapy. Which of the following best describes correct inhalation technique for this device?",
+    "options": [
+      "Inhale slowly and deeply just before and throughout actuation of the inhaler",
+      "Use a spacer to decrease oropharyngeal deposition",
+      "Inhale quickly and deeply to optimize drug delivery to the lungs",
+      "Rinse the mouth using a \"swish‑and‑spit\" technique before using the inhaler"
+    ],
+    "answerIndex": 2,
+    "explanation": "DPIs are breath‑actuated; a rapid, deep inhalation is needed to de‑aggregate the powder and carry drug into the lower airways.",
+    "tags": [
+      "Clinical",
+      "Technique"
+    ]
+  },
+  {
+    "id": "resp_q30",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "treatment",
+    "question": "A 44‑year‑old woman has perennial allergic rhinitis and uses an over‑the‑counter nasal spray multiple times daily for several months. She now presents with worsening nasal congestion whenever she tries to stop the spray. Which class of medication is most likely responsible for this \"rebound\" nasal congestion (rhinitis medicamentosa)?",
+    "options": [
+      "Intranasal corticosteroid",
+      "Intranasal decongestant",
+      "Leukotriene receptor antagonist",
+      "Oral antihistamine"
+    ],
+    "answerIndex": 1,
+    "explanation": "Prolonged use of topical α‑adrenergic decongestants causes rebound vasodilation and congestion when withdrawn.",
+    "tags": [
+      "Clinical",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q31",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "mechanism",
+    "question": "A 28‑year‑old man with moderate persistent asthma is started on an oral medication that reduces synthesis of leukotrienes by blocking the conversion of arachidonic acid to 5‑HPETE. Which of the following best describes this drug?",
+    "options": [
+      "5‑lipoxygenase inhibitor",
+      "Thromboxane A₂ inhibitor",
+      "Leukotriene receptor antagonist",
+      "Prostaglandin synthesis inhibitor"
+    ],
+    "answerIndex": 0,
+    "explanation": "Zileuton directly inhibits 5‑lipoxygenase, the enzyme responsible for the first committed step in leukotriene synthesis.",
+    "tags": [
+      "Mechanism",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q32",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "treatment",
+    "question": "A 16‑year‑old girl with persistent asthma uses an inhaled beclomethasone metered‑dose inhaler twice daily. She frequently forgets to rinse her mouth afterward. She is now evaluated for hoarseness and a sore mouth. Which adverse effect is most characteristic of this medication?",
+    "options": [
+      "Adrenal suppression",
+      "Oropharyngeal candidiasis",
+      "Bronchoconstriction",
+      "Hepatitis"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled corticosteroids commonly cause local immunosuppression in the oropharynx, leading to candidiasis and dysphonia.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q33",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "treatment",
+    "question": "A 40‑year‑old woman has asthma exacerbations that reliably occur after she takes aspirin for headaches. Between episodes her asthma is otherwise well controlled. Which class of drugs is particularly effective in preventing these aspirin‑induced attacks?",
+    "options": [
+      "Agents for exercise‑induced asthma",
+      "Drugs for antigen‑induced asthma",
+      "Leukotriene pathway inhibitors",
+      "Occupational exposure‑specific treatments"
+    ],
+    "answerIndex": 2,
+    "explanation": "Aspirin‑exacerbated respiratory disease is driven by shunting of arachidonic acid metabolism toward leukotrienes; leukotriene pathway inhibitors are especially helpful.",
+    "tags": [
+      "Clinical",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q34",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "mechanism",
+    "question": "A 24‑year‑old man with newly diagnosed bronchial asthma is being counseled on pharmacologic options. Which of the following drug classes is NOT used as a therapeutic option in asthma?",
+    "options": [
+      "β₂‑adrenergic agonists",
+      "Corticosteroids",
+      "Cholinesterase inhibitors",
+      "Phosphodiesterase inhibitors"
+    ],
+    "answerIndex": 2,
+    "explanation": "Cholinesterase inhibitors increase acetylcholine at muscarinic receptors and would worsen bronchoconstriction rather than treat asthma.",
+    "tags": [
+      "Mechanism",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q35",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "treatment",
+    "question": "A 29‑year‑old woman with severe allergic asthma uncontrolled on high‑dose inhaled corticosteroids and LABA is started on a new subcutaneous medication that is a humanized monoclonal antibody targeting IgE. For which condition is this drug indicated?",
+    "options": [
+      "Rheumatoid arthritis",
+      "Asthma",
+      "Prostate cancer",
+      "Chronic lymphocytic leukemia"
+    ],
+    "answerIndex": 1,
+    "explanation": "Omalizumab is an anti‑IgE monoclonal antibody approved for moderate‑to‑severe allergic asthma.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q36",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "mechanism",
+    "question": "A 10‑year‑old boy with mild persistent asthma is started on montelukast. Which description best explains the mechanism of action of this medication?",
+    "options": [
+      "Competitive antagonist of leukotriene receptors",
+      "Inhibits α‑adrenergic receptors",
+      "β‑adrenergic receptor agonist",
+      "Non‑competitive inhibitor of leukotriene synthesis"
+    ],
+    "answerIndex": 0,
+    "explanation": "Montelukast is a selective competitive antagonist at cysteinyl leukotriene receptor CysLT₁.",
+    "tags": [
+      "Mechanism",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q37",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "treatment",
+    "question": "A 7‑year‑old boy with asthma is brought to the emergency department with acute wheezing and shortness of breath. Which medication does not have a role in the acute management of an asthma attack?",
+    "options": [
+      "Cromolyn sodium",
+      "Ipratropium",
+      "Systemic corticosteroids",
+      "Inhaled salbutamol (albuterol)"
+    ],
+    "answerIndex": 0,
+    "explanation": "Cromolyn is a mast‑cell stabilizer used only for prophylaxis and has no bronchodilator effect in acute attacks.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
+  },
+  {
+    "id": "resp_q38",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "mechanism",
+    "question": "Which of the following drug classes is NOT considered a bronchodilator?",
+    "options": [
+      "β₂‑adrenergic agonists",
+      "Methylxanthines",
+      "Corticosteroids",
+      "Anticholinergics"
+    ],
+    "answerIndex": 2,
+    "explanation": "Corticosteroids are anti‑inflammatory and decrease airway hyperresponsiveness but do not directly relax bronchial smooth muscle.",
+    "tags": [
+      "Mechanism",
+      "Treatment"
+    ]
+  },
+  {
+    "id": "resp_q39",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "clinicalPearl",
+    "question": "A 45‑year‑old woman with a history of asthma develops acute bronchospasm shortly after starting a new medication for chronic joint pain. Which class of drugs is most likely responsible?",
+    "options": [
+      "β‑adrenergic receptor agonists",
+      "Nonsteroidal anti‑inflammatory drugs",
+      "Calcium channel blockers",
+      "H₁ antihistamines"
+    ],
+    "answerIndex": 1,
+    "explanation": "NSAIDs, especially aspirin, can precipitate acute asthma attacks in susceptible individuals by shifting arachidonic acid metabolism toward leukotrienes.",
+    "tags": [
+      "Clinical",
+      "Diagnosis"
+    ]
+  },
+  {
+    "id": "resp_q40",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "treatment",
+    "question": "A 58‑year‑old man with a long history of smoking has COPD with intermittent wheezing and chronic cough. He is prescribed an inhaled medication that improves his airflow by blocking muscarinic receptors in the bronchial tree and is also sometimes used as an adjunct in acute asthma exacerbations. Which class best describes this drug, ipratropium bromide?",
+    "options": [
+      "β‑sympathomimetic",
+      "Methylxanthine",
+      "Anticholinergic",
+      "Mast cell stabilizer"
+    ],
+    "answerIndex": 2,
+    "explanation": "Ipratropium bromide is an anticholinergic that blocks muscarinic (M₃) receptors in airway smooth muscle, leading to bronchodilation.",
+    "tags": [
+      "Treatment",
+      "Clinical"
+    ]
   }
 ]

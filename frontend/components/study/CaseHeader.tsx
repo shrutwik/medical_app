@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { AdminCase } from '../../services/content/repository';
 import { colors, layout } from '../../constants/theme';
@@ -35,48 +36,62 @@ export default function CaseHeader({
     color: colors.textMuted,
     bg: colors.cloud,
   };
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <View style={styles.shell}>
-      {/* Top navigation row */}
-      <View style={styles.topRow}>
-        <View style={styles.breadcrumb}>
-          {onBack ? <BackLink label={backLabel} onPress={onBack} /> : null}
-          {onTrack ? (
-            <>
-              <Text style={styles.breadcrumbSep}>·</Text>
-              <Pressable onPress={onTrack} accessibilityRole="link">
-                <Text style={styles.breadcrumbLink}>{trackLabel}</Text>
-              </Pressable>
-            </>
-          ) : null}
+    <View style={[styles.shell, isCollapsed && styles.shellCollapsed]}>
+      {!isCollapsed ? (
+        <View style={styles.topRow}>
+          <View style={styles.breadcrumb}>
+            {onBack ? <BackLink label={backLabel} onPress={onBack} /> : null}
+            {onTrack ? (
+              <>
+                <Text style={styles.breadcrumbSep}>·</Text>
+                <Pressable onPress={onTrack} accessibilityRole="link">
+                  <Text style={styles.breadcrumbLink}>{trackLabel}</Text>
+                </Pressable>
+              </>
+            ) : null}
+          </View>
+          <Pressable
+            style={[styles.bookmarkButton, bookmarked && styles.bookmarkButtonActive]}
+            onPress={onToggleBookmark}
+            accessibilityRole="button"
+            accessibilityLabel={bookmarked ? 'Remove bookmark' : 'Bookmark this case'}
+          >
+            <Text style={[styles.bookmarkIcon, bookmarked && styles.bookmarkIconActive]}>
+              {bookmarked ? '★' : '☆'}
+            </Text>
+            <Text style={[styles.bookmarkText, bookmarked && styles.bookmarkTextActive]}>
+              {bookmarked ? 'Saved' : 'Save'}
+            </Text>
+          </Pressable>
         </View>
+      ) : null}
+
+      <View style={styles.titleRow}>
+        <Text style={[styles.title, isCollapsed && styles.titleCollapsed]}>{caseItem.title}</Text>
         <Pressable
-          style={[styles.bookmarkButton, bookmarked && styles.bookmarkButtonActive]}
-          onPress={onToggleBookmark}
+          onPress={() => setIsCollapsed((prev) => !prev)}
+          style={styles.collapseButton}
           accessibilityRole="button"
-          accessibilityLabel={bookmarked ? 'Remove bookmark' : 'Bookmark this case'}
+          accessibilityLabel={isCollapsed ? 'Expand case header' : 'Collapse case header'}
         >
-          <Text style={[styles.bookmarkIcon, bookmarked && styles.bookmarkIconActive]}>
-            {bookmarked ? '★' : '☆'}
-          </Text>
-          <Text style={[styles.bookmarkText, bookmarked && styles.bookmarkTextActive]}>
-            {bookmarked ? 'Saved' : 'Save'}
-          </Text>
+          <Text style={styles.collapseButtonText}>{isCollapsed ? 'Show details' : 'Hide details'}</Text>
         </Pressable>
       </View>
 
-      {/* Title block */}
-      <Text style={styles.title}>{caseItem.title}</Text>
-      <Text style={styles.description}>{caseItem.shortDescription}</Text>
-
-      {/* Meta chips */}
-      <View style={styles.metaRow}>
-        <View style={[styles.chip, { backgroundColor: diff.bg }]}>
-          <View style={[styles.chipDot, { backgroundColor: diff.color }]} />
-          <Text style={[styles.chipText, { color: diff.color }]}>{diff.label}</Text>
-        </View>
-      </View>
+      {!isCollapsed ? (
+        <>
+          <Text style={styles.description}>{caseItem.shortDescription}</Text>
+          <View style={styles.metaRow}>
+            <View style={[styles.chip, { backgroundColor: diff.bg }]}>
+              <View style={[styles.chipDot, { backgroundColor: diff.color }]} />
+              <Text style={[styles.chipText, { color: diff.color }]}>{diff.label}</Text>
+            </View>
+          </View>
+        </>
+      ) : null}
     </View>
   );
 }
@@ -89,6 +104,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
+  },
+  shellCollapsed: {
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   topRow: {
     flexDirection: 'row',
@@ -145,6 +164,26 @@ const styles = StyleSheet.create({
   bookmarkTextActive: {
     color: colors.goldDeep,
   },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  collapseButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: colors.cloud,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignSelf: 'flex-start',
+  },
+  collapseButtonText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.textSecondary,
+  },
   title: {
     fontSize: 26,
     lineHeight: 32,
@@ -152,6 +191,10 @@ const styles = StyleSheet.create({
     color: colors.maroonDeep,
     letterSpacing: -0.4,
     marginBottom: 8,
+    flex: 1,
+  },
+  titleCollapsed: {
+    marginBottom: 0,
   },
   description: {
     fontSize: 15,
