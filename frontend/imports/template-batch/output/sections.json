@@ -1,0 +1,13 @@
+[
+  {
+    "id": "template_note_1",
+    "caseId": "asthma_foundation_case",
+    "type": "narrative",
+    "title": "Asthma overview",
+    "content": "Asthma is a chronic inflammatory airway disorder with variable, often reversible airflow obstruction.",
+    "order": 1,
+    "tags": [
+      "overview"
+    ]
+  }
+]

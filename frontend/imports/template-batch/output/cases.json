@@ -1,0 +1,16 @@
+[
+  {
+    "id": "asthma_foundation_case",
+    "conditionId": "asthma",
+    "title": "Asthma Foundation Review",
+    "shortDescription": "General asthma notes that are not tied to a single patient scenario.",
+    "difficulty": "easy",
+    "tags": [
+      "foundation",
+      "review"
+    ],
+    "publishStatus": "draft",
+    "updatedAt": "2026-04-07T15:15:45.717Z",
+    "isFoundationCase": true
+  }
+]

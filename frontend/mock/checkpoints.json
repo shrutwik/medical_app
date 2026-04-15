@@ -1,0 +1,29 @@
+[
+  {
+    "id": "hailey_case_checkpoint",
+    "caseId": "hailey_acute_asthma_case",
+    "tabKey": "clinical",
+    "title": "Differentiate the acute presentation",
+    "prompt": "What findings in Hailey's presentation make acute asthma more likely than pneumonia or pneumothorax?",
+    "hint": "Use the combination of wheeze, hyperinflation, eosinophilia, and absent infiltrates.",
+    "answer": "The child has wheeze, nocturnal symptoms, mucus production, hyperinflation on chest x-ray, eosinophilia, and no infiltrate or pneumothorax, which strongly supports acute asthma exacerbation."
+  },
+  {
+    "id": "chronic_case_checkpoint",
+    "caseId": "chronic_asthma_primary_care_case",
+    "tabKey": "treatment",
+    "title": "Pause before stepping up therapy",
+    "prompt": "Why is adherence and inhaler technique the first management step in the primary-care asthma case?",
+    "hint": "Think about false treatment failure.",
+    "answer": "A patient can look uncontrolled because of poor adherence or poor inhaler use, so escalating medication before checking these issues can be the wrong next step."
+  },
+  {
+    "id": "hypokalemia_checkpoint",
+    "caseId": "beta2_hypokalemia_case",
+    "tabKey": "treatment",
+    "title": "Monitor the rescue therapy",
+    "prompt": "Which laboratory and cardiac findings should make you suspect beta2-agonist induced hypokalemia after repeated albuterol treatment?",
+    "hint": "Tie the adverse effect to intracellular potassium shift and ECG change.",
+    "answer": "Potassium 2.6 mEq/L with weakness, nausea, and U waves on ECG after repeated albuterol treatments strongly suggests beta2-agonist induced intracellular potassium shift."
+  }
+]

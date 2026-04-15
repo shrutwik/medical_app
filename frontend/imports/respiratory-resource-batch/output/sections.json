@@ -1,0 +1,103 @@
+[
+  {
+    "id": "asthma_overview_section",
+    "caseId": "asthma_foundation_case",
+    "type": "narrative",
+    "title": "Asthma overview",
+    "content": "Asthma is a chronic inflammatory airway disorder with variable, usually reversible airflow obstruction. Core features include bronchoconstriction, mucus hypersecretion, mucosal edema, airway hyperresponsiveness, and over time airway remodeling with smooth muscle hypertrophy, fibrosis, and basement membrane thickening.",
+    "order": 1,
+    "tags": [
+      "overview",
+      "airway-remodeling",
+      "obstruction"
+    ]
+  },
+  {
+    "id": "asthma_pathology_section",
+    "caseId": "asthma_foundation_case",
+    "type": "pathology",
+    "title": "Early-phase and late-phase inflammatory response",
+    "content": "Early asthma involves allergen-driven IgE cross-linking on mast cells and basophils with release of histamine, prostaglandins, and leukotrienes that rapidly narrow the airway. The late phase recruits eosinophils, T cells, basophils, and neutrophils, sustaining inflammation, edema, mucus production, and airway injury.",
+    "illustrations": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/IgE_mediated_activation_of_mast_cell.svg/640px-IgE_mediated_activation_of_mast_cell.svg.png",
+        "caption": "Conceptual overview: IgE-mediated mast-cell activation (open-license reference figure)."
+      }
+    ],
+    "order": 1,
+    "tags": [
+      "early-phase",
+      "late-phase",
+      "IgE",
+      "eosinophils"
+    ]
+  },
+  {
+    "id": "asthma_physiology_section",
+    "caseId": "asthma_foundation_case",
+    "type": "physiology",
+    "title": "Physiology of airflow limitation",
+    "content": "Asthma is an obstructive lung disease in which airway narrowing sharply raises resistance and reduces expiratory flow. Pulmonary function testing typically shows reduced FEV1 and reduced FEV1/FVC, with improvement after bronchodilator use. Air trapping increases work of breathing and contributes to hyperinflation during exacerbations.\n\n![Flow-volume loop patterns](https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Flow_volume_loops.png/500px-Flow_volume_loops.png)",
+    "illustrations": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Spirometry_curve.png/640px-Spirometry_curve.png",
+        "caption": "Spirometry time–volume curve (reference diagram)."
+      }
+    ],
+    "order": 1,
+    "tags": [
+      "FEV1",
+      "FEV1/FVC",
+      "hyperinflation",
+      "air-trapping"
+    ]
+  },
+  {
+    "id": "asthma_histology_section",
+    "caseId": "asthma_foundation_case",
+    "type": "histology",
+    "title": "Normal airway versus asthmatic airway histology",
+    "content": "Normal conducting airways are lined by ciliated pseudostratified columnar epithelium with goblet cells and a relatively thin basement membrane. Asthmatic airways show epithelial shedding, goblet-cell hyperplasia, eosinophilic inflammation, increased vascular permeability, subepithelial fibrosis, smooth muscle hypertrophy, and greater mucus burden.",
+    "illustrations": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pseudostratified_ciliated_columnar_epithelium.JPEG/640px-Pseudostratified_ciliated_columnar_epithelium.JPEG",
+        "caption": "Pseudostratified ciliated columnar epithelium (reference micrograph)."
+      }
+    ],
+    "order": 1,
+    "tags": [
+      "histology",
+      "epithelial-shedding",
+      "goblet-cells",
+      "smooth-muscle"
+    ]
+  },
+  {
+    "id": "asthma_controller_section",
+    "caseId": "asthma_foundation_case",
+    "type": "treatment",
+    "title": "Controller therapy and stepwise management",
+    "content": "Asthma treatment should be stepped according to symptom burden and physiologic impairment. Inhaled corticosteroids suppress airway inflammation and reduce exacerbations, while rescue bronchodilators treat acute bronchospasm. Before escalating chronic therapy, adherence and inhaler technique should be checked carefully because poor control may reflect medication misuse rather than inadequate treatment intensity.",
+    "order": 1,
+    "tags": [
+      "stepwise-therapy",
+      "inhaled-corticosteroids",
+      "adherence",
+      "inhaler-technique"
+    ]
+  },
+  {
+    "id": "hailey_case_histology",
+    "caseId": "hailey_acute_asthma_case",
+    "type": "histology",
+    "title": "Acute and chronic airway remodeling in Hailey's case",
+    "content": "During acute exacerbation, eosinophils, mast cells, mucus hypersecretion, epithelial injury, and mucosal edema narrow the airway. Repeated episodes can produce basement membrane thickening, subepithelial fibrosis, smooth muscle hypertrophy, glandular hypertrophy, and persistent Th2-skewed inflammation that make attacks more likely and airflow limitation less reversible over time.",
+    "order": 1,
+    "tags": [
+      "airway-remodeling",
+      "pediatric",
+      "acute-vs-chronic",
+      "slides"
+    ]
+  }
+]

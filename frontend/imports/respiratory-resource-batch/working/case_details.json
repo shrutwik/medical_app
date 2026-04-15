@@ -1,0 +1,270 @@
+[
+  {
+    "caseRef": "asthma_foundation_case",
+    "clinicalNarrative": {
+      "presentation": "This foundation case organizes the major concepts of asthma before moving into scenario-specific cases.",
+      "history": "The learner reviews the disease as a chronic inflammatory airway disorder with variable airflow obstruction, hyperresponsiveness, mucus hypersecretion, and airway remodeling.",
+      "vitals": {},
+      "exam": "No single patient examination applies; the emphasis is on core disease mechanisms and management principles.",
+      "discussionPrompts": [
+        "Which structural and inflammatory processes make asthma an obstructive disease?",
+        "Why do inhaled corticosteroids change long-term outcomes more than rescue bronchodilators alone?",
+        "How do early-phase and late-phase responses differ?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Asthma",
+      "keyFindings": [
+        "Variable airflow obstruction",
+        "Bronchial smooth muscle constriction",
+        "Mucosal edema and mucus hypersecretion",
+        "Inflammatory cell recruitment and remodeling risk"
+      ],
+      "tests": [
+        {
+          "name": "Pulmonary function testing",
+          "result": "Reduced FEV1 and reduced FEV1/FVC with bronchodilator reversibility",
+          "interpretation": "Supports obstructive physiology typical of asthma"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "Match treatment intensity to symptom burden, address triggers, and prioritize inhaled corticosteroid-based control with reliever access.",
+      "medications": [
+        {
+          "name": "Albuterol",
+          "class": "short-acting beta2 agonist",
+          "role": "rescue bronchodilator"
+        },
+        {
+          "name": "Inhaled corticosteroids",
+          "class": "anti-inflammatory controller therapy",
+          "role": "long-term control"
+        }
+      ],
+      "followUp": "Track symptoms, rescue inhaler use, nighttime wakening, peak flow, and adherence/technique before escalating chronic therapy.",
+      "outcome": "Learners should leave this case with a coherent view of asthma pathology, physiology, and pharmacology."
+    }
+  },
+  {
+    "caseRef": "hailey_acute_asthma_case",
+    "clinicalNarrative": {
+      "presentation": "Hailey, an 8-year-old girl, presents to the emergency department with progressively worsening shortness of breath, wheezing, and chest tightness over 3 days after soccer practice.",
+      "history": "She woke multiple times gasping for air, has abundant clear mucus and watery eyes, and the family recently adopted a new kitten. Her mother also has asthma.",
+      "vitals": {
+        "bloodPressure": "125/78 mmHg",
+        "heartRate_bpm": 115,
+        "respiratoryRate_bpm": 28,
+        "oxygenSaturation_percent": 91
+      },
+      "exam": "Tachycardic but regular rhythm with prominent respiratory distress, wheeze, mucus burden, and likely hyperinflation.",
+      "discussionPrompts": [
+        "Which findings support asthma over pneumonia or pneumothorax?",
+        "How do eosinophilia and allergen exposure help connect the case to atopy-driven asthma?",
+        "Which acute treatments stabilize this child and what should the discharge plan include?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Acute asthma exacerbation with likely allergic trigger",
+      "keyFindings": [
+        "Exercise-associated worsening",
+        "Nocturnal symptoms",
+        "Oxygen saturation 91%",
+        "Hyperinflation on chest x-ray",
+        "Eosinophils 8%",
+        "Recent kitten exposure"
+      ],
+      "tests": [
+        {
+          "name": "Chest X-ray",
+          "result": "Hyperinflation with flattened diaphragms and increased AP diameter",
+          "interpretation": "Consistent with obstructive air trapping without infiltrate or pneumothorax"
+        },
+        {
+          "name": "CBC",
+          "result": "Eosinophils 8%",
+          "interpretation": "Supports allergic/eosinophilic airway inflammation"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "Provide oxygen, bronchodilators, and systemic corticosteroids acutely, then discharge with rescue inhaler, controller therapy, trigger reduction, and close follow-up.",
+      "medications": [
+        {
+          "name": "Albuterol",
+          "class": "short-acting beta2 agonist",
+          "role": "acute bronchodilator"
+        },
+        {
+          "name": "Ipratropium bromide",
+          "class": "muscarinic antagonist",
+          "role": "adjunct bronchodilation"
+        },
+        {
+          "name": "Prednisone",
+          "class": "systemic glucocorticoid",
+          "role": "anti-inflammatory therapy during exacerbation"
+        },
+        {
+          "name": "Fluticasone/salmeterol",
+          "class": "ICS/LABA combination",
+          "role": "controller therapy after stabilization"
+        }
+      ],
+      "followUp": "Primary care review in 3 to 5 days plus pulmonary/allergy follow-up and trigger avoidance counseling.",
+      "outcome": "Symptoms and oxygenation improved after oxygen, bronchodilators, and steroids, allowing discharge with controller planning."
+    }
+  },
+  {
+    "caseRef": "chronic_asthma_primary_care_case",
+    "clinicalNarrative": {
+      "presentation": "A 34-year-old man with chronic asthma reports worsening wheeze and shortness of breath at a GP visit.",
+      "history": "He has been taking salbutamol and low-dose budesonide for several months but is now more symptomatic than before.",
+      "vitals": {
+        "peakExpiratoryFlow_percentBest": 80
+      },
+      "exam": "No additional major examination findings are provided beyond progressive wheeze and dyspnea.",
+      "discussionPrompts": [
+        "Why should adherence and inhaler technique be checked before stepping up chronic therapy?",
+        "When is inhaled corticosteroid intensification appropriate?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Suboptimally controlled chronic asthma",
+      "keyFindings": [
+        "Worsening wheeze",
+        "Increasing shortness of breath",
+        "PEFR 80% of best",
+        "Current SABA and low-dose ICS therapy"
+      ],
+      "tests": [
+        {
+          "name": "Peak expiratory flow rate",
+          "result": "80% of personal best",
+          "interpretation": "Suggests poorer control and need for reassessment of management"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "Check adherence and inhaler technique first, then escalate controller therapy if use and technique are appropriate.",
+      "medications": [
+        {
+          "name": "Salbutamol",
+          "class": "short-acting beta2 agonist",
+          "role": "rescue"
+        },
+        {
+          "name": "Budesonide",
+          "class": "inhaled corticosteroid",
+          "role": "controller"
+        }
+      ],
+      "followUp": "Reassess symptoms, rescue inhaler use, night waking, and peak flow after correcting use or stepping up therapy.",
+      "outcome": "The first management step is to check adherence and inhaler technique before adding or increasing drugs."
+    }
+  },
+  {
+    "caseRef": "beta2_hypokalemia_case",
+    "clinicalNarrative": {
+      "presentation": "A 15-year-old boy with severe asthma presents in obvious respiratory distress and later develops weakness, nausea, and vomiting after repeated nebulizer treatments.",
+      "history": "He receives multiple bronchodilator treatments and intravenous corticosteroids during the exacerbation.",
+      "vitals": {
+        "potassium_mEq_L": 2.6
+      },
+      "exam": "ECG shows U waves after treatment, consistent with clinically important hypokalemia.",
+      "discussionPrompts": [
+        "Which asthma medication causes an intracellular potassium shift?",
+        "Why does this adverse effect occur during successful bronchodilation?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Beta2-agonist induced hypokalemia during acute severe asthma treatment",
+      "keyFindings": [
+        "Repeated nebulizer therapy",
+        "Potassium 2.6 mEq/L",
+        "U waves on ECG",
+        "Weakness and nausea after acute treatment"
+      ],
+      "tests": [
+        {
+          "name": "Serum potassium",
+          "result": "2.6 mEq/L",
+          "interpretation": "Significant hypokalemia requiring recognition and monitoring"
+        },
+        {
+          "name": "Electrocardiogram",
+          "result": "U waves",
+          "interpretation": "Electrical evidence of hypokalemia"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "Continue lifesaving asthma therapy while recognizing albuterol as the cause of intracellular potassium shift and monitoring electrolytes and cardiac stability.",
+      "medications": [
+        {
+          "name": "Albuterol",
+          "class": "short-acting beta2 agonist",
+          "role": "acute bronchodilator and cause of potassium shift"
+        },
+        {
+          "name": "Intravenous corticosteroids",
+          "class": "systemic glucocorticoid",
+          "role": "adjunct anti-inflammatory treatment"
+        }
+      ],
+      "followUp": "Monitor potassium, ECG changes, glucose, and respiratory response during repeated high-dose beta2 agonist therapy.",
+      "outcome": "The key teaching point is recognizing treatment-related hypokalemia without missing the need for ongoing asthma stabilization."
+    }
+  },
+  {
+    "caseRef": "theophylline_overdose_case",
+    "clinicalNarrative": {
+      "presentation": "A 25-year-old woman with asthma is brought to the emergency department after ingesting a full bottle of theophylline in a suicide attempt.",
+      "history": "At arrival she has ongoing tonic-clonic seizure activity and severe cardiovascular instability.",
+      "vitals": {
+        "bloodPressure": "80/40 mmHg",
+        "respiratoryRate_bpm": 30,
+        "heartRate_bpm": 160
+      },
+      "exam": "She is seizing, hypotensive, tachycardic, and in respiratory distress.",
+      "discussionPrompts": [
+        "How does theophylline toxicity alter intracellular cAMP signaling?",
+        "Why is cardioselective beta-blockade safer than nonselective blockade in a patient with asthma?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Theophylline toxicity in a patient with asthma",
+      "keyFindings": [
+        "Intentional overdose",
+        "Tonic-clonic seizure",
+        "Hypotension",
+        "Tachycardia",
+        "Respiratory distress"
+      ],
+      "tests": [
+        {
+          "name": "Clinical toxicology assessment",
+          "result": "Findings consistent with severe theophylline intoxication",
+          "interpretation": "Neurologic and cardiovascular instability from excess cyclic nucleotide signaling"
+        }
+      ]
+    },
+    "treatment": {
+      "plan": "Manage airway, seizure, and hemodynamics while reducing excessive cAMP signaling; a cardioselective beta-blocker may help counter toxicity while limiting bronchospasm risk.",
+      "medications": [
+        {
+          "name": "Theophylline",
+          "class": "methylxanthine / phosphodiesterase inhibitor",
+          "role": "overdose agent"
+        },
+        {
+          "name": "Cardioselective beta-blocker",
+          "class": "beta1-selective antagonist",
+          "role": "counteracts cAMP-mediated toxicity with less bronchospasm risk"
+        }
+      ],
+      "followUp": "Requires ICU-level monitoring with aggressive seizure control and hemodynamic support.",
+      "outcome": "This case reinforces theophylline toxicity and the principle of decreasing intracellular cAMP to counter the overdose state."
+    }
+  }
+]

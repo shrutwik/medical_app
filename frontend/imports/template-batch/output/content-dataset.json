@@ -1,0 +1,118 @@
+{
+  "systems": [
+    {
+      "id": "respiratory",
+      "name": "Respiratory"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "asthma",
+      "systemId": "respiratory",
+      "name": "Asthma",
+      "summary": "Chronic inflammatory airway disease with reversible airflow obstruction.",
+      "learningGoals": [
+        "Recognize the major patterns of asthma presentation.",
+        "Connect pathology to management decisions."
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "asthma_foundation_case",
+      "conditionId": "asthma",
+      "title": "Asthma Foundation Review",
+      "shortDescription": "General asthma notes that are not tied to a single patient scenario.",
+      "difficulty": "easy",
+      "tags": [
+        "foundation",
+        "review"
+      ],
+      "publishStatus": "draft",
+      "updatedAt": "2026-04-07T15:15:45.717Z",
+      "isFoundationCase": true
+    }
+  ],
+  "caseDetails": [
+    {
+      "caseId": "asthma_foundation_case",
+      "clinicalNarrative": {
+        "presentation": "General review case for asthma.",
+        "history": "Used for condition-level notes before scenario-specific cases are attached.",
+        "vitals": {},
+        "exam": "No fixed patient exam for the template batch.",
+        "discussionPrompts": [
+          "What features make asthma an obstructive disease?"
+        ]
+      },
+      "diagnosis": {
+        "name": "Asthma",
+        "keyFindings": [
+          "Variable airflow obstruction",
+          "Airway inflammation"
+        ],
+        "tests": []
+      },
+      "treatment": {
+        "plan": "Use as a holding case for imported condition-level material.",
+        "medications": [],
+        "followUp": "Replace with real content during batch cleanup.",
+        "outcome": "Template only."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "template_note_1",
+      "caseId": "asthma_foundation_case",
+      "type": "narrative",
+      "title": "Asthma overview",
+      "content": "Asthma is a chronic inflammatory airway disorder with variable, often reversible airflow obstruction.",
+      "order": 1,
+      "tags": [
+        "overview"
+      ]
+    }
+  ],
+  "mechanisms": [],
+  "resources": [
+    {
+      "id": "template_resource_1",
+      "caseId": "asthma_foundation_case",
+      "sectionType": "narrative",
+      "type": "handout",
+      "title": "Asthma review handout",
+      "description": "Foundational review PDF for asthma learners.",
+      "caption": "Use this as a metadata-first placeholder until file hosting is connected.",
+      "sourceType": "pdf",
+      "sourceReference": {
+        "fileName": "asthma_review.pdf",
+        "pageNumber": 1
+      },
+      "assetKey": "asthma_review_handout",
+      "externalUrl": "https://example.com/asthma-review",
+      "tags": [
+        "resource"
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "template_quiz_1",
+      "caseId": "asthma_foundation_case",
+      "sectionType": "physiology",
+      "question": "Which pattern best matches asthma on pulmonary function testing?",
+      "options": [
+        "Reduced FEV1 and reduced FEV1/FVC",
+        "Normal FEV1 and increased TLC"
+      ],
+      "answerIndex": 0,
+      "explanation": "Asthma is an obstructive disease, so FEV1 and FEV1/FVC are reduced.",
+      "tags": [
+        "quiz",
+        "pft"
+      ]
+    }
+  ],
+  "checkpoints": []
+}

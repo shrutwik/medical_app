@@ -1,0 +1,50 @@
+[
+  {
+    "sourceId": "template_note_1",
+    "contentType": "section",
+    "title": "Asthma overview",
+    "body": "Asthma is a chronic inflammatory airway disorder with variable, often reversible airflow obstruction.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "narrative",
+    "tags": [
+      "overview"
+    ]
+  },
+  {
+    "sourceId": "template_quiz_1",
+    "contentType": "quiz",
+    "prompt": "Which pattern best matches asthma on pulmonary function testing?",
+    "options": [
+      "Reduced FEV1 and reduced FEV1/FVC",
+      "Normal FEV1 and increased TLC"
+    ],
+    "answerIndex": 0,
+    "explanation": "Asthma is an obstructive disease, so FEV1 and FEV1/FVC are reduced.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "physiology",
+    "tags": [
+      "quiz",
+      "pft"
+    ]
+  },
+  {
+    "sourceId": "template_resource_1",
+    "contentType": "resource",
+    "title": "Asthma review handout",
+    "body": "Foundational review PDF for asthma learners.",
+    "caption": "Use this as a metadata-first placeholder until file hosting is connected.",
+    "resourceType": "handout",
+    "sourceType": "pdf",
+    "sourceFileName": "asthma_review.pdf",
+    "sourcePageNumber": 1,
+    "externalUrl": "https://example.com/asthma-review",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "narrative",
+    "tags": [
+      "resource"
+    ]
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "asthma_foundation_case",
+    "conditionId": "asthma",
+    "title": "Asthma Foundation Review",
+    "shortDescription": "High-yield asthma review built from respiratory pathology, physiology, histology, and pharmacology source material.",
+    "difficulty": "easy",
+    "tags": [
+      "foundation",
+      "overview",
+      "pathophysiology",
+      "pharmacology"
+    ],
+    "publishStatus": "published",
+    "updatedAt": "2026-04-07T15:56:52.885Z",
+    "isFoundationCase": true
+  },
+  {
+    "id": "hailey_acute_asthma_case",
+    "conditionId": "asthma",
+    "title": "Acute pediatric asthma after exercise and allergen exposure",
+    "shortDescription": "An 8-year-old girl presents with worsening wheeze, chest tightness, mucus production, and hypoxemia after soccer practice and likely allergen exposure.",
+    "difficulty": "medium",
+    "tags": [
+      "acute-exacerbation",
+      "pediatric",
+      "slides",
+      "allergen-trigger"
+    ],
+    "publishStatus": "published",
+    "updatedAt": "2026-04-07T15:56:52.886Z",
+    "isFoundationCase": false
+  },
+  {
+    "id": "chronic_asthma_primary_care_case",
+    "conditionId": "asthma",
+    "title": "Worsening chronic asthma in primary care",
+    "shortDescription": "A 34-year-old man on salbutamol and low-dose budesonide has worsening symptoms with PEFR 80% of best and needs a stepwise management decision.",
+    "difficulty": "easy",
+    "tags": [
+      "primary-care",
+      "controller-therapy",
+      "adherence",
+      "PEFR"
+    ],
+    "publishStatus": "published",
+    "updatedAt": "2026-04-07T15:56:52.886Z",
+    "isFoundationCase": false
+  },
+  {
+    "id": "beta2_hypokalemia_case",
+    "conditionId": "asthma",
+    "title": "Severe asthma exacerbation with beta2-agonist induced hypokalemia",
+    "shortDescription": "A 15-year-old boy develops nausea, weakness, potassium 2.6 mEq/L, and U waves after repeated acute asthma treatments.",
+    "difficulty": "medium",
+    "tags": [
+      "beta2-agonist",
+      "hypokalemia",
+      "ECG",
+      "emergency"
+    ],
+    "publishStatus": "published",
+    "updatedAt": "2026-04-07T15:56:52.886Z",
+    "isFoundationCase": false
+  },
+  {
+    "id": "theophylline_overdose_case",
+    "conditionId": "asthma",
+    "title": "Theophylline overdose in a patient with asthma",
+    "shortDescription": "A 25-year-old woman with asthma presents after theophylline overdose with seizure, hypotension, tachycardia, and respiratory distress.",
+    "difficulty": "hard",
+    "tags": [
+      "theophylline",
+      "toxicity",
+      "critical-care",
+      "cAMP"
+    ],
+    "publishStatus": "published",
+    "updatedAt": "2026-04-07T15:56:52.886Z",
+    "isFoundationCase": false
+  }
+]

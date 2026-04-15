@@ -1,0 +1,101 @@
+[
+  {
+    "id": "quiz_primary_care_step",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 34-year-old man with chronic asthma is taking salbutamol and low-dose budesonide but is becoming wheezier and more short of breath. His PEFR is 80% of his personal best. What is the first management step?",
+    "options": [
+      "Add montelukast",
+      "Increase the dose of budesonide",
+      "Check adherence and inhaler technique",
+      "Add terbutaline sulfate",
+      "Add formoterol fumarate"
+    ],
+    "answerIndex": 2,
+    "explanation": "Before increasing therapy, the first step is to check adherence and inhaler technique. If both are adequate, stepping up controller therapy becomes reasonable.",
+    "tags": [
+      "primary-care",
+      "adherence",
+      "inhaler-technique"
+    ]
+  },
+  {
+    "id": "quiz_theophylline_toxicity",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "mechanism",
+    "question": "A 25-year-old woman with a history of asthma is brought to the emergency department after ingesting a full bottle of theophylline in a suicide attempt. She is seizing, hypotensive, tachycardic, and in respiratory distress. What mechanism best counters this intoxication?",
+    "options": [
+      "Decreasing intracellular cAMP",
+      "Increasing intracellular cAMP through beta2 receptors",
+      "Increasing intracellular cAMP through nonselective adrenergic receptors",
+      "Inhibiting the Na+-K+-2Cl- cotransporter",
+      "Inhibiting the Na+-K+-ATPase pump"
+    ],
+    "answerIndex": 0,
+    "explanation": "Theophylline inhibits phosphodiesterase and increases intracellular cAMP. Counteracting this toxicity means reducing cAMP signaling; cardioselective beta-blockade may help while reducing bronchospasm risk compared with nonselective blockade.",
+    "tags": [
+      "theophylline",
+      "toxicity",
+      "cAMP"
+    ]
+  },
+  {
+    "id": "quiz_albuterol_hypokalemia",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "pharmacology",
+    "question": "A 15-year-old boy with severe asthma develops nausea, vomiting, weakness, potassium 2.6 mEq/L, and U waves after multiple nebulizer treatments. Which medication most likely caused this complication?",
+    "options": [
+      "Albuterol",
+      "Cromolyn",
+      "Ipratropium",
+      "Theophylline",
+      "Zileuton"
+    ],
+    "answerIndex": 0,
+    "explanation": "Short-acting beta2 agonists such as albuterol can shift potassium intracellularly and cause hypokalemia with ECG changes when used repeatedly in acute exacerbations.",
+    "tags": [
+      "albuterol",
+      "hypokalemia",
+      "ECG"
+    ]
+  },
+  {
+    "id": "quiz_status_asthmaticus",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "clinicalPearl",
+    "question": "Which statement best describes status asthmaticus?",
+    "options": [
+      "Well-controlled asthma with intermittent symptoms",
+      "Life-threatening exacerbation unresponsive to standard therapy",
+      "A condition treated only with cromolyn or leukotriene modifiers",
+      "An attack that resolves without treatment",
+      "An event that occurs only in previously healthy patients"
+    ],
+    "answerIndex": 1,
+    "explanation": "Status asthmaticus is a life-threatening asthma exacerbation that does not respond adequately to standard therapy and requires aggressive management.",
+    "tags": [
+      "status-asthmaticus",
+      "emergency"
+    ]
+  },
+  {
+    "id": "quiz_controller_logic",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "Why is inhaled corticosteroid-based therapy preferred over relying on beta2-agonist monotherapy for long-term asthma control when possible?",
+    "options": [
+      "It acts faster than rescue bronchodilators",
+      "It controls the underlying inflammatory disease process and reduces exacerbations",
+      "It eliminates all asthma medication side effects",
+      "It is only useful during status asthmaticus",
+      "It works by increasing IgE production"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled corticosteroids target the underlying inflammatory pathology of asthma and reduce recurrence of exacerbations, whereas beta2 agonists mainly offer symptom relief.",
+    "tags": [
+      "controller",
+      "inhaled-corticosteroids",
+      "inflammation"
+    ]
+  }
+]

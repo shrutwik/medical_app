@@ -1,0 +1,6 @@
+{
+  "batchId": "template_batch",
+  "title": "Template Import Batch",
+  "defaultPublishStatus": "draft",
+  "defaultDifficulty": "medium"
+}

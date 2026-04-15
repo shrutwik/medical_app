@@ -1,130 +1,186 @@
 [
   {
-    "id": "resource_patho_fig_airway_cross_section",
-    "caseId": "asthma_case_1",
+    "id": "resource_pathophysiology_statpearls",
+    "caseId": "asthma_foundation_case",
     "sectionType": "pathology",
-    "type": "diagram",
-    "title": "Pathophysiology of Asthma",
-    "description": "Composite figure showing lung and airway location plus normal airway cross-section versus narrowed asthmatic airway with mucus, inflammation, and smooth muscle tightening.",
-    "caption": "Figure A displays the location of the lungs and airways in the body. Figure B shows a cross section of a normal airway. Figure C illustrates a cross section of an airway during asthma symptoms.",
+    "type": "reference",
+    "title": "Pathophysiology of Asthma (StatPearls)",
+    "description": "Reference text covering epidemiology, mechanism, and inflammatory pathology of asthma.",
+    "caption": "Use as a foundational pathophysiology source for asthma sections and checkpoints.",
     "sourceType": "pdf",
     "sourceReference": {
       "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
-      "pageNumber": 3
+      "pageNumber": 1
     },
-    "assetKey": "pathophysiology_of_asthma_figure_abc",
+    "assetKey": "pathophysiology_of_asthma_statpearls",
+    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Alveolus_diagram_az.jpg",
     "tags": [
+      "statpearls",
       "pathophysiology",
-      "normal-vs-asthmatic",
-      "diagram",
-      "airway-cross-section"
+      "asthma"
     ]
   },
   {
-    "id": "resource_patho_chest_radiograph",
-    "caseId": "asthma_case_1",
-    "sectionType": "narrative",
-    "type": "image",
-    "title": "Chest radiograph depicting asthma",
-    "description": "Anterior and lateral chest radiographs of a patient with asthma highlighting pneumomediastinum and increased bronchovascular markings.",
-    "caption": "A Chest Radiograph Depicting Asthma. The image depicts both anterior and lateral radiographs of a patient with asthma. The image highlights the presence of pneumomediastinum and increased bronchovascular markings.",
-    "sourceType": "pdf",
-    "sourceReference": {
-      "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
-      "pageNumber": 3
-    },
-    "assetKey": "asthma_chest_radiograph",
-    "tags": [
-      "radiograph",
-      "imaging",
-      "pneumomediastinum",
-      "bronchovascular-markings"
-    ]
-  },
-  {
-    "id": "resource_patho_abpa_ct",
-    "caseId": "asthma_case_1",
-    "sectionType": "pathology",
-    "type": "pathologyFigure",
-    "title": "Allergic bronchopulmonary aspergillosis on CT",
-    "description": "Computed tomography image showing bronchiectasis in both upper lobes of a patient with bronchial asthma, useful as a complication/association resource.",
-    "caption": "Allergic Bronchopulmonary Aspergillosis on Computed Tomography. Images reveal bronchiectasis in both upper lobes of a patient with bronchial asthma, indicative of allergic bronchopulmonary aspergillosis.",
-    "sourceType": "pdf",
-    "sourceReference": {
-      "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
-      "pageNumber": 3
-    },
-    "assetKey": "abpa_ct_in_asthma",
-    "tags": [
-      "ABPA",
-      "CT",
-      "bronchiectasis",
-      "complication"
-    ]
-  },
-  {
-    "id": "resource_patho_severity_table",
-    "caseId": "asthma_case_1",
+    "id": "resource_asthma_medications_statpearls",
+    "caseId": "asthma_foundation_case",
     "sectionType": "treatment",
-    "type": "image",
-    "title": "Asthma severity classification by National Asthma Education and Prevention Program",
-    "description": "Severity classification table summarizing intermittent, mild, moderate, and severe asthma across symptom burden, night waking, activity limitation, and lung function.",
-    "caption": "Asthma Severity Classification by The National Asthma Education and Prevention Program.",
+    "type": "reference",
+    "title": "Asthma Medications (StatPearls)",
+    "description": "Medication-focused reference covering beta2 agonists, anticholinergics, inhaled corticosteroids, leukotriene therapy, theophylline, and biologics.",
+    "caption": "Medication and treatment source for controller logic and case therapy planning.",
     "sourceType": "pdf",
     "sourceReference": {
-      "fileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
-      "pageNumber": 4
+      "fileName": "Asthma Medications _ Treatment & Management _ Point of Care_StatPearls.pdf",
+      "pageNumber": 1
     },
-    "assetKey": "asthma_severity_classification_table",
+    "assetKey": "asthma_medications_statpearls",
+    "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/Metered-Dose_Inhaler_%28Adult%29.png",
     "tags": [
-      "severity",
-      "classification",
-      "NAEPP",
-      "table"
+      "medications",
+      "statpearls",
+      "treatment"
     ]
   },
   {
-    "id": "resource_ch39_fig391",
-    "caseId": "asthma_case_1",
-    "sectionType": "pathology",
-    "type": "literatureFigure",
-    "title": "Cellular pathophysiology of asthma",
-    "description": "Figure contrasting normal and asthmatic airway and mapping mediator sources to bronchoconstriction, mucus secretion, inflammatory cell infiltration, and epithelial damage.",
-    "caption": "Cellular pathophysiology of asthma. Top, cross-section of the normal airway and the asthmatic airway. Bottom, the inflammatory cells and neurotransmitters implicated in asthma pathophysiology.",
+    "id": "resource_chapter39_asthma",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "type": "chapter",
+    "title": "Chapter 39 Drugs against Asthma",
+    "description": "Chapter-style pharmacology source covering major bronchodilator and controller drug classes used in asthma.",
+    "caption": "Supports mechanism, status asthmaticus, and controller-versus-reliever teaching.",
     "sourceType": "pdf",
     "sourceReference": {
       "fileName": "Chapter 39 Drugs against Asthma.pdf",
-      "pageNumber": 2
+      "pageNumber": 1
     },
-    "assetKey": "chapter39_figure39_1",
+    "assetKey": "chapter_39_drugs_against_asthma",
     "tags": [
-      "literature-figure",
-      "mediators",
-      "eosinophils",
-      "mast-cells",
-      "mucus",
-      "bronchoconstriction"
+      "chapter",
+      "pharmacology",
+      "asthma"
     ]
   },
   {
-    "id": "resource_histology_gas_exchange",
-    "caseId": "asthma_case_1",
+    "id": "resource_beta2_statpearls",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "type": "reference",
+    "title": "Beta2-Receptor Agonists and Antagonists",
+    "description": "Reference discussing beta2 receptor signaling, adverse effects, monitoring, and toxicity management.",
+    "caption": "Useful for the albuterol hypokalemia case, bronchodilation mechanism, and overdose monitoring.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Beta2-Receptor Agonists and Antagonists - StatPearls - NCBI Bookshelf.pdf",
+      "pageNumber": 1
+    },
+    "assetKey": "beta2_receptor_agonists_and_antagonists",
+    "tags": [
+      "beta2",
+      "agonists",
+      "hypokalemia",
+      "monitoring"
+    ]
+  },
+  {
+    "id": "resource_histology_lung",
+    "caseId": "asthma_foundation_case",
     "sectionType": "histology",
-    "type": "histology",
-    "title": "Gaseous exchange in the lung",
-    "description": "Normal respiratory reference diagram showing oxygen movement into blood and carbon dioxide removal across the alveolar-capillary bed; useful as baseline comparison for asthma physiology modules.",
-    "caption": "Gaseous Exchange in the Lung. The image illustrates gas exchange in the lungs, showing the movement of oxygen into the bloodstream and carbon dioxide expelled through the alveolar-capillary bed.",
+    "type": "reference",
+    "title": "Histology, Lung (StatPearls)",
+    "description": "Histology reference for normal respiratory epithelium, alveolar structure, and tissue context for airway disease.",
+    "caption": "Use for normal-versus-asthmatic airway comparisons and histology teaching.",
     "sourceType": "pdf",
     "sourceReference": {
       "fileName": "Histology, Lung - StatPearls - NCBI Bookshelf.pdf",
-      "pageNumber": 13
+      "pageNumber": 1
     },
-    "assetKey": "normal_lung_gas_exchange_diagram",
+    "assetKey": "histology_lung_statpearls",
     "tags": [
-      "normal-reference",
-      "alveoli",
-      "gas-exchange",
-      "histology"
+      "histology",
+      "lung",
+      "normal-reference"
+    ]
+  },
+  {
+    "id": "resource_physiology_lung",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "physiology",
+    "type": "reference",
+    "title": "Physiology, Lung (StatPearls)",
+    "description": "Physiology reference for lung mechanics, gas exchange, and airflow behavior relevant to obstructive disease.",
+    "caption": "Supports pulmonary function and airflow-limitation explanation in asthma.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Physiology, Lung - StatPearls - NCBI Bookshelf.pdf",
+      "pageNumber": 1
+    },
+    "assetKey": "physiology_lung_statpearls",
+    "tags": [
+      "physiology",
+      "lung",
+      "PFT"
+    ]
+  },
+  {
+    "id": "resource_hailey_pptx",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "clinical",
+    "type": "slides",
+    "title": "Asthma case and albuterol slide deck",
+    "description": "Teaching slide deck covering a pediatric acute asthma case, histology-pathology synthesis, and bronchodilator pharmacology integration.",
+    "caption": "Primary source for the Hailey acute asthma case and slide-based histology synthesis.",
+    "sourceType": "pptx",
+    "sourceReference": {
+      "fileName": "Asthma case and Albuterol (1).pptx",
+      "pageNumber": 1
+    },
+    "assetKey": "asthma_case_and_albuterol_pptx",
+    "tags": [
+      "slides",
+      "pediatric",
+      "acute-asthma"
+    ]
+  },
+  {
+    "id": "resource_question_bank_peer_teaching",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "quiz",
+    "type": "question-bank",
+    "title": "Questions on Respiration",
+    "description": "Student-generated single best answer question bank containing a chronic asthma management vignette among broader respiratory questions.",
+    "caption": "Used as the source for the primary-care asthma step-up question.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "Questions on Respiration.pdf",
+      "pageNumber": 1
+    },
+    "assetKey": "questions_on_respiration_pdf",
+    "tags": [
+      "question-bank",
+      "asthma",
+      "SBA"
+    ]
+  },
+  {
+    "id": "resource_step1_questions",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "quiz",
+    "type": "question-bank",
+    "title": "STEP 1 Respiratory Questions",
+    "description": "Board-style respiratory question source containing theophylline toxicity and albuterol hypokalemia asthma vignettes.",
+    "caption": "Used for pharmacology-heavy acute asthma quiz content.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "STEP 1 Respiratory Questions.pdf",
+      "pageNumber": 1
+    },
+    "assetKey": "step1_respiratory_questions_pdf",
+    "tags": [
+      "question-bank",
+      "step1",
+      "toxicity",
+      "hypokalemia"
     ]
   }
 ]

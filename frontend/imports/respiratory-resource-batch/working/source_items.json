@@ -1,0 +1,494 @@
+[
+  {
+    "sourceId": "asthma_overview_section",
+    "contentType": "section",
+    "title": "Asthma overview",
+    "body": "Asthma is a chronic inflammatory airway disorder with variable, usually reversible airflow obstruction. Core features include bronchoconstriction, mucus hypersecretion, mucosal edema, airway hyperresponsiveness, and over time airway remodeling with smooth muscle hypertrophy, fibrosis, and basement membrane thickening.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "narrative",
+    "tags": [
+      "overview",
+      "airway-remodeling",
+      "obstruction"
+    ]
+  },
+  {
+    "sourceId": "asthma_pathology_section",
+    "contentType": "section",
+    "title": "Early-phase and late-phase inflammatory response",
+    "body": "Early asthma involves allergen-driven IgE cross-linking on mast cells and basophils with release of histamine, prostaglandins, and leukotrienes that rapidly narrow the airway. The late phase recruits eosinophils, T cells, basophils, and neutrophils, sustaining inflammation, edema, mucus production, and airway injury.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "pathology",
+    "tags": [
+      "early-phase",
+      "late-phase",
+      "IgE",
+      "eosinophils"
+    ]
+  },
+  {
+    "sourceId": "asthma_physiology_section",
+    "contentType": "section",
+    "title": "Physiology of airflow limitation",
+    "body": "Asthma is an obstructive lung disease in which airway narrowing sharply raises resistance and reduces expiratory flow. Pulmonary function testing typically shows reduced FEV1 and reduced FEV1/FVC, with improvement after bronchodilator use. Air trapping increases work of breathing and contributes to hyperinflation during exacerbations.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "physiology",
+    "tags": [
+      "FEV1",
+      "FEV1/FVC",
+      "hyperinflation",
+      "air-trapping"
+    ]
+  },
+  {
+    "sourceId": "asthma_histology_section",
+    "contentType": "section",
+    "title": "Normal airway versus asthmatic airway histology",
+    "body": "Normal conducting airways are lined by ciliated pseudostratified columnar epithelium with goblet cells and a relatively thin basement membrane. Asthmatic airways show epithelial shedding, goblet-cell hyperplasia, eosinophilic inflammation, increased vascular permeability, subepithelial fibrosis, smooth muscle hypertrophy, and greater mucus burden.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "histology",
+    "tags": [
+      "histology",
+      "epithelial-shedding",
+      "goblet-cells",
+      "smooth-muscle"
+    ]
+  },
+  {
+    "sourceId": "asthma_controller_section",
+    "contentType": "section",
+    "title": "Controller therapy and stepwise management",
+    "body": "Asthma treatment should be stepped according to symptom burden and physiologic impairment. Inhaled corticosteroids suppress airway inflammation and reduce exacerbations, while rescue bronchodilators treat acute bronchospasm. Before escalating chronic therapy, adherence and inhaler technique should be checked carefully because poor control may reflect medication misuse rather than inadequate treatment intensity.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "treatment",
+    "tags": [
+      "stepwise-therapy",
+      "inhaled-corticosteroids",
+      "adherence",
+      "inhaler-technique"
+    ]
+  },
+  {
+    "sourceId": "beta2_bronchodilation_mechanism",
+    "contentType": "mechanism",
+    "title": "Beta2-agonist bronchodilation",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "relatedDrug": "albuterol",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Receptor binding",
+        "description": "Beta2 agonists bind adrenergic receptors on airway smooth muscle."
+      },
+      {
+        "stepNumber": 2,
+        "label": "Gs signaling",
+        "description": "Receptor activation stimulates Gs protein and adenylate cyclase."
+      },
+      {
+        "stepNumber": 3,
+        "label": "cAMP increase",
+        "description": "Intracellular cAMP rises and activates downstream relaxing pathways."
+      },
+      {
+        "stepNumber": 4,
+        "label": "MLCK inhibition",
+        "description": "Reduced myosin light-chain kinase activity lowers smooth muscle contraction."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Bronchodilation",
+        "description": "Airway smooth muscle relaxes, improving airflow during bronchospasm."
+      }
+    ]
+  },
+  {
+    "sourceId": "theophylline_toxicity_mechanism",
+    "contentType": "mechanism",
+    "title": "Theophylline toxicity signaling",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "theophylline_overdose_case",
+    "relatedDrug": "theophylline",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Phosphodiesterase inhibition",
+        "description": "Theophylline reduces cyclic nucleotide breakdown."
+      },
+      {
+        "stepNumber": 2,
+        "label": "cAMP accumulation",
+        "description": "Intracellular cAMP rises excessively during overdose."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Systemic overstimulation",
+        "description": "CNS excitation and cardiovascular stimulation intensify."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Clinical toxicity",
+        "description": "Seizures, tachycardia, hypotension, and respiratory distress emerge."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Countermeasure principle",
+        "description": "Decreasing cAMP signaling with cardioselective beta-blockade can help counter toxicity while limiting asthma risk."
+      }
+    ]
+  },
+  {
+    "sourceId": "hailey_case_histology",
+    "contentType": "section",
+    "title": "Acute and chronic airway remodeling in Hailey's case",
+    "body": "During acute exacerbation, eosinophils, mast cells, mucus hypersecretion, epithelial injury, and mucosal edema narrow the airway. Repeated episodes can produce basement membrane thickening, subepithelial fibrosis, smooth muscle hypertrophy, glandular hypertrophy, and persistent Th2-skewed inflammation that make attacks more likely and airflow limitation less reversible over time.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "hailey_acute_asthma_case",
+    "sectionType": "histology",
+    "tags": [
+      "airway-remodeling",
+      "pediatric",
+      "acute-vs-chronic",
+      "slides"
+    ]
+  },
+  {
+    "sourceId": "hailey_case_checkpoint",
+    "contentType": "checkpoint",
+    "title": "Differentiate the acute presentation",
+    "prompt": "What findings in Hailey's presentation make acute asthma more likely than pneumonia or pneumothorax?",
+    "hint": "Use the combination of wheeze, hyperinflation, eosinophilia, and absent infiltrates.",
+    "explanation": "The child has wheeze, nocturnal symptoms, mucus production, hyperinflation on chest x-ray, eosinophilia, and no infiltrate or pneumothorax, which strongly supports acute asthma exacerbation.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "hailey_acute_asthma_case",
+    "targetTab": "clinical"
+  },
+  {
+    "sourceId": "chronic_case_checkpoint",
+    "contentType": "checkpoint",
+    "title": "Pause before stepping up therapy",
+    "prompt": "Why is adherence and inhaler technique the first management step in the primary-care asthma case?",
+    "hint": "Think about false treatment failure.",
+    "explanation": "A patient can look uncontrolled because of poor adherence or poor inhaler use, so escalating medication before checking these issues can be the wrong next step.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "chronic_asthma_primary_care_case",
+    "targetTab": "treatment"
+  },
+  {
+    "sourceId": "hypokalemia_checkpoint",
+    "contentType": "checkpoint",
+    "title": "Monitor the rescue therapy",
+    "prompt": "Which laboratory and cardiac findings should make you suspect beta2-agonist induced hypokalemia after repeated albuterol treatment?",
+    "hint": "Tie the adverse effect to intracellular potassium shift and ECG change.",
+    "explanation": "Potassium 2.6 mEq/L with weakness, nausea, and U waves on ECG after repeated albuterol treatments strongly suggests beta2-agonist induced intracellular potassium shift.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "beta2_hypokalemia_case",
+    "targetTab": "treatment"
+  },
+  {
+    "sourceId": "quiz_primary_care_step",
+    "contentType": "quiz",
+    "prompt": "A 34-year-old man with chronic asthma is taking salbutamol and low-dose budesonide but is becoming wheezier and more short of breath. His PEFR is 80% of his personal best. What is the first management step?",
+    "options": [
+      "Add montelukast",
+      "Increase the dose of budesonide",
+      "Check adherence and inhaler technique",
+      "Add terbutaline sulfate",
+      "Add formoterol fumarate"
+    ],
+    "answerIndex": 2,
+    "explanation": "Before increasing therapy, the first step is to check adherence and inhaler technique. If both are adequate, stepping up controller therapy becomes reasonable.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "tags": [
+      "primary-care",
+      "adherence",
+      "inhaler-technique"
+    ]
+  },
+  {
+    "sourceId": "quiz_theophylline_toxicity",
+    "contentType": "quiz",
+    "prompt": "A 25-year-old woman with a history of asthma is brought to the emergency department after ingesting a full bottle of theophylline in a suicide attempt. She is seizing, hypotensive, tachycardic, and in respiratory distress. What mechanism best counters this intoxication?",
+    "options": [
+      "Decreasing intracellular cAMP",
+      "Increasing intracellular cAMP through beta2 receptors",
+      "Increasing intracellular cAMP through nonselective adrenergic receptors",
+      "Inhibiting the Na+-K+-2Cl- cotransporter",
+      "Inhibiting the Na+-K+-ATPase pump"
+    ],
+    "answerIndex": 0,
+    "explanation": "Theophylline inhibits phosphodiesterase and increases intracellular cAMP. Counteracting this toxicity means reducing cAMP signaling; cardioselective beta-blockade may help while reducing bronchospasm risk compared with nonselective blockade.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "theophylline_overdose_case",
+    "sectionType": "mechanism",
+    "tags": [
+      "theophylline",
+      "toxicity",
+      "cAMP"
+    ]
+  },
+  {
+    "sourceId": "quiz_albuterol_hypokalemia",
+    "contentType": "quiz",
+    "prompt": "A 15-year-old boy with severe asthma develops nausea, vomiting, weakness, potassium 2.6 mEq/L, and U waves after multiple nebulizer treatments. Which medication most likely caused this complication?",
+    "options": [
+      "Albuterol",
+      "Cromolyn",
+      "Ipratropium",
+      "Theophylline",
+      "Zileuton"
+    ],
+    "answerIndex": 0,
+    "explanation": "Short-acting beta2 agonists such as albuterol can shift potassium intracellularly and cause hypokalemia with ECG changes when used repeatedly in acute exacerbations.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "beta2_hypokalemia_case",
+    "sectionType": "pharmacology",
+    "tags": [
+      "albuterol",
+      "hypokalemia",
+      "ECG"
+    ]
+  },
+  {
+    "sourceId": "quiz_status_asthmaticus",
+    "contentType": "quiz",
+    "prompt": "Which statement best describes status asthmaticus?",
+    "options": [
+      "Well-controlled asthma with intermittent symptoms",
+      "Life-threatening exacerbation unresponsive to standard therapy",
+      "A condition treated only with cromolyn or leukotriene modifiers",
+      "An attack that resolves without treatment",
+      "An event that occurs only in previously healthy patients"
+    ],
+    "answerIndex": 1,
+    "explanation": "Status asthmaticus is a life-threatening asthma exacerbation that does not respond adequately to standard therapy and requires aggressive management.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "clinicalPearl",
+    "tags": [
+      "status-asthmaticus",
+      "emergency"
+    ]
+  },
+  {
+    "sourceId": "quiz_controller_logic",
+    "contentType": "quiz",
+    "prompt": "Why is inhaled corticosteroid-based therapy preferred over relying on beta2-agonist monotherapy for long-term asthma control when possible?",
+    "options": [
+      "It acts faster than rescue bronchodilators",
+      "It controls the underlying inflammatory disease process and reduces exacerbations",
+      "It eliminates all asthma medication side effects",
+      "It is only useful during status asthmaticus",
+      "It works by increasing IgE production"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled corticosteroids target the underlying inflammatory pathology of asthma and reduce recurrence of exacerbations, whereas beta2 agonists mainly offer symptom relief.",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "pharmacology",
+    "tags": [
+      "controller",
+      "inhaled-corticosteroids",
+      "inflammation"
+    ]
+  },
+  {
+    "sourceId": "resource_pathophysiology_statpearls",
+    "contentType": "resource",
+    "title": "Pathophysiology of Asthma (StatPearls)",
+    "body": "Reference text covering epidemiology, mechanism, and inflammatory pathology of asthma.",
+    "caption": "Use as a foundational pathophysiology source for asthma sections and checkpoints.",
+    "resourceType": "reference",
+    "sourceType": "pdf",
+    "sourceFileName": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "pathophysiology_of_asthma_statpearls",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "pathology",
+    "tags": [
+      "statpearls",
+      "pathophysiology",
+      "asthma"
+    ]
+  },
+  {
+    "sourceId": "resource_asthma_medications_statpearls",
+    "contentType": "resource",
+    "title": "Asthma Medications (StatPearls)",
+    "body": "Medication-focused reference covering beta2 agonists, anticholinergics, inhaled corticosteroids, leukotriene therapy, theophylline, and biologics.",
+    "caption": "Medication and treatment source for controller logic and case therapy planning.",
+    "resourceType": "reference",
+    "sourceType": "pdf",
+    "sourceFileName": "Asthma Medications _ Treatment & Management _ Point of Care_StatPearls.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "asthma_medications_statpearls",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "treatment",
+    "tags": [
+      "medications",
+      "statpearls",
+      "treatment"
+    ]
+  },
+  {
+    "sourceId": "resource_chapter39_asthma",
+    "contentType": "resource",
+    "title": "Chapter 39 Drugs against Asthma",
+    "body": "Chapter-style pharmacology source covering major bronchodilator and controller drug classes used in asthma.",
+    "caption": "Supports mechanism, status asthmaticus, and controller-versus-reliever teaching.",
+    "resourceType": "chapter",
+    "sourceType": "pdf",
+    "sourceFileName": "Chapter 39 Drugs against Asthma.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "chapter_39_drugs_against_asthma",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "pharmacology",
+    "tags": [
+      "chapter",
+      "pharmacology",
+      "asthma"
+    ]
+  },
+  {
+    "sourceId": "resource_beta2_statpearls",
+    "contentType": "resource",
+    "title": "Beta2-Receptor Agonists and Antagonists",
+    "body": "Reference discussing beta2 receptor signaling, adverse effects, monitoring, and toxicity management.",
+    "caption": "Useful for the albuterol hypokalemia case, bronchodilation mechanism, and overdose monitoring.",
+    "resourceType": "reference",
+    "sourceType": "pdf",
+    "sourceFileName": "Beta2-Receptor Agonists and Antagonists - StatPearls - NCBI Bookshelf.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "beta2_receptor_agonists_and_antagonists",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "pharmacology",
+    "tags": [
+      "beta2",
+      "agonists",
+      "hypokalemia",
+      "monitoring"
+    ]
+  },
+  {
+    "sourceId": "resource_histology_lung",
+    "contentType": "resource",
+    "title": "Histology, Lung (StatPearls)",
+    "body": "Histology reference for normal respiratory epithelium, alveolar structure, and tissue context for airway disease.",
+    "caption": "Use for normal-versus-asthmatic airway comparisons and histology teaching.",
+    "resourceType": "reference",
+    "sourceType": "pdf",
+    "sourceFileName": "Histology, Lung - StatPearls - NCBI Bookshelf.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "histology_lung_statpearls",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "histology",
+    "tags": [
+      "histology",
+      "lung",
+      "normal-reference"
+    ]
+  },
+  {
+    "sourceId": "resource_physiology_lung",
+    "contentType": "resource",
+    "title": "Physiology, Lung (StatPearls)",
+    "body": "Physiology reference for lung mechanics, gas exchange, and airflow behavior relevant to obstructive disease.",
+    "caption": "Supports pulmonary function and airflow-limitation explanation in asthma.",
+    "resourceType": "reference",
+    "sourceType": "pdf",
+    "sourceFileName": "Physiology, Lung - StatPearls - NCBI Bookshelf.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "physiology_lung_statpearls",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "physiology",
+    "tags": [
+      "physiology",
+      "lung",
+      "PFT"
+    ]
+  },
+  {
+    "sourceId": "resource_hailey_pptx",
+    "contentType": "resource",
+    "title": "Asthma case and albuterol slide deck",
+    "body": "Teaching slide deck covering a pediatric acute asthma case, histology-pathology synthesis, and bronchodilator pharmacology integration.",
+    "caption": "Primary source for the Hailey acute asthma case and slide-based histology synthesis.",
+    "resourceType": "slides",
+    "sourceType": "pptx",
+    "sourceFileName": "Asthma case and Albuterol (1).pptx",
+    "sourcePageNumber": 1,
+    "assetKey": "asthma_case_and_albuterol_pptx",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "caseRef": "hailey_acute_asthma_case",
+    "sectionType": "clinical",
+    "tags": [
+      "slides",
+      "pediatric",
+      "acute-asthma"
+    ]
+  },
+  {
+    "sourceId": "resource_question_bank_peer_teaching",
+    "contentType": "resource",
+    "title": "Questions on Respiration",
+    "body": "Student-generated single best answer question bank containing a chronic asthma management vignette among broader respiratory questions.",
+    "caption": "Used as the source for the primary-care asthma step-up question.",
+    "resourceType": "question-bank",
+    "sourceType": "pdf",
+    "sourceFileName": "Questions on Respiration.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "questions_on_respiration_pdf",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "quiz",
+    "tags": [
+      "question-bank",
+      "asthma",
+      "SBA"
+    ]
+  },
+  {
+    "sourceId": "resource_step1_questions",
+    "contentType": "resource",
+    "title": "STEP 1 Respiratory Questions",
+    "body": "Board-style respiratory question source containing theophylline toxicity and albuterol hypokalemia asthma vignettes.",
+    "caption": "Used for pharmacology-heavy acute asthma quiz content.",
+    "resourceType": "question-bank",
+    "sourceType": "pdf",
+    "sourceFileName": "STEP 1 Respiratory Questions.pdf",
+    "sourcePageNumber": 1,
+    "assetKey": "step1_respiratory_questions_pdf",
+    "systemRef": "respiratory",
+    "conditionRef": "asthma",
+    "sectionType": "quiz",
+    "tags": [
+      "question-bank",
+      "step1",
+      "toxicity",
+      "hypokalemia"
+    ]
+  }
+]

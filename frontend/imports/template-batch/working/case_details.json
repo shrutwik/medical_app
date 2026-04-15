@@ -1,0 +1,28 @@
+[
+  {
+    "caseRef": "asthma_foundation_case",
+    "clinicalNarrative": {
+      "presentation": "General review case for asthma.",
+      "history": "Used for condition-level notes before scenario-specific cases are attached.",
+      "vitals": {},
+      "exam": "No fixed patient exam for the template batch.",
+      "discussionPrompts": [
+        "What features make asthma an obstructive disease?"
+      ]
+    },
+    "diagnosis": {
+      "name": "Asthma",
+      "keyFindings": [
+        "Variable airflow obstruction",
+        "Airway inflammation"
+      ],
+      "tests": []
+    },
+    "treatment": {
+      "plan": "Use as a holding case for imported condition-level material.",
+      "medications": [],
+      "followUp": "Replace with real content during batch cleanup.",
+      "outcome": "Template only."
+    }
+  }
+]

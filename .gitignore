@@ -1,9 +1,11 @@
 # dependencies
 node_modules/
+frontend/node_modules/
 
 # Expo
 .expo/
 dist/
+frontend/dist/
 web-build/
 expo-env.d.ts
 
@@ -27,6 +29,9 @@ yarn-error.*
 # macOS
 .DS_Store
 *.pem
+
+# IDE
+*.code-workspace
 
 # local env files
 .env*.local

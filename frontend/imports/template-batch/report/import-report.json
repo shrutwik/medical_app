@@ -1,0 +1,20 @@
+{
+  "batchId": "template_batch",
+  "title": "Template Import Batch",
+  "generatedAt": "2026-04-07T15:15:45.718Z",
+  "summary": {
+    "systems": 1,
+    "conditions": 1,
+    "cases": 1,
+    "caseDetails": 1,
+    "sections": 1,
+    "mechanisms": 0,
+    "resources": 1,
+    "quizzes": 1,
+    "checkpoints": 0,
+    "issues": 0,
+    "unresolvedItems": 0
+  },
+  "issues": [],
+  "unresolvedItems": []
+}

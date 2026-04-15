@@ -1,0 +1,20 @@
+{
+  "batchId": "respiratory_resource_batch",
+  "title": "Respiratory Resource Batch",
+  "generatedAt": "2026-04-07T15:56:52.886Z",
+  "summary": {
+    "systems": 1,
+    "conditions": 1,
+    "cases": 5,
+    "caseDetails": 5,
+    "sections": 6,
+    "mechanisms": 2,
+    "resources": 9,
+    "quizzes": 5,
+    "checkpoints": 3,
+    "issues": 0,
+    "unresolvedItems": 0
+  },
+  "issues": [],
+  "unresolvedItems": []
+}

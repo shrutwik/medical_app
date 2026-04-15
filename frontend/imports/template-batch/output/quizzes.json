@@ -1,0 +1,18 @@
+[
+  {
+    "id": "template_quiz_1",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "physiology",
+    "question": "Which pattern best matches asthma on pulmonary function testing?",
+    "options": [
+      "Reduced FEV1 and reduced FEV1/FVC",
+      "Normal FEV1 and increased TLC"
+    ],
+    "answerIndex": 0,
+    "explanation": "Asthma is an obstructive disease, so FEV1 and FEV1/FVC are reduced.",
+    "tags": [
+      "quiz",
+      "pft"
+    ]
+  }
+]

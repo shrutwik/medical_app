@@ -1,0 +1,68 @@
+[
+  {
+    "sourceFile": "Asthma Medications _ Treatment & Management _ Point of Care_StatPearls.pdf",
+    "suggestedDomain": "asthma",
+    "suggestedContentType": "resource",
+    "notes": "Likely medication and treatment reference."
+  },
+  {
+    "sourceFile": "Asthma case and Albuterol (1).pptx",
+    "suggestedDomain": "asthma",
+    "suggestedContentType": "section_or_case",
+    "notes": "Likely contains case-style teaching slides and acute treatment material."
+  },
+  {
+    "sourceFile": "Beta2-Receptor Agonists and Antagonists - StatPearls - NCBI Bookshelf.pdf",
+    "suggestedDomain": "pharmacology",
+    "suggestedContentType": "resource",
+    "notes": "Useful for mechanism, treatment, and quiz support."
+  },
+  {
+    "sourceFile": "Chapter 39 Drugs against Asthma.pdf",
+    "suggestedDomain": "asthma",
+    "suggestedContentType": "resource",
+    "notes": "Likely supports pharmacology sections and mechanisms."
+  },
+  {
+    "sourceFile": "Histology, Lung - StatPearls - NCBI Bookshelf.pdf",
+    "suggestedDomain": "histology",
+    "suggestedContentType": "resource",
+    "notes": "Likely supports histology sections and normal-reference notes."
+  },
+  {
+    "sourceFile": "Pathophysiology Of Asthma _ Treatment & Management _ Point of Care - StatPearls.pdf",
+    "suggestedDomain": "asthma",
+    "suggestedContentType": "resource",
+    "notes": "Likely supports pathophysiology, pathology, and treatment content."
+  },
+  {
+    "sourceFile": "Pharmacology of respiratory-system.pdf",
+    "suggestedDomain": "respiratory",
+    "suggestedContentType": "resource",
+    "notes": "Potential mixed-source pharmacology notes beyond asthma alone."
+  },
+  {
+    "sourceFile": "Physiology, Lung - StatPearls - NCBI Bookshelf.pdf",
+    "suggestedDomain": "physiology",
+    "suggestedContentType": "resource",
+    "notes": "Useful for physiology sections and explanation material."
+  },
+  {
+    "sourceFile": "Questions on Respiration.pdf",
+    "suggestedDomain": "respiratory",
+    "suggestedContentType": "quiz",
+    "notes": "Likely question bank requiring segregation into case-linked quiz items."
+  },
+  {
+    "sourceFile": "Respiratory-Question Bank.pdf",
+    "suggestedDomain": "respiratory",
+    "suggestedContentType": "quiz",
+    "notes": "Likely mixed question bank across conditions."
+  },
+  {
+    "sourceFile": "STEP 1 Respiratory Questions.pdf",
+    "suggestedDomain": "respiratory",
+    "suggestedContentType": "quiz",
+    "notes": "Likely broad exam-style respiratory question source."
+  }
+]

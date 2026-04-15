@@ -1,28 +1,7 @@
 [
   {
-    "id": "quiz_case1_check_adherence",
-    "caseId": "asthma_case_1",
-    "sectionType": "treatment",
-    "question": "A 34-year-old man with chronic asthma is taking salbutamol and low-dose budesonide but is becoming wheezier and more short of breath. His PEFR is 80% of his personal best. What is the first management step?",
-    "options": [
-      "Add montelukast",
-      "Increase the dose of budesonide",
-      "Check adherence and inhaler technique",
-      "Add terbutaline sulfate",
-      "Add formoterol fumarate"
-    ],
-    "answerIndex": 2,
-    "explanation": "Before increasing the dose or adding a new drug, asthma management should first confirm adherence and correct inhaler technique. If both are adequate, then stepping up controller therapy such as increasing inhaled corticosteroid dose becomes reasonable.",
-    "tags": [
-      "outpatient",
-      "step-up-therapy",
-      "adherence",
-      "inhaler-technique"
-    ]
-  },
-  {
-    "id": "quiz_case2_albuterol_hypokalemia",
-    "caseId": "asthma_case_2",
+    "id": "quiz_albuterol_hypokalemia",
+    "caseId": "beta2_hypokalemia_case",
     "sectionType": "pharmacology",
     "question": "A 15-year-old boy with severe asthma develops nausea, vomiting, weakness, potassium 2.6 mEq/L, and U waves after multiple nebulizer treatments. Which medication most likely caused this complication?",
     "options": [
@@ -33,19 +12,1206 @@
       "Zileuton"
     ],
     "answerIndex": 0,
-    "explanation": "Short-acting beta2 agonists such as albuterol can shift potassium into cells, producing hypokalemia and ECG changes including U waves, especially when used repeatedly in acute exacerbations.",
+    "explanation": "Short-acting beta2 agonists such as albuterol can shift potassium intracellularly and cause hypokalemia with ECG changes when used repeatedly in acute exacerbations.",
     "tags": [
-      "beta2-agonist",
+      "albuterol",
       "hypokalemia",
-      "ECG",
-      "acute-asthma"
+      "ECG"
     ]
   },
   {
-    "id": "quiz_case3_theophylline_overdose",
-    "caseId": "asthma_case_3",
+    "id": "quiz_albuterol_hypokalemia__asthma_foundation_case",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 15-year-old boy with severe asthma develops nausea, vomiting, weakness, potassium 2.6 mEq/L, and U waves after multiple nebulizer treatments. Which medication most likely caused this complication?",
+    "options": [
+      "Albuterol",
+      "Cromolyn",
+      "Ipratropium",
+      "Theophylline",
+      "Zileuton"
+    ],
+    "answerIndex": 0,
+    "explanation": "Short-acting beta2 agonists such as albuterol can shift potassium intracellularly and cause hypokalemia with ECG changes when used repeatedly in acute exacerbations.",
+    "tags": [
+      "albuterol",
+      "hypokalemia",
+      "ECG"
+    ]
+  },
+  {
+    "id": "quiz_controller_logic",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "Why is inhaled corticosteroid-based therapy preferred over relying on beta2-agonist monotherapy for long-term asthma control when possible?",
+    "options": [
+      "It acts faster than rescue bronchodilators",
+      "It controls the underlying inflammatory disease process and reduces exacerbations",
+      "It eliminates all asthma medication side effects",
+      "It is only useful during status asthmaticus",
+      "It works by increasing IgE production"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled corticosteroids target the underlying inflammatory pathology of asthma and reduce recurrence of exacerbations, whereas beta2 agonists mainly offer symptom relief.",
+    "tags": [
+      "controller",
+      "inhaled-corticosteroids",
+      "inflammation"
+    ]
+  },
+  {
+    "id": "quiz_primary_care_step",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "treatment",
+    "question": "A 34-year-old man with chronic asthma is taking salbutamol and low-dose budesonide but is becoming wheezier and more short of breath. His PEFR is 80% of his personal best. What is the first management step?",
+    "options": [
+      "Add montelukast",
+      "Increase the dose of budesonide",
+      "Check adherence and inhaler technique",
+      "Add terbutaline sulfate",
+      "Add formoterol fumarate"
+    ],
+    "answerIndex": 2,
+    "explanation": "Before increasing therapy, the first step is to check adherence and inhaler technique. If both are adequate, stepping up controller therapy becomes reasonable.",
+    "tags": [
+      "primary-care",
+      "adherence",
+      "inhaler-technique"
+    ]
+  },
+  {
+    "id": "quiz_primary_care_step__asthma_foundation_case",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "treatment",
+    "question": "A 34-year-old man with chronic asthma is taking salbutamol and low-dose budesonide but is becoming wheezier and more short of breath. His PEFR is 80% of his personal best. What is the first management step?",
+    "options": [
+      "Add montelukast",
+      "Increase the dose of budesonide",
+      "Check adherence and inhaler technique",
+      "Add terbutaline sulfate",
+      "Add formoterol fumarate"
+    ],
+    "answerIndex": 2,
+    "explanation": "Before increasing therapy, the first step is to check adherence and inhaler technique. If both are adequate, stepping up controller therapy becomes reasonable.",
+    "tags": [
+      "primary-care",
+      "adherence",
+      "inhaler-technique"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q01",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 25yearold woman with intermittent asthma uses albuterol metereddose inhaler (MDI) multiple times per day for symptom relief. She presents with palpitations, fine tremors, and a serum potassium of 2.9 mEq/L. Which mechanism best explains her hypokalemia?",
+    "options": [
+      "Inhibition of Na⁺/K⁺ATPase in skeletal muscle",
+      "Increased renal potassium excretion via aldosterone release",
+      "β₂receptor–mediated shift of potassium into cells",
+      "Direct stimulation of colonic potassium secretion",
+      "Decreased insulin release from pancreatic β cells"
+    ],
+    "answerIndex": 2,
+    "explanation": "β₂agonists increase intracellular cAMP in skeletal muscle, stimulating Na⁺/K⁺ATPase and driving potassium into cells, causing hypokalemia.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q01__beta2_hypokalemia_case",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "pharmacology",
+    "question": "A 25yearold woman with intermittent asthma uses albuterol metereddose inhaler (MDI) multiple times per day for symptom relief. She presents with palpitations, fine tremors, and a serum potassium of 2.9 mEq/L. Which mechanism best explains her hypokalemia?",
+    "options": [
+      "Inhibition of Na⁺/K⁺ATPase in skeletal muscle",
+      "Increased renal potassium excretion via aldosterone release",
+      "β₂receptor–mediated shift of potassium into cells",
+      "Direct stimulation of colonic potassium secretion",
+      "Decreased insulin release from pancreatic β cells"
+    ],
+    "answerIndex": 2,
+    "explanation": "β₂agonists increase intracellular cAMP in skeletal muscle, stimulating Na⁺/K⁺ATPase and driving potassium into cells, causing hypokalemia.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q02",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 60yearold man with severe COPD is started on an ultralongacting β₂agonist for oncedaily maintenance bronchodilation. Which agent best fits this goal?",
+    "options": [
+      "Albuterol",
+      "Formoterol",
+      "Salmeterol",
+      "Indacaterol",
+      "Levalbuterol"
+    ],
+    "answerIndex": 3,
+    "explanation": "Indacaterol is an ultralongacting β₂agonist (ULABA) approved for oncedaily maintenance therapy in COPD.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q03",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 32yearold pregnant woman at 30 weeks’ gestation presents with preterm contractions. Terbutaline is considered for tocolysis. Which property of β₂receptor activation justifies its use?",
+    "options": [
+      "Decreased uterine blood flow",
+      "Direct inhibition of prostaglandin synthesis",
+      "Relaxation of uterine smooth muscle via cAMP elevation",
+      "Inhibition of oxytocin release from the pituitary",
+      "Blockade of calcium channels in uterine myocytes"
+    ],
+    "answerIndex": 2,
+    "explanation": "β₂agonists increase cAMP and activate protein kinase A, lowering intracellular calcium and relaxing smooth muscle, including the uterus.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q04",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 55yearold man with COPD and stable angina requires a βblocker. Which option best minimizes the risk of bronchoconstriction while treating his cardiac condition?",
+    "options": [
+      "Propranolol",
+      "Timolol eye drops",
+      "Carvedilol",
+      "Metoprolol",
+      "Butoxamine"
+    ],
+    "answerIndex": 3,
+    "explanation": "Metoprolol is a β₁selective (cardioselective) blocker and is preferred when a βblocker is necessary in a patient with reactive airway disease.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q05",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 40yearold man with moderate persistent asthma has been using salmeterol alone for daily symptom control. Over the last year, his asthma control has worsened, and he had a severe exacerbation. Which is the most appropriate adjustment?",
+    "options": [
+      "Continue salmeterol monotherapy and add oral montelukast",
+      "Switch salmeterol to albuterol as needed only",
+      "Add a highdose oral corticosteroid to salmeterol",
+      "Discontinue salmeterol and start inhaled corticosteroid monotherapy",
+      "Change to a fixeddose combination of inhaled corticosteroid plus LABA"
+    ],
+    "answerIndex": 4,
+    "explanation": "LABAs like salmeterol must not be used as monotherapy in asthma due to risk of tolerance and increased asthmarelated events; they should be combined with inhaled corticosteroids.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q05__chronic_asthma_primary_care_case",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "pharmacology",
+    "question": "A 40yearold man with moderate persistent asthma has been using salmeterol alone for daily symptom control. Over the last year, his asthma control has worsened, and he had a severe exacerbation. Which is the most appropriate adjustment?",
+    "options": [
+      "Continue salmeterol monotherapy and add oral montelukast",
+      "Switch salmeterol to albuterol as needed only",
+      "Add a highdose oral corticosteroid to salmeterol",
+      "Discontinue salmeterol and start inhaled corticosteroid monotherapy",
+      "Change to a fixeddose combination of inhaled corticosteroid plus LABA"
+    ],
+    "answerIndex": 4,
+    "explanation": "LABAs like salmeterol must not be used as monotherapy in asthma due to risk of tolerance and increased asthmarelated events; they should be combined with inhaled corticosteroids.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q06",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A nurse inadvertently administers multiple highdose nebulized albuterol treatments over a short period to a patient with status asthmaticus. The patient now has marked tachycardia, tremor, blood pressure 90/40 mm Hg with bounding pulse, and serum potassium 2.4 mEq/L. Which medication can be used as an antidote to counteract the toxicity?",
+    "options": [
+      "Intravenous calcium gluconate",
+      "Intravenous propranolol",
+      "Intravenous magnesium sulfate",
+      "Intravenous hydrocortisone",
+      "Intravenous amiodarone"
+    ],
+    "answerIndex": 1,
+    "explanation": "Severe β₂agonist toxicity can be treated with βblockers such as propranolol or esmolol, which competitively antagonize β₂ receptors.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q06__beta2_hypokalemia_case",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "pharmacology",
+    "question": "A nurse inadvertently administers multiple highdose nebulized albuterol treatments over a short period to a patient with status asthmaticus. The patient now has marked tachycardia, tremor, blood pressure 90/40 mm Hg with bounding pulse, and serum potassium 2.4 mEq/L. Which medication can be used as an antidote to counteract the toxicity?",
+    "options": [
+      "Intravenous calcium gluconate",
+      "Intravenous propranolol",
+      "Intravenous magnesium sulfate",
+      "Intravenous hydrocortisone",
+      "Intravenous amiodarone"
+    ],
+    "answerIndex": 1,
+    "explanation": "Severe β₂agonist toxicity can be treated with βblockers such as propranolol or esmolol, which competitively antagonize β₂ receptors.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q06__hailey_acute_asthma_case",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "pharmacology",
+    "question": "A nurse inadvertently administers multiple highdose nebulized albuterol treatments over a short period to a patient with status asthmaticus. The patient now has marked tachycardia, tremor, blood pressure 90/40 mm Hg with bounding pulse, and serum potassium 2.4 mEq/L. Which medication can be used as an antidote to counteract the toxicity?",
+    "options": [
+      "Intravenous calcium gluconate",
+      "Intravenous propranolol",
+      "Intravenous magnesium sulfate",
+      "Intravenous hydrocortisone",
+      "Intravenous amiodarone"
+    ],
+    "answerIndex": 1,
+    "explanation": "Severe β₂agonist toxicity can be treated with βblockers such as propranolol or esmolol, which competitively antagonize β₂ receptors.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q07",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 68yearold woman with COPD is switched from fourtimesdaily nebulized albuterol to oncedaily indacaterol. Which advantage of inhaled long or ultralongacting β₂agonists best supports this change?",
+    "options": [
+      "Higher systemic bioavailability and stronger cardiovascular stimulation",
+      "More reliable bronchodilation with lower total daily dose and fewer systemic effects",
+      "Faster onset of action compared to SABAs in acute attacks",
+      "Reduced need for inhaled corticosteroids in asthma",
+      "Ability to treat acute hyperkalemia more effectively"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled longacting β₂agonists provide sustained bronchodilation at the airway with relatively low systemic exposure, improving convenience and safety in chronic disease.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q08",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 50yearold man with longstanding asthma and hypertension is started on propranolol for migraine prophylaxis. Two weeks later, he presents with wheezing and shortness of breath requiring SABA use several times per day. Which mechanism best explains the worsening asthma?",
+    "options": [
+      "Upregulation of β₂ receptors in bronchial smooth muscle",
+      "Competitive blockade of bronchial β₂ receptors",
+      "Direct inhibition of muscarinic M₃ receptors",
+      "Increased release of histamine from mast cells",
+      "Inhibition of phosphodiesterase4 in airway cells"
+    ],
+    "answerIndex": 1,
+    "explanation": "Nonselective βblockers like propranolol antagonize bronchial β₂ receptors, preventing endogenous catecholaminemediated bronchodilation and precipitating bronchoconstriction in asthma.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q09",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 72yearold man with COPD on chronic LABA therapy presents for routine followup. Which monitoring plan is most appropriate to detect LABArelated systemic adverse effects?",
+    "options": [
+      "Serial liver function tests and coagulation profile",
+      "Serial serum potassium and blood glucose, plus heart rate and blood pressure",
+      "Monthly measurement of plasma drug concentrations",
+      "Routine measurement of serum drugspecific antibodies",
+      "Daily peak flow monitoring only"
+    ],
+    "answerIndex": 1,
+    "explanation": "Prolonged β₂agonist use can cause hypokalemia, hyperglycemia, and cardiovascular effects; monitoring of electrolytes, glucose, heart rate, and blood pressure is recommended.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q09__beta2_hypokalemia_case",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "pharmacology",
+    "question": "A 72yearold man with COPD on chronic LABA therapy presents for routine followup. Which monitoring plan is most appropriate to detect LABArelated systemic adverse effects?",
+    "options": [
+      "Serial liver function tests and coagulation profile",
+      "Serial serum potassium and blood glucose, plus heart rate and blood pressure",
+      "Monthly measurement of plasma drug concentrations",
+      "Routine measurement of serum drugspecific antibodies",
+      "Daily peak flow monitoring only"
+    ],
+    "answerIndex": 1,
+    "explanation": "Prolonged β₂agonist use can cause hypokalemia, hyperglycemia, and cardiovascular effects; monitoring of electrolytes, glucose, heart rate, and blood pressure is recommended.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q10",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 28yearold man with type 1 diabetes and asthma is started on a nonselective βblocker for performance anxiety. Which complication related to his diabetes is most likely to be masked by this therapy?",
+    "options": [
+      "Polyuria from hyperglycemia",
+      "Sweating due to hypoglycemia",
+      "Nausea due to ketoacidosis",
+      "Tachycardia during hypoglycemia",
+      "Hyperventilation from lactic acidosis"
+    ],
+    "answerIndex": 3,
+    "explanation": "βblockers, especially nonselective agents with β₂ blockade, can mask adrenergic warning signs of hypoglycemia such as tachycardia and tremor and interfere with normal glucose regulation.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q11",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 34yearold woman with severe status asthmaticus is intubated and mechanically ventilated in the ICU. Despite maximal doses of inhaled β₂agonists and anticholinergic agents, she remains critically ill. An intravenous medication is started that is lifesaving and exerts part of its effect by inhibiting phospholipase A₂. Which of the following drugs was most likely given?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Prednisone"
+    ],
+    "answerIndex": 4,
+    "explanation": "Systemic glucocorticoids are lifesaving in severe status asthmaticus and inhibit phospholipase A₂ via induction of lipocortin, reducing arachidonic acid-derived inflammatory mediators.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q11__hailey_acute_asthma_case",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "pharmacology",
+    "question": "A 34yearold woman with severe status asthmaticus is intubated and mechanically ventilated in the ICU. Despite maximal doses of inhaled β₂agonists and anticholinergic agents, she remains critically ill. An intravenous medication is started that is lifesaving and exerts part of its effect by inhibiting phospholipase A₂. Which of the following drugs was most likely given?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Prednisone"
+    ],
+    "answerIndex": 4,
+    "explanation": "Systemic glucocorticoids are lifesaving in severe status asthmaticus and inhibit phospholipase A₂ via induction of lipocortin, reducing arachidonic acid-derived inflammatory mediators.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q12",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 40yearold woman with persistent asthma is prescribed an inhaled medication with a slow onset of action and long duration. She is instructed that it must always be used together with an inhaled corticosteroid and never as monotherapy for her asthma. Which medication was prescribed?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone/prednisolone",
+      "Salmeterol",
+      "Zafirlukast",
+      "Zileuton"
+    ],
+    "answerIndex": 7,
+    "explanation": "Answer: H",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q12__chronic_asthma_primary_care_case",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "pharmacology",
+    "question": "A 40yearold woman with persistent asthma is prescribed an inhaled medication with a slow onset of action and long duration. She is instructed that it must always be used together with an inhaled corticosteroid and never as monotherapy for her asthma. Which medication was prescribed?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone/prednisolone",
+      "Salmeterol",
+      "Zafirlukast",
+      "Zileuton"
+    ],
+    "answerIndex": 7,
+    "explanation": "Answer: H",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q13",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 6yearold boy has mild persistent asthma. His parents prefer oral medications because he struggles with inhaler techniques. The physician prescribes an oral drug that blocks leukotriene receptors to help control his symptoms. Which medication was most likely prescribed?",
+    "options": [
+      "Albuterol",
+      "Aminophylline",
+      "Ipratropium",
+      "Montelukast",
+      "Zileuton"
+    ],
+    "answerIndex": 3,
+    "explanation": "Answer: D",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q14",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A pharmacology researcher compares the effects of several drugs— theophylline, nitroglycerin, isoproterenol, and histamine—on various organ systems. Which physiological response is most likely to be produced by all four agents?",
+    "options": [
+      "Direct stimulation of cardiac contractile force",
+      "Tachycardia",
+      "Bronchodilation",
+      "Postural hypotension",
+      "Throbbing headache"
+    ],
+    "answerIndex": 1,
+    "explanation": "Answer: B",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q14__theophylline_overdose_case",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "pharmacology",
+    "question": "A pharmacology researcher compares the effects of several drugs— theophylline, nitroglycerin, isoproterenol, and histamine—on various organ systems. Which physiological response is most likely to be produced by all four agents?",
+    "options": [
+      "Direct stimulation of cardiac contractile force",
+      "Tachycardia",
+      "Bronchodilation",
+      "Postural hypotension",
+      "Throbbing headache"
+    ],
+    "answerIndex": 1,
+    "explanation": "Answer: B",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q15",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 23yearold woman with intermittent asthma uses an albuterol inhaler before exercise. She reports several unpleasant effects that she attributes to the medication. Which of the following is least likely to be a direct effect of albuterol?",
+    "options": [
+      "Diuretic effect",
+      "Positive inotropic effect",
+      "Skeletal muscle tremor",
+      "Smooth muscle relaxation",
+      "Tachycardia"
+    ],
+    "answerIndex": 0,
+    "explanation": "Answer: A",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q15__beta2_hypokalemia_case",
+    "caseId": "beta2_hypokalemia_case",
+    "sectionType": "pharmacology",
+    "question": "A 23yearold woman with intermittent asthma uses an albuterol inhaler before exercise. She reports several unpleasant effects that she attributes to the medication. Which of the following is least likely to be a direct effect of albuterol?",
+    "options": [
+      "Diuretic effect",
+      "Positive inotropic effect",
+      "Skeletal muscle tremor",
+      "Smooth muscle relaxation",
+      "Tachycardia"
+    ],
+    "answerIndex": 0,
+    "explanation": "Answer: A",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q16",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 10yearold boy with severe, poorly controlled asthma was hospitalized five times between ages 7 and 9. With outpatient therapy, his attacks are now less frequent, but he requires multiple daily medications. Which of the following chronic therapies is most likely to cause serious adverse effects when used daily for many years?",
+    "options": [
+      "Albuterol by aerosol as needed",
+      "Beclomethasone by aerosol",
+      "Ipratropium by inhaler",
+      "Prednisone by mouth",
+      "Theophylline in longacting oral form"
+    ],
+    "answerIndex": 3,
+    "explanation": "Answer: D",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q17",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 16yearold girl presents to the emergency department in severe respiratory distress. She is tachycardic, tachypneic, and has an expiratory peak flow <50% of predicted. Wheezes and rales are audible without a stethoscope. Several medications are considered. Which drug listed does NOT have a direct bronchodilator effect?",
+    "options": [
+      "Epinephrine",
+      "Terbutaline",
+      "Prednisone",
+      "Theophylline",
+      "Ipratropium"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q17__hailey_acute_asthma_case",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "pharmacology",
+    "question": "A 16yearold girl presents to the emergency department in severe respiratory distress. She is tachycardic, tachypneic, and has an expiratory peak flow <50% of predicted. Wheezes and rales are audible without a stethoscope. Several medications are considered. Which drug listed does NOT have a direct bronchodilator effect?",
+    "options": [
+      "Epinephrine",
+      "Terbutaline",
+      "Prednisone",
+      "Theophylline",
+      "Ipratropium"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q18",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "After stabilization, the 16yearold patient from the previous question is seen in clinic for longterm management. Which of the following is NOT an established prophylactic strategy in asthma?",
+    "options": [
+      "Avoidance of relevant allergens",
+      "Blockade of histamine H₁ receptors",
+      "Blockade of leukotriene receptors",
+      "IgE antibody blockade",
+      "Inhibition of phospholipase A₂"
+    ],
+    "answerIndex": 1,
+    "explanation": "Answer: B",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q19",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 60yearold man with ischemic heart disease and severe COPD with frequent bronchospasm is evaluated for bronchodilator therapy. Which of the following is most appropriate to relieve bronchospasm while minimizing risk of cardiac arrhythmia?",
+    "options": [
+      "Aminophylline",
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone",
+      "Salmeterol",
+      "Zafirlukast",
+      "Zileuton"
+    ],
+    "answerIndex": 3,
+    "explanation": "Answer: D",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q20",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 22yearold man is brought to the emergency department after a generalized tonicclonic seizure. Friends report that he has been taking an oral medication “for his asthma” and that it often causes insomnia. Which of the following drugs best fits this description?",
+    "options": [
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone",
+      "Salmeterol",
+      "Theophylline",
+      "Zileuton"
+    ],
+    "answerIndex": 7,
+    "explanation": "Answer: H",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q20__theophylline_overdose_case",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "pharmacology",
+    "question": "A 22yearold man is brought to the emergency department after a generalized tonicclonic seizure. Friends report that he has been taking an oral medication “for his asthma” and that it often causes insomnia. Which of the following drugs best fits this description?",
+    "options": [
+      "Cromolyn",
+      "Epinephrine",
+      "Ipratropium",
+      "Metaproterenol",
+      "Metoprolol",
+      "Prednisone",
+      "Salmeterol",
+      "Theophylline",
+      "Zileuton"
+    ],
+    "answerIndex": 7,
+    "explanation": "Answer: H",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q21",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 12yearold girl with a history of atopic asthma develops severe cough, dyspnea, and wheezing shortly after spending the afternoon at a riding stable. In the emergency department she is in moderate respiratory distress with diffuse expiratory wheezes. Which of the following is the most appropriate drug to rapidly reverse her bronchoconstriction?",
+    "options": [
+      "Inhaled fluticasone",
+      "Inhaled beclomethasone",
+      "Inhaled albuterol",
+      "Intravenous propranolol",
+      "Oral theophylline"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q21__hailey_acute_asthma_case",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "pharmacology",
+    "question": "A 12yearold girl with a history of atopic asthma develops severe cough, dyspnea, and wheezing shortly after spending the afternoon at a riding stable. In the emergency department she is in moderate respiratory distress with diffuse expiratory wheezes. Which of the following is the most appropriate drug to rapidly reverse her bronchoconstriction?",
+    "options": [
+      "Inhaled fluticasone",
+      "Inhaled beclomethasone",
+      "Inhaled albuterol",
+      "Intravenous propranolol",
+      "Oral theophylline"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q22",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 9yearold girl has severe persistent asthma and was hospitalized three times in the past year. Over the last 6 months she has had no hospitalizations and only infrequent mild exacerbations. Which of the following longterm therapies is most likely responsible for this improvement?",
+    "options": [
+      "Inhaled albuterol as needed",
+      "Inhaled ipratropium",
+      "Inhaled fluticasone",
+      "Oral theophylline",
+      "Oral zafirlukast"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q22__chronic_asthma_primary_care_case",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "pharmacology",
+    "question": "A 9yearold girl has severe persistent asthma and was hospitalized three times in the past year. Over the last 6 months she has had no hospitalizations and only infrequent mild exacerbations. Which of the following longterm therapies is most likely responsible for this improvement?",
+    "options": [
+      "Inhaled albuterol as needed",
+      "Inhaled ipratropium",
+      "Inhaled fluticasone",
+      "Oral theophylline",
+      "Oral zafirlukast"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q23",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 68yearold man with moderate COPD (FEV₁ 60% predicted) uses inhaled salmeterol twice daily but still experiences dyspnea with mild exertion. His resting oxygen saturation is 95% on room air. Which additional medication is most appropriate to improve his symptoms?",
+    "options": [
+      "Systemic corticosteroids",
+      "Inhaled albuterol as needed",
+      "Inhaled tiotropium",
+      "Oral roflumilast",
+      "Oral theophylline"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q24",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 58yearold woman with COPD has had three hospitalizations in the past year for exacerbations. Between exacerbations she has mild symptoms. Current medications are salmeterol inhaled twice daily and tiotropium inhaled once daily. Her FEV₁ is 55% predicted. Which change in her regimen is most appropriate to reduce future exacerbations?",
+    "options": [
+      "Start chronic systemic corticosteroids",
+      "Discontinue tiotropium",
+      "Discontinue salmeterol",
+      "Switch salmeterol to a combination product containing a LABA plus inhaled corticosteroid",
+      "Add oral theophylline"
+    ],
+    "answerIndex": 3,
+    "explanation": "Answer: D",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q25",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 32yearold man with a history of intravenous heroin use presents with a 5day history of nonproductive cough, rhinorrhea, and sore throat. Examination is consistent with a viral upper respiratory infection. He requests “something for this cough.” Which is the most appropriate symptomatic treatment?",
+    "options": [
+      "Guaifenesin/dextromethorphan syrup",
+      "Guaifenesin/codeine syrup",
+      "Cromolyn nasal spray",
+      "Benzonatate capsules",
+      "Montelukast tablets"
+    ],
+    "answerIndex": 0,
+    "explanation": "Answer: A",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q26",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 14yearold girl with moderate persistent asthma is started on a new medication that reduces airway inflammation by altering gene transcription. She is told that it must be taken regularly, even when she feels well, because it does not provide immediate bronchodilation. Which medication was most likely prescribed?",
+    "options": [
+      "Tiotropium metereddose inhaler",
+      "Salmeterol drypowder inhaler",
+      "Mometasone drypowder inhaler",
+      "Albuterol metereddose inhaler"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q26__chronic_asthma_primary_care_case",
+    "caseId": "chronic_asthma_primary_care_case",
+    "sectionType": "pharmacology",
+    "question": "A 14yearold girl with moderate persistent asthma is started on a new medication that reduces airway inflammation by altering gene transcription. She is told that it must be taken regularly, even when she feels well, because it does not provide immediate bronchodilation. Which medication was most likely prescribed?",
+    "options": [
+      "Tiotropium metereddose inhaler",
+      "Salmeterol drypowder inhaler",
+      "Mometasone drypowder inhaler",
+      "Albuterol metereddose inhaler"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q27",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 26yearold man with seasonal allergic rhinitis asks which overthecounter medication is least likely to cause sedation so he can take it during the day. All of the following are commonly used for allergic rhinitis. Which is not considered a preferred agent for daytime use due to its sedating properties?",
+    "options": [
+      "Chlorpheniramine",
+      "Fexofenadine",
+      "Loratadine",
+      "Cetirizine",
+      "Intranasal azelastine"
+    ],
+    "answerIndex": 0,
+    "explanation": "Answer: A",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q28",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 45yearold man with asthma is started on an oral medication that decreases leukotriene synthesis by inhibiting 5lipoxygenase. This reduces production of leukotriene B₄ and cysteinyl leukotrienes. Which drug was prescribed?",
+    "options": [
+      "Cromolyn",
+      "Zafirlukast",
+      "Zileuton",
+      "Montelukast",
+      "Theophylline"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q29",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A patient is being instructed on proper use of a drypowder inhaler (DPI) for asthma maintenance therapy. Which of the following best describes correct inhalation technique for this device?",
+    "options": [
+      "Inhale slowly and deeply just before and throughout actuation of the inhaler",
+      "Use a spacer to decrease oropharyngeal deposition",
+      "Inhale quickly and deeply to optimize drug delivery to the lungs",
+      "Rinse the mouth using a “swishandspit” technique before using the inhaler"
+    ],
+    "answerIndex": 2,
+    "explanation": "Answer: C",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q30",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 44yearold woman has perennial allergic rhinitis and uses an overthecounter nasal spray multiple time daily for several months. She now presents with worsening nasal congestion whenever she tries to stop the spray. Which class of medication is most likely responsible for this “rebound” nasal congestion (rhinitis medicamentosa)?",
+    "options": [
+      "Intranasal corticosteroid",
+      "Intranasal decongestant",
+      "Leukotriene receptor antagonist",
+      "Oral antihistamine"
+    ],
+    "answerIndex": 1,
+    "explanation": "Answer: B",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q31",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 28yearold man with moderate persistent asthma is started on an oral medication that reduces synthesis of leukotrienes by blocking the conversion of arachidonic acid to 5HPETE. Which of the following best describes this drug?",
+    "options": [
+      "5lipoxygenase inhibitor",
+      "Thromboxane A₂ inhibitor",
+      "Leukotriene receptor antagonist",
+      "Prostaglandin synthesis inhibitor"
+    ],
+    "answerIndex": 0,
+    "explanation": "Zileuton directly inhibits 5lipoxygenase, the enzyme responsible for the first committed step in leukotriene synthesis.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q32",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 16yearold girl with persistent asthma uses an inhaled beclomethasone metereddose inhaler twice daily. She frequently forgets to rinse her mouth afterward. She is now evaluated for hoarseness and a sore mouth. Which adverse effect is most characteristic of this medication?",
+    "options": [
+      "Adrenal suppression",
+      "Oropharyngeal candidiasis",
+      "Bronchoconstriction",
+      "Hepatitis"
+    ],
+    "answerIndex": 1,
+    "explanation": "Inhaled corticosteroids commonly cause local immunosuppression in the oropharynx, leading to candidiasis and dysphonia, especially when the mouth is not rinsed.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q33",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 40yearold woman has asthma exacerbations that reliably occur after she takes aspirin for headaches. Between episodes her asthma is otherwise well controlled. Which class of drugs is particularly effective in preventing these aspirininduced attacks?",
+    "options": [
+      "Agents for exerciseinduced asthma",
+      "Drugs for antigeninduced asthma",
+      "Leukotriene pathway inhibitors",
+      "Occupational exposure–specific treatments"
+    ],
+    "answerIndex": 2,
+    "explanation": "Aspirinexacerbated respiratory disease is driven by shunting of arachidonic acid metabolism toward leukotrienes; leukotriene receptor antagonists (eg, montelukast, zafirlukast) or zileuton are especially helpful.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q34",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 24yearold man with newly diagnosed bronchial asthma is being counseled on pharmacologic options. Which of the following drug classes is NOT used as a therapeutic option in asthma?",
+    "options": [
+      "β₂adrenergic agonists",
+      "Corticosteroids",
+      "Cholinesterase inhibitors",
+      "Phosphodiesterase inhibitors"
+    ],
+    "answerIndex": 2,
+    "explanation": "Cholinesterase inhibitors increase acetylcholine at muscarinic receptors and would worsen bronchoconstriction.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q34__theophylline_overdose_case",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "pharmacology",
+    "question": "A 24yearold man with newly diagnosed bronchial asthma is being counseled on pharmacologic options. Which of the following drug classes is NOT used as a therapeutic option in asthma?",
+    "options": [
+      "β₂adrenergic agonists",
+      "Corticosteroids",
+      "Cholinesterase inhibitors",
+      "Phosphodiesterase inhibitors"
+    ],
+    "answerIndex": 2,
+    "explanation": "Cholinesterase inhibitors increase acetylcholine at muscarinic receptors and would worsen bronchoconstriction.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q35",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 29yearold woman with severe allergic asthma uncontrolled on highdose inhaled corticosteroids and LABA is started on a new subcutaneous medication that is a humanized monoclonal antibody targeting IgE. For which condition is this drug indicated?",
+    "options": [
+      "Rheumatoid arthritis",
+      "Asthma",
+      "Prostate cancer",
+      "Chronic lymphocytic leukemia"
+    ],
+    "answerIndex": 1,
+    "explanation": "Omalizumab is an antiIgE monoclonal antibody approved for moderatetosevere allergic asthma (and sometimes chronic idiopathic urticaria).",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q36",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 10yearold boy with mild persistent asthma is started on montelukast. Which description best explains the mechanism of action of this medication?",
+    "options": [
+      "Competitive antagonist of leukotriene receptors",
+      "Inhibits αadrenergic receptors",
+      "βadrenergic receptor agonist",
+      "Noncompetitive inhibitor of leukotriene synthesis"
+    ],
+    "answerIndex": 0,
+    "explanation": "Montelukast is a selective competitive antagonist at cysteinyl leukotriene receptor CysLT₁ (LTD₄ receptor).",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q37",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 7yearold boy with asthma is brought to the emergency department with acute wheezing and shortness of breath. Which medication does not have a role in the acute management of an asthma attack?",
+    "options": [
+      "Cromolyn sodium",
+      "Ipratropium",
+      "Systemic corticosteroids",
+      "Inhaled salbutamol (albuterol)"
+    ],
+    "answerIndex": 0,
+    "explanation": "Cromolyn is a mastcell stabilizer used only for prophylaxis; it has no bronchodilator effect in acute attacks.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q37__hailey_acute_asthma_case",
+    "caseId": "hailey_acute_asthma_case",
+    "sectionType": "pharmacology",
+    "question": "A 7yearold boy with asthma is brought to the emergency department with acute wheezing and shortness of breath. Which medication does not have a role in the acute management of an asthma attack?",
+    "options": [
+      "Cromolyn sodium",
+      "Ipratropium",
+      "Systemic corticosteroids",
+      "Inhaled salbutamol (albuterol)"
+    ],
+    "answerIndex": 0,
+    "explanation": "Cromolyn is a mastcell stabilizer used only for prophylaxis; it has no bronchodilator effect in acute attacks.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q38",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "Which of the following drug classes is not considered a bronchodilator?",
+    "options": [
+      "β₂adrenergic agonists",
+      "Methylxanthines",
+      "Corticosteroids",
+      "Anticholinergics"
+    ],
+    "answerIndex": 2,
+    "explanation": "Corticosteroids are antiinflammatory and decrease airway hyperresponsiveness but do not directly relax bronchial smooth muscle.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q38__theophylline_overdose_case",
+    "caseId": "theophylline_overdose_case",
+    "sectionType": "pharmacology",
+    "question": "Which of the following drug classes is not considered a bronchodilator?",
+    "options": [
+      "β₂adrenergic agonists",
+      "Methylxanthines",
+      "Corticosteroids",
+      "Anticholinergics"
+    ],
+    "answerIndex": 2,
+    "explanation": "Corticosteroids are antiinflammatory and decrease airway hyperresponsiveness but do not directly relax bronchial smooth muscle.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q39",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 45yearold woman with a history of asthma develops acute bronchospasm shortly after starting a new medication for chronic joint pain. Which class of drugs is most likely responsible?",
+    "options": [
+      "βadrenergic receptor agonists",
+      "Nonsteroidal antiinflammatory drugs",
+      "Calcium channel blockers",
+      "H₁ antihistamines"
+    ],
+    "answerIndex": 1,
+    "explanation": "NSAIDs, especially aspirin, can precipitate acute asthma attacks in susceptible individuals (aspirinexacerbated respiratory disease) by shifting arachidonic acid metabolism toward leukotrienes.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_respiratory_bank_q40",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "pharmacology",
+    "question": "A 58yearold man with a long history of smoking has COPD with intermittent wheezing and chronic cough. He is prescribed an inhaled medication that improves his airflow by blocking muscarinic receptors in the bronchial tree and is also sometimes used as an adjunct in acute asthma exacerbations. Which class best describes this drug, ipratropium bromide?",
+    "options": [
+      "βsympathomimetic",
+      "Methylxanthine",
+      "Anticholinergic",
+      "Mast cell stabilizer"
+    ],
+    "answerIndex": 2,
+    "explanation": "Ipratropium bromide is a quaternary ammonium anticholinergic that blocks muscarinic (M₃) receptors in airway smooth muscle, leading to bronchodilation. It is widely used in COPD and as an adjunct in asthma.",
+    "tags": [
+      "respiratory-question-bank",
+      "imported"
+    ]
+  },
+  {
+    "id": "quiz_status_asthmaticus",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "clinicalPearl",
+    "question": "Which statement best describes status asthmaticus?",
+    "options": [
+      "Well-controlled asthma with intermittent symptoms",
+      "Life-threatening exacerbation unresponsive to standard therapy",
+      "A condition treated only with cromolyn or leukotriene modifiers",
+      "An attack that resolves without treatment",
+      "An event that occurs only in previously healthy patients"
+    ],
+    "answerIndex": 1,
+    "explanation": "Status asthmaticus is a life-threatening asthma exacerbation that does not respond adequately to standard therapy and requires aggressive management.",
+    "tags": [
+      "status-asthmaticus",
+      "emergency"
+    ]
+  },
+  {
+    "id": "quiz_theophylline_toxicity",
+    "caseId": "theophylline_overdose_case",
     "sectionType": "mechanism",
-    "question": "A patient with asthma overdoses on theophylline and develops prolonged seizure activity, hypotension, and tachycardia. What mechanism best counters this intoxication?",
+    "question": "A 25-year-old woman with a history of asthma is brought to the emergency department after ingesting a full bottle of theophylline in a suicide attempt. She is seizing, hypotensive, tachycardic, and in respiratory distress. What mechanism best counters this intoxication?",
     "options": [
       "Decreasing intracellular cAMP",
       "Increasing intracellular cAMP through beta2 receptors",
@@ -54,177 +1220,31 @@
       "Inhibiting the Na+-K+-ATPase pump"
     ],
     "answerIndex": 0,
-    "explanation": "Theophylline inhibits phosphodiesterase, increasing intracellular cAMP. Counteracting toxicity therefore involves reducing cAMP signaling; a cardioselective beta-blocker can do this by decreasing adenylate cyclase activity while reducing bronchospasm risk in asthma.",
+    "explanation": "Theophylline inhibits phosphodiesterase and increases intracellular cAMP. Counteracting this toxicity means reducing cAMP signaling; cardioselective beta-blockade may help while reducing bronchospasm risk compared with nonselective blockade.",
     "tags": [
       "theophylline",
       "toxicity",
-      "cAMP",
-      "phosphodiesterase"
-    ]
-  },
-  {
-    "id": "quiz_airway_obstruction_factors",
-    "caseId": "asthma_case_1",
-    "sectionType": "pathology",
-    "question": "Which combination best explains airway obstruction in asthma?",
-    "options": [
-      "Loss of alveoli, fibrosis of lung parenchyma, and pleural effusion",
-      "Smooth muscle contraction, mucus hypersecretion, and mucosal edema",
-      "Only excessive mucus secretion",
-      "Only airway smooth muscle contraction",
-      "Only eosinophil infiltration without structural narrowing"
-    ],
-    "answerIndex": 1,
-    "explanation": "The sources repeatedly describe three major contributors to asthma obstruction: bronchial smooth muscle contraction, excessive mucus secretion, and edema/inflammation of the respiratory mucosa.",
-    "tags": [
-      "airway-obstruction",
-      "mucus",
-      "edema",
-      "smooth-muscle"
-    ]
-  },
-  {
-    "id": "quiz_beta2_second_messenger",
-    "caseId": "asthma_case_1",
-    "sectionType": "mechanism",
-    "question": "What second messenger directly increases after beta2-agonist stimulation of airway smooth muscle?",
-    "options": [
-      "cGMP",
-      "cAMP",
-      "IP3",
-      "DAG",
-      "Calmodulin"
-    ],
-    "answerIndex": 1,
-    "explanation": "Beta2 receptors couple to Gs proteins, activate adenylate cyclase, and increase intracellular cAMP, which promotes smooth muscle relaxation.",
-    "tags": [
-      "beta2-agonist",
-      "Gs",
-      "adenylate-cyclase",
       "cAMP"
     ]
   },
   {
-    "id": "quiz_laba_acute_use",
-    "caseId": "asthma_case_1",
-    "sectionType": "pharmacology",
-    "question": "Which beta-agonist has such a slow onset that it is not appropriate for immediate relief of acute asthma symptoms?",
-    "options": [
-      "Salmeterol",
-      "Albuterol",
-      "Epinephrine",
-      "Terbutaline",
-      "Isoproterenol"
-    ],
-    "answerIndex": 0,
-    "explanation": "Salmeterol is a long-acting beta2 agonist with a relatively slow onset, so it is used for prophylactic maintenance rather than acute symptom reversal.",
-    "tags": [
-      "LABA",
-      "acute-vs-maintenance",
-      "salmeterol"
-    ]
-  },
-  {
-    "id": "quiz_status_asthmaticus_definition",
-    "caseId": "asthma_case_2",
-    "sectionType": "clinicalPearl",
-    "question": "Which statement best describes status asthmaticus?",
-    "options": [
-      "Well-controlled asthma",
-      "Life-threatening exacerbation unresponsive to standard therapy",
-      "A condition best treated only with cromolyn or leukotriene modulators",
-      "An event that always resolves without treatment",
-      "An attack that occurs only without warning in previously stable patients"
-    ],
-    "answerIndex": 1,
-    "explanation": "Status asthmaticus is a life-threatening asthma exacerbation that does not respond adequately to standard therapy and requires aggressive treatment.",
-    "tags": [
-      "status-asthmaticus",
-      "emergency",
-      "definition"
-    ]
-  },
-  {
-    "id": "quiz_ics_preferred_controller",
-    "caseId": "asthma_case_1",
-    "sectionType": "pharmacology",
-    "question": "Why is inhaled corticosteroid monotherapy preferred over beta-agonist monotherapy for long-term asthma control when possible?",
-    "options": [
-      "It acts faster than albuterol",
-      "It controls the underlying inflammatory pathology and reduces recurrence of exacerbations",
-      "It eliminates all medication side effects",
-      "It should be used only in acute status asthmaticus",
-      "It increases IgE production to desensitize mast cells"
-    ],
-    "answerIndex": 1,
-    "explanation": "Inhaled corticosteroids target the underlying inflammatory disease process, improving long-term outcomes and reducing exacerbations, whereas beta-agonists primarily provide symptom relief.",
-    "tags": [
-      "ICS",
-      "controller",
-      "inflammation",
-      "long-term-control"
-    ]
-  },
-  {
-    "id": "quiz_obstructive_pft_pattern",
-    "caseId": "asthma_case_1",
-    "sectionType": "physiology",
-    "question": "Which pulmonary function test pattern is most consistent with asthma?",
-    "options": [
-      "Decreased FEV1, decreased FVC, decreased FEV1/FVC",
-      "Decreased FEV1, normal FVC, increased FEV1/FVC",
-      "Normal FEV1, increased FVC, increased FEV1/FVC",
-      "Increased FEV1 and decreased FRC",
-      "Increased FEV1/FVC with markedly decreased TLC as defining pattern"
-    ],
-    "answerIndex": 0,
-    "explanation": "Asthma is an obstructive disease with reduced FEV1 and reduced FEV1/FVC; FVC may also fall. Reversibility after bronchodilator supports the diagnosis.",
-    "tags": [
-      "PFT",
-      "obstructive",
-      "FEV1",
-      "FEV1/FVC"
-    ]
-  },
-  {
-    "id": "quiz_muscarinic_blockade_effect",
-    "caseId": "asthma_case_1",
+    "id": "quiz_theophylline_toxicity__asthma_foundation_case",
+    "caseId": "asthma_foundation_case",
     "sectionType": "mechanism",
-    "question": "What is the main therapeutic airway effect of muscarinic antagonists such as ipratropium in asthma?",
+    "question": "A 25-year-old woman with a history of asthma is brought to the emergency department after ingesting a full bottle of theophylline in a suicide attempt. She is seizing, hypotensive, tachycardic, and in respiratory distress. What mechanism best counters this intoxication?",
     "options": [
-      "Increase acetylcholine release",
-      "Increase leukotriene synthesis",
-      "Block cholinergic bronchoconstriction and reduce mucus secretion",
-      "Directly activate glucocorticoid receptors",
-      "Stimulate beta1 receptors in the heart"
+      "Decreasing intracellular cAMP",
+      "Increasing intracellular cAMP through beta2 receptors",
+      "Increasing intracellular cAMP through nonselective adrenergic receptors",
+      "Inhibiting the Na+-K+-2Cl- cotransporter",
+      "Inhibiting the Na+-K+-ATPase pump"
     ],
-    "answerIndex": 2,
-    "explanation": "Muscarinic antagonists block parasympathetic muscarinic signaling, reducing bronchoconstriction and glandular mucus secretion; their most clinically relevant asthma effect is associated with M3 blockade.",
+    "answerIndex": 0,
+    "explanation": "Theophylline inhibits phosphodiesterase and increases intracellular cAMP. Counteracting this toxicity means reducing cAMP signaling; cardioselective beta-blockade may help while reducing bronchospasm risk compared with nonselective blockade.",
     "tags": [
-      "ipratropium",
-      "muscarinic-antagonist",
-      "bronchodilation",
-      "mucus"
-    ]
-  },
-  {
-    "id": "quiz_ch39_pathophys",
-    "caseId": "asthma_case_1",
-    "sectionType": "pathology",
-    "question": "The underlying pathophysiology of asthma is best described by which statement?",
-    "options": [
-      "Asthma is a psychosomatic disorder",
-      "Asthma is caused by an aberrant response to vaccinations",
-      "Asthma is a disease of airway inflammation",
-      "Asthma is a disorder of the lung parenchyma",
-      "Asthma is an infectious disease"
-    ],
-    "answerIndex": 2,
-    "explanation": "The referenced pharmacology chapter explicitly frames asthma as a disease of airway inflammation, a concept that changed treatment strategy toward controller anti-inflammatory therapy.",
-    "tags": [
-      "core-concept",
-      "airway-inflammation",
-      "pathophysiology"
+      "theophylline",
+      "toxicity",
+      "cAMP"
     ]
   }
 ]

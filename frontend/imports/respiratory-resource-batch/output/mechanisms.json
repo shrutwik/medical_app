@@ -1,0 +1,72 @@
+[
+  {
+    "id": "beta2_bronchodilation_mechanism",
+    "caseId": "asthma_foundation_case",
+    "title": "Beta2-agonist bronchodilation",
+    "relatedDrug": "albuterol",
+    "diagramUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/GPCR_Gs_protein.png/640px-GPCR_Gs_protein.png",
+    "diagramCaption": "GPCR–Gs–adenylyl cyclase signaling overview (reference schematic).",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Receptor binding",
+        "description": "Beta2 agonists bind adrenergic receptors on airway smooth muscle."
+      },
+      {
+        "stepNumber": 2,
+        "label": "Gs signaling",
+        "description": "Receptor activation stimulates Gs protein and adenylate cyclase."
+      },
+      {
+        "stepNumber": 3,
+        "label": "cAMP increase",
+        "description": "Intracellular cAMP rises and activates downstream relaxing pathways.",
+        "illustrationUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/3%2A5_-cyclic_adenosine_monophosphate_acid.svg/320px-3%2A5_-cyclic_adenosine_monophosphate_acid.svg.png",
+        "illustrationCaption": "cAMP structure (reference diagram)."
+      },
+      {
+        "stepNumber": 4,
+        "label": "MLCK inhibition",
+        "description": "Reduced myosin light-chain kinase activity lowers smooth muscle contraction."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Bronchodilation",
+        "description": "Airway smooth muscle relaxes, improving airflow during bronchospasm."
+      }
+    ]
+  },
+  {
+    "id": "theophylline_toxicity_mechanism",
+    "caseId": "theophylline_overdose_case",
+    "title": "Theophylline toxicity signaling",
+    "relatedDrug": "theophylline",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "label": "Phosphodiesterase inhibition",
+        "description": "Theophylline reduces cyclic nucleotide breakdown."
+      },
+      {
+        "stepNumber": 2,
+        "label": "cAMP accumulation",
+        "description": "Intracellular cAMP rises excessively during overdose."
+      },
+      {
+        "stepNumber": 3,
+        "label": "Systemic overstimulation",
+        "description": "CNS excitation and cardiovascular stimulation intensify."
+      },
+      {
+        "stepNumber": 4,
+        "label": "Clinical toxicity",
+        "description": "Seizures, tachycardia, hypotension, and respiratory distress emerge."
+      },
+      {
+        "stepNumber": 5,
+        "label": "Countermeasure principle",
+        "description": "Decreasing cAMP signaling with cardioselective beta-blockade can help counter toxicity while limiting asthma risk."
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "asthma",
+    "systemRef": "respiratory",
+    "name": "Asthma",
+    "summary": "Chronic inflammatory airway disease with reversible airflow obstruction.",
+    "learningGoals": [
+      "Recognize the major patterns of asthma presentation.",
+      "Connect pathology to management decisions."
+    ]
+  }
+]

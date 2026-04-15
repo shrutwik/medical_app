@@ -1,44 +1,42 @@
 [
   {
-    "id": "asthma_case_1",
+    "id": "asthma_foundation_case",
+    "conditionId": "asthma",
+    "title": "Asthma Foundation Review",
+    "shortDescription": "High-yield asthma review built from respiratory pathology, physiology, histology, and pharmacology source material.",
+    "difficulty": "easy",
+    "isFoundationCase": true
+  },
+  {
+    "id": "hailey_acute_asthma_case",
+    "conditionId": "asthma",
+    "title": "Acute pediatric asthma after exercise and allergen exposure",
+    "shortDescription": "An 8-year-old girl presents with worsening wheeze, chest tightness, mucus production, and hypoxemia after soccer practice and likely allergen exposure.",
+    "difficulty": "medium",
+    "isFoundationCase": false
+  },
+  {
+    "id": "chronic_asthma_primary_care_case",
     "conditionId": "asthma",
     "title": "Worsening chronic asthma in primary care",
-    "shortDescription": "Adult with chronic asthma becomes wheezier and more short of breath despite salbutamol and low-dose budesonide; PEFR is 80% of personal best.",
+    "shortDescription": "A 34-year-old man on salbutamol and low-dose budesonide has worsening symptoms with PEFR 80% of best and needs a stepwise management decision.",
     "difficulty": "easy",
-    "tags": [
-      "outpatient",
-      "step-up-therapy",
-      "adherence",
-      "inhaler-technique",
-      "PEFR"
-    ]
+    "isFoundationCase": false
   },
   {
-    "id": "asthma_case_2",
+    "id": "beta2_hypokalemia_case",
     "conditionId": "asthma",
-    "title": "Severe asthma exacerbation after repeated bronchodilator therapy",
-    "shortDescription": "Adolescent with severe asthma develops hypokalemia and U waves after multiple nebulizer treatments during an acute exacerbation.",
+    "title": "Severe asthma exacerbation with beta2-agonist induced hypokalemia",
+    "shortDescription": "A 15-year-old boy develops nausea, weakness, potassium 2.6 mEq/L, and U waves after repeated acute asthma treatments.",
     "difficulty": "medium",
-    "tags": [
-      "acute-exacerbation",
-      "beta2-agonist",
-      "hypokalemia",
-      "ECG",
-      "emergency"
-    ]
+    "isFoundationCase": false
   },
   {
-    "id": "asthma_case_3",
+    "id": "theophylline_overdose_case",
     "conditionId": "asthma",
     "title": "Theophylline overdose in a patient with asthma",
-    "shortDescription": "Young adult with asthma presents after intentional theophylline overdose with seizures, hypotension, tachycardia, and respiratory distress.",
+    "shortDescription": "A 25-year-old woman with asthma presents after theophylline overdose with seizure, hypotension, tachycardia, and respiratory distress.",
     "difficulty": "hard",
-    "tags": [
-      "theophylline",
-      "toxicity",
-      "phosphodiesterase-inhibitor",
-      "critical-care",
-      "seizure"
-    ]
+    "isFoundationCase": false
   }
 ]

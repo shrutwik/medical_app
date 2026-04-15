@@ -1,0 +1,15 @@
+[
+  {
+    "id": "asthma",
+    "systemRef": "respiratory",
+    "name": "Asthma",
+    "summary": "Chronic inflammatory airway disease characterized by variable airflow obstruction, bronchial hyperresponsiveness, mucus hypersecretion, eosinophilic inflammation, and airway remodeling.",
+    "learningGoals": [
+      "Recognize outpatient, acute-care, and toxicology presentations of asthma-related disease.",
+      "Connect pathology and airway remodeling to obstructive physiology.",
+      "Explain beta2 agonist, muscarinic antagonist, corticosteroid, and methylxanthine pharmacology.",
+      "Interpret question-bank style asthma scenarios and adverse-effect patterns.",
+      "Use resources and cases to connect active recall with foundational study content."
+    ]
+  }
+]

@@ -14,5 +14,8 @@ export interface Resource {
   sourceType: string;
   sourceReference: SourceReference;
   assetKey: string;
+  externalUrl?: string;
+  /** Optional preview image when the source is visual or you host a thumb. */
+  thumbnailUrl?: string;
   tags: string[];
 }

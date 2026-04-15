@@ -1,0 +1,21 @@
+[
+  {
+    "id": "template_resource_1",
+    "caseId": "asthma_foundation_case",
+    "sectionType": "narrative",
+    "type": "handout",
+    "title": "Asthma review handout",
+    "description": "Foundational review PDF for asthma learners.",
+    "caption": "Use this as a metadata-first placeholder until file hosting is connected.",
+    "sourceType": "pdf",
+    "sourceReference": {
+      "fileName": "asthma_review.pdf",
+      "pageNumber": 1
+    },
+    "assetKey": "asthma_review_handout",
+    "externalUrl": "https://example.com/asthma-review",
+    "tags": [
+      "resource"
+    ]
+  }
+]

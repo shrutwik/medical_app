@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../../constants/theme';
+import { colors, layout } from '../../constants/theme';
 
 interface InfoCardProps {
   label: string;
@@ -17,22 +17,27 @@ export default function InfoCard({ label, value }: InfoCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.cardBg,
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 10,
+    backgroundColor: colors.white,
+    borderRadius: layout.radiusLg,
+    padding: 18,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.maroon,
   },
   label: {
-    fontSize: 11,
-    fontWeight: '600',
+    fontSize: 10,
+    fontWeight: '800',
     color: colors.maroon,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 4,
+    letterSpacing: 0.9,
+    marginBottom: 8,
   },
   value: {
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 15,
+    lineHeight: 24,
     color: colors.textPrimary,
+    fontWeight: '500',
   },
 });

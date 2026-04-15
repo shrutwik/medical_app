@@ -1,0 +1,6 @@
+{
+  "batchId": "respiratory_resource_batch",
+  "title": "Respiratory Resource Batch",
+  "defaultPublishStatus": "draft",
+  "defaultDifficulty": "medium"
+}

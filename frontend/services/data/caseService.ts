@@ -3,7 +3,13 @@ import caseDetailsData from '../../mock/case_details.json';
 import { Case, CaseDetail } from '../../types/case';
 
 export function getCasesByCondition(conditionId: string): Case[] {
-  return (casesData as Case[]).filter((c) => c.conditionId === conditionId);
+  return (casesData as Case[])
+    .filter((c) => c.conditionId === conditionId)
+    .sort((a, b) => {
+      if (a.isFoundationCase && !b.isFoundationCase) return -1;
+      if (!a.isFoundationCase && b.isFoundationCase) return 1;
+      return a.title.localeCompare(b.title);
+    });
 }
 
 export function getCaseById(caseId: string): Case | undefined {
