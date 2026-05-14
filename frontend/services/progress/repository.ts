@@ -3,6 +3,15 @@ import type { CaseBundle } from '../content/repository';
 import { getStoredJson, setStoredJson } from '../storage/keyValueStore';
 
 const STORAGE_KEY = 'medical-app/progress/v1';
+const PHARMACOLOGY_SECTION_TYPES = new Set(['pharmacology', 'mechanism', 'treatment']);
+const LEGACY_PHARMACOLOGY_COMPLETION_KEYS = [
+  'pharmacology',
+  'treatment',
+  'mechanisms',
+  'section_pharmacology',
+  'section_treatment',
+  'section_mechanism',
+];
 
 const EMPTY_PROGRESS: ProgressSnapshot = {
   cases: {},
@@ -83,14 +92,22 @@ async function withSnapshot(
   return next;
 }
 
+function normalizeSectionType(type: string) {
+  return PHARMACOLOGY_SECTION_TYPES.has(type) ? 'pharmacology' : type;
+}
+
 export function getMilestoneKeys(bundle: CaseBundle) {
   const keys = ['overview'];
-  if (bundle.details) keys.push('clinical', 'diagnosis', 'treatment');
+  if (bundle.details) keys.push('clinical', 'diagnosis');
   for (const section of bundle.sections) {
-    const key = `section_${section.type}`;
+    const key = normalizeSectionType(section.type) === 'pharmacology'
+      ? 'pharmacology'
+      : `section_${normalizeSectionType(section.type)}`;
     if (!keys.includes(key)) keys.push(key);
   }
-  if (bundle.mechanisms.length > 0) keys.push('mechanisms');
+  if (bundle.details || bundle.mechanisms.length > 0) {
+    if (!keys.includes('pharmacology')) keys.push('pharmacology');
+  }
   if (bundle.resources.length > 0) keys.push('resources');
   if (bundle.quizzes.length > 0) keys.push('quiz');
   return keys;
@@ -102,7 +119,14 @@ export function calculateCompletion(
 ) {
   if (requiredKeys.length === 0) return 0;
   const completed = new Set(progress?.completedSections.map((section) => section.key) ?? []);
-  const total = requiredKeys.filter((key) => completed.has(key)).length;
+  const hasCompleted = (key: string) => {
+    if (completed.has(key)) return true;
+    if (key === 'pharmacology') {
+      return LEGACY_PHARMACOLOGY_COMPLETION_KEYS.some((legacyKey) => completed.has(legacyKey));
+    }
+    return false;
+  };
+  const total = requiredKeys.filter((key) => hasCompleted(key)).length;
   return Math.round((total / requiredKeys.length) * 100);
 }
 

@@ -21,14 +21,45 @@ import type { QuizQuestion } from '../../types/quiz';
 import type { Bookmark, ProgressSnapshot } from '../../types/study';
 import type { Section, SectionType } from '../../types/section';
 
+const PHARMACOLOGY_SECTION_TYPES = new Set(['pharmacology', 'mechanism', 'treatment']);
+const LEGACY_PHARMACOLOGY_PROGRESS_KEYS = new Set([
+  'pharmacology',
+  'treatment',
+  'mechanisms',
+  'section_pharmacology',
+  'section_treatment',
+  'section_mechanism',
+]);
+const LEGACY_PHARMACOLOGY_CHECKPOINT_KEYS = new Set([
+  ...LEGACY_PHARMACOLOGY_PROGRESS_KEYS,
+  'mechanism',
+]);
+
+function normalizeSectionType(type: string): string {
+  return PHARMACOLOGY_SECTION_TYPES.has(type) ? 'pharmacology' : type;
+}
+
+function sectionTabKey(type: string): string {
+  const normalized = normalizeSectionType(type);
+  return normalized === 'pharmacology' ? 'pharmacology' : `section_${normalized}`;
+}
+
+function normalizeCheckpointTabKey(tabKey: string): string {
+  return LEGACY_PHARMACOLOGY_CHECKPOINT_KEYS.has(tabKey) ? 'pharmacology' : tabKey;
+}
+
+function normalizeStudyTabKey(tabKey: string): string {
+  return LEGACY_PHARMACOLOGY_CHECKPOINT_KEYS.has(tabKey) ? 'pharmacology' : tabKey;
+}
+
 const SECTION_LABELS: Record<string, string> = {
   narrative: 'Narrative',
   histology: 'Histology',
   pathology: 'Pathology',
   physiology: 'Physiology',
   pharmacology: 'Pharmacology',
-  mechanism: 'Mechanism',
-  treatment: 'Treatment',
+  mechanism: 'Pharmacology',
+  treatment: 'Pharmacology',
   clinicalPearl: 'Clinical Pearl',
 };
 
@@ -71,7 +102,12 @@ export default function CaseDetailScreen() {
 
       const savedTab = nextSnapshot.cases[id]?.activeTab;
       if (savedTab) {
-        setActiveTab(savedTab);
+        const normalizedSavedTab = normalizeStudyTabKey(savedTab);
+        setActiveTab(normalizedSavedTab);
+        if (normalizedSavedTab !== savedTab) {
+          const migratedSnapshot = await progressRepo.setActiveTab(id, normalizedSavedTab);
+          setSnapshot(migratedSnapshot);
+        }
       }
 
       if (nextBundle.caseItem) {
@@ -116,8 +152,9 @@ export default function CaseDetailScreen() {
   const sectionsByType = useMemo(() => {
     const map: Partial<Record<SectionType, NonNullable<CaseBundle['sections']>>> = {};
     for (const section of bundle?.sections ?? []) {
-      if (!map[section.type]) map[section.type] = [];
-      map[section.type]!.push(section);
+      const canonicalType = normalizeSectionType(section.type) as SectionType;
+      if (!map[canonicalType]) map[canonicalType] = [];
+      map[canonicalType]!.push(section);
     }
     return map;
   }, [bundle?.sections]);
@@ -126,30 +163,41 @@ export default function CaseDetailScreen() {
     () => new Set(caseProgress?.completedSections.map((item) => item.key) ?? []),
     [caseProgress?.completedSections],
   );
+  const isCompleted = useCallback(
+    (key: string) =>
+      completedSet.has(key) ||
+      (key === 'pharmacology' &&
+        [...LEGACY_PHARMACOLOGY_PROGRESS_KEYS].some((legacyKey) => completedSet.has(legacyKey))),
+    [completedSet],
+  );
   const currentBookmarks = snapshot?.bookmarks.filter((item) => item.caseId === id) ?? [];
 
   const navItems = useMemo<StudyNavItem[]>(() => {
-    const items: StudyNavItem[] = [{ key: 'overview', label: 'Overview', completed: completedSet.has('overview') }];
+    const items: StudyNavItem[] = [{ key: 'overview', label: 'Overview', completed: isCompleted('overview') }];
     if (bundle?.details) {
       items.push(
-        { key: 'clinical', label: 'Clinical', completed: completedSet.has('clinical') },
-        { key: 'diagnosis', label: 'Diagnosis', completed: completedSet.has('diagnosis') },
-        { key: 'treatment', label: 'Treatment', completed: completedSet.has('treatment') },
+        { key: 'clinical', label: 'Clinical', completed: isCompleted('clinical') },
+        { key: 'diagnosis', label: 'Diagnosis', completed: isCompleted('diagnosis') },
       );
     }
+    const hasPharmacologyContent =
+      Boolean(bundle?.details) ||
+      (sectionsByType.pharmacology?.length ?? 0) > 0 ||
+      (bundle?.mechanisms.length ?? 0) > 0;
+    if (hasPharmacologyContent) {
+      items.push({ key: 'pharmacology', label: 'Pharmacology', completed: isCompleted('pharmacology') });
+    }
     for (const type of Object.keys(sectionsByType) as SectionType[]) {
+      if (type === 'pharmacology') continue;
       const key = `section_${type}`;
       items.push({
         key,
         label: SECTION_LABELS[type] ?? type,
-        completed: completedSet.has(key),
+        completed: isCompleted(key),
       });
     }
-    if ((bundle?.mechanisms.length ?? 0) > 0) {
-      items.push({ key: 'mechanisms', label: 'Mechanisms', completed: completedSet.has('mechanisms') });
-    }
     if ((bundle?.resources.length ?? 0) > 0) {
-      items.push({ key: 'resources', label: 'Resources', completed: completedSet.has('resources') });
+      items.push({ key: 'resources', label: 'Resources', completed: isCompleted('resources') });
     }
     if ((bundle?.quizzes.length ?? 0) > 0) {
       items.push({
@@ -157,13 +205,13 @@ export default function CaseDetailScreen() {
         label: 'Quiz',
         badge: String(bundle?.quizzes.length ?? 0),
         accent: true,
-        completed: completedSet.has('quiz'),
+        completed: isCompleted('quiz'),
       });
     }
     return items;
-  }, [bundle?.details, bundle?.mechanisms.length, bundle?.resources.length, bundle?.quizzes.length, completedSet, sectionsByType]);
+  }, [bundle?.details, bundle?.mechanisms.length, bundle?.resources.length, bundle?.quizzes.length, isCompleted, sectionsByType]);
 
-  const nextMilestone = navItems.find((item) => !completedSet.has(item.key))?.label;
+  const nextMilestone = navItems.find((item) => !isCompleted(item.key))?.label;
   const activeIndex = navItems.findIndex((item) => item.key === activeTab);
   const previousItem = activeIndex > 0 ? navItems[activeIndex - 1] : undefined;
   const nextItem = activeIndex >= 0 ? navItems[activeIndex + 1] : undefined;
@@ -179,6 +227,12 @@ export default function CaseDetailScreen() {
     if (idx < 0 || idx >= sortedSiblings.length - 1) return undefined;
     return sortedSiblings[idx + 1];
   }, [id, sortedSiblings]);
+
+  useEffect(() => {
+    if (navItems.length === 0) return;
+    if (navItems.some((item) => item.key === activeTab)) return;
+    setActiveTab(navItems[0].key);
+  }, [activeTab, navItems]);
 
   useEffect(() => {
     if (!id || !bundle?.caseItem || !parentNav || bundle.caseItem.id !== id) {
@@ -198,14 +252,13 @@ export default function CaseDetailScreen() {
   useEffect(() => {
     if (!id || !bundle?.caseItem) return;
     if (activeTab === 'quiz') return;
-    if (completedSet.has(activeTab)) return;
+    if (isCompleted(activeTab)) return;
 
     let detail: string | undefined;
     if (activeTab === 'overview') detail = 'Started the case overview';
     if (activeTab === 'clinical') detail = 'Reviewed the clinical story';
     if (activeTab === 'diagnosis') detail = 'Worked through diagnosis framing';
-    if (activeTab === 'treatment') detail = 'Reviewed the treatment plan';
-    if (activeTab === 'mechanisms') detail = 'Opened the mechanism walkthrough';
+    if (activeTab === 'pharmacology') detail = 'Reviewed pharmacology, mechanism, and treatment content';
     if (activeTab === 'resources') detail = 'Opened the study resources';
     if (activeTab.startsWith('section_')) {
       const label = SECTION_LABELS[activeTab.replace('section_', '')] ?? 'section';
@@ -218,7 +271,7 @@ export default function CaseDetailScreen() {
       .markSectionComplete(id, activeTab, bundle.caseItem.title, detail)
       .then((nextSnapshot) => setSnapshot(nextSnapshot))
       .catch(() => undefined);
-  }, [activeTab, bundle?.caseItem, completedSet, id]);
+  }, [activeTab, bundle?.caseItem, id, isCompleted]);
 
   const handleTabChange = async (key: string) => {
     if (!id) return;
@@ -283,7 +336,9 @@ export default function CaseDetailScreen() {
     );
   }
 
-  const checkpoints = bundle.checkpoints.filter((item) => item.tabKey === activeTab);
+  const checkpoints = bundle.checkpoints.filter(
+    (item) => normalizeCheckpointTabKey(item.tabKey) === activeTab,
+  );
   return (
     <>
       <Stack.Screen options={{ title: bundle.caseItem.title }} />
@@ -327,8 +382,8 @@ export default function CaseDetailScreen() {
                 sections={bundle.sections}
                 mechanisms={bundle.mechanisms}
                 resources={bundle.resources}
-                onOpenSectionTab={(type) => handleTabChange(`section_${type}`)}
-                onOpenMechanisms={() => handleTabChange('mechanisms')}
+                onOpenSectionTab={(type) => handleTabChange(sectionTabKey(type))}
+                onOpenPharmacology={() => handleTabChange('pharmacology')}
                 onOpenResources={() => handleTabChange('resources')}
               />
             ) : null}
@@ -341,8 +396,26 @@ export default function CaseDetailScreen() {
               <DiagnosisPanel details={bundle.details} />
             ) : null}
 
-            {activeTab === 'treatment' && bundle.details ? (
-              <TreatmentPanel details={bundle.details} />
+            {activeTab === 'pharmacology' ? (
+              <View>
+                {bundle.details ? <TreatmentPanel details={bundle.details} /> : null}
+                {(sectionsByType.pharmacology ?? []).map((section) => (
+                  <SectionBlock
+                    key={section.id}
+                    section={section}
+                    completed={isCompleted('pharmacology')}
+                    relatedResources={bundle.resources.filter(
+                      (r) =>
+                        normalizeSectionType(r.sectionType) === normalizeSectionType(section.type),
+                    )}
+                  />
+                ))}
+                {bundle.mechanisms.map((mechanism) => (
+                  <View key={mechanism.id} style={styles.whitePanel}>
+                    <MechanismRenderer mechanism={mechanism} />
+                  </View>
+                ))}
+              </View>
             ) : null}
 
             {activeTab.startsWith('section_')
@@ -350,17 +423,12 @@ export default function CaseDetailScreen() {
                   <SectionBlock
                     key={section.id}
                     section={section}
-                    completed={completedSet.has(`section_${section.type}`)}
-                    relatedResources={bundle.resources.filter((r) => r.sectionType === section.type)}
+                    completed={isCompleted(`section_${section.type}`)}
+                    relatedResources={bundle.resources.filter(
+                      (r) =>
+                        normalizeSectionType(r.sectionType) === normalizeSectionType(section.type),
+                    )}
                   />
-                ))
-              : null}
-
-            {activeTab === 'mechanisms'
-              ? bundle.mechanisms.map((mechanism) => (
-                  <View key={mechanism.id} style={styles.whitePanel}>
-                    <MechanismRenderer mechanism={mechanism} />
-                  </View>
                 ))
               : null}
 
@@ -452,7 +520,7 @@ function OverviewPanel({
   mechanisms,
   resources,
   onOpenSectionTab,
-  onOpenMechanisms,
+  onOpenPharmacology,
   onOpenResources,
 }: {
   caseItem: NonNullable<CaseBundle['caseItem']>;
@@ -460,7 +528,7 @@ function OverviewPanel({
   mechanisms: CaseBundle['mechanisms'];
   resources: CaseBundle['resources'];
   onOpenSectionTab: (type: SectionType) => void;
-  onOpenMechanisms: () => void;
+  onOpenPharmacology: () => void;
   onOpenResources: () => void;
 }) {
   return (
@@ -471,7 +539,7 @@ function OverviewPanel({
         mechanisms={mechanisms}
         resources={resources}
         onOpenSectionTab={onOpenSectionTab}
-        onOpenMechanisms={onOpenMechanisms}
+        onOpenPharmacology={onOpenPharmacology}
         onOpenResources={onOpenResources}
       />
     </View>

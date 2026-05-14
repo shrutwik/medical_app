@@ -15,8 +15,8 @@ const SECTION_LABELS: Record<SectionType, string> = {
   pathology: 'Pathology',
   physiology: 'Physiology',
   pharmacology: 'Pharmacology',
-  mechanism: 'Mechanism',
-  treatment: 'Treatment',
+  mechanism: 'Pharmacology',
+  treatment: 'Pharmacology',
   clinicalPearl: 'Clinical Pearl',
 };
 
@@ -25,7 +25,7 @@ export interface CaseVisualOverviewProps {
   mechanisms: Mechanism[];
   resources: Resource[];
   onOpenSectionTab: (type: SectionType) => void;
-  onOpenMechanisms: () => void;
+  onOpenPharmacology: () => void;
   onOpenResources: () => void;
 }
 
@@ -37,7 +37,7 @@ export default function CaseVisualOverview({
   mechanisms,
   resources,
   onOpenSectionTab,
-  onOpenMechanisms,
+  onOpenPharmacology,
   onOpenResources,
 }: CaseVisualOverviewProps) {
   const sortedSections = [...sections].sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
@@ -92,7 +92,7 @@ export default function CaseVisualOverview({
       <View style={styles.emptyPanel}>
         <Text style={styles.emptyTitle}>Figures & media</Text>
         <Text style={styles.emptyBody}>
-          This case does not include linked figures yet. Use the study tabs (Narrative, Pathology, Mechanisms,
+          This case does not include linked figures yet. Use the study tabs (Narrative, Pathology, Pharmacology,
           Resources) as content is added.
         </Text>
       </View>
@@ -136,8 +136,8 @@ export default function CaseVisualOverview({
 
       {mechanismPreviews.length > 0 ? (
         <View style={styles.panel}>
-          <Text style={styles.panelTitle}>Mechanism diagrams</Text>
-          <Text style={styles.panelSubtitle}>Interactive steps live on the Mechanisms tab.</Text>
+          <Text style={styles.panelTitle}>Pharmacology diagrams</Text>
+          <Text style={styles.panelSubtitle}>Interactive mechanism steps live on the Pharmacology tab.</Text>
           {mechanismPreviews.map((mech, i) => (
             <View key={mech.id} style={styles.figureBlock}>
               <Text style={styles.mechanismTitle}>{mech.title}</Text>
@@ -150,8 +150,8 @@ export default function CaseVisualOverview({
                 animation={mech.diagramAnimation}
                 compact
               />
-              <Pressable onPress={onOpenMechanisms} style={styles.jumpLink} accessibilityRole="button">
-                <Text style={styles.jumpLinkText}>Open Mechanisms tab →</Text>
+              <Pressable onPress={onOpenPharmacology} style={styles.jumpLink} accessibilityRole="button">
+                <Text style={styles.jumpLinkText}>Open Pharmacology tab →</Text>
               </Pressable>
             </View>
           ))}

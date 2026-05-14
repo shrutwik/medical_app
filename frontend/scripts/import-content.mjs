@@ -24,6 +24,20 @@ const SECTION_TYPES = new Set([
   'treatment',
   'clinicalPearl',
 ]);
+const PHARMACOLOGY_KEYS = new Set([
+  'pharmacology',
+  'mechanism',
+  'mechanisms',
+  'treatment',
+  'section_pharmacology',
+  'section_mechanism',
+  'section_treatment',
+]);
+
+function normalizePharmacologyKey(value, fallback = 'narrative') {
+  const key = String(value ?? '').trim() || fallback;
+  return PHARMACOLOGY_KEYS.has(key) ? 'pharmacology' : key;
+}
 
 function slugify(value) {
   return String(value ?? '')
@@ -444,7 +458,8 @@ function normalizeBatch(batch) {
     const titleBase = rawItem.title || rawItem.prompt || rawItem.body || rawItem.sourceId || rawItem.contentType;
 
     if (rawItem.contentType === 'section') {
-      const sectionType = SECTION_TYPES.has(rawItem.sectionType) ? rawItem.sectionType : 'narrative';
+      const rawSectionType = SECTION_TYPES.has(rawItem.sectionType) ? rawItem.sectionType : 'narrative';
+      const sectionType = normalizePharmacologyKey(rawSectionType, 'narrative');
       const content = String(rawItem.body ?? rawItem.explanation ?? '').trim();
       if (!titleBase || !content) {
         addIssue(issues, {
@@ -495,7 +510,7 @@ function normalizeBatch(batch) {
       dataset.quizzes.push({
         id: uniqueId(quizIds, mapped.id || slugify(`${resolvedCase.id}_${question}`), issues, rawItem.sourceId),
         caseId: resolvedCase.id,
-        sectionType: rawItem.sectionType || rawItem.targetTab || 'narrative',
+        sectionType: normalizePharmacologyKey(rawItem.sectionType || rawItem.targetTab, 'narrative'),
         question,
         options,
         answerIndex,
@@ -521,7 +536,7 @@ function normalizeBatch(batch) {
       dataset.checkpoints.push({
         id: uniqueId(checkpointIds, mapped.id || slugify(`${resolvedCase.id}_${titleBase}`), issues, rawItem.sourceId),
         caseId: resolvedCase.id,
-        tabKey: rawItem.targetTab || rawItem.sectionType || 'overview',
+        tabKey: normalizePharmacologyKey(rawItem.targetTab || rawItem.sectionType, 'overview'),
         title: String(titleBase).trim(),
         prompt,
         hint: String(rawItem.hint ?? '').trim(),
@@ -545,7 +560,7 @@ function normalizeBatch(batch) {
       dataset.resources.push({
         id: uniqueId(resourceIds, mapped.id || slugify(`${resolvedCase.id}_${titleBase}`), issues, rawItem.sourceId),
         caseId: resolvedCase.id,
-        sectionType: rawItem.sectionType || rawItem.targetTab || 'narrative',
+        sectionType: normalizePharmacologyKey(rawItem.sectionType || rawItem.targetTab, 'narrative'),
         type: rawItem.resourceType || 'reference',
         title: String(titleBase).trim(),
         description: String(rawItem.body ?? rawItem.explanation ?? '').trim(),

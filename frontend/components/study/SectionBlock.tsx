@@ -14,8 +14,8 @@ const SECTION_ACCENT: Record<string, { color: string; bg: string; label: string 
   pathology:    { color: '#1C4A7A',       bg: '#EFF4FF',           label: 'Pathology' },
   physiology:   { color: '#1A6B3A',       bg: '#F0FFF5',           label: 'Physiology' },
   pharmacology: { color: '#4A1C7A',       bg: '#F5F0FF',           label: 'Pharmacology' },
-  mechanism:    { color: colors.goldDeep, bg: colors.goldFaint,    label: 'Mechanism' },
-  treatment:    { color: '#1C5A7A',       bg: '#EFF9FF',           label: 'Treatment' },
+  mechanism:    { color: '#4A1C7A',       bg: '#F5F0FF',           label: 'Pharmacology' },
+  treatment:    { color: '#4A1C7A',       bg: '#F5F0FF',           label: 'Pharmacology' },
   clinicalPearl:{ color: colors.gold,     bg: colors.goldFaint,    label: 'Clinical Pearl' },
 };
 
